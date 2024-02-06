@@ -13,6 +13,6 @@ func main() {
 			"message": "pong",
 		})
 	})
-	// Use http.ListenAndServeTLS() instead of r.Run(), use server.crt and server.key
-	r.RunTLS(":443", "server.crt", "server.key")
+	// Use http.ListenAndServeTLS() instead of r.Run(), use files
+	r.RunTLS(":443", "cert.pem", "key.pem")
 }
