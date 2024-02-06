@@ -1,0 +1,27 @@
+name: Deploy Backend to EC2
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Stop Gin Server, Pull Changes, and Restart
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.BACKEND_HOST }}
+          username: ${{ secrets.BACKEND_USERNAME }}
+          key: ${{ secrets.BACKEND_SSH_KEY }}
+          script: |
+            pkill -f "main.go" || true  # Stops the Gin server, doesn't error if no process is found
+            cd /path/to/your/project  # Change to the directory of your project
+            git pull
+            nohup go run main.go &  # Starts the Gin server in the background
