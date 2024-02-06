@@ -13,8 +13,8 @@ func main() {
 			"message": "pong",
 		})
 	})
-	// Use http.ListenAndServeTLS() instead of r.Run()
-	err := http.ListenAndServeTLS(":8080", "server.crt", "server.key", r)
+	// Use http.ListenAndServeTLS() instead of r.Run(), use server.crt and server.key
+	err := http.ListenAndServeTLS("443", "server.crt", "server.key", r)
 	if err != nil {
 		panic(err)
 	}
