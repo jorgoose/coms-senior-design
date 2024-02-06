@@ -1,13 +1,25 @@
 import axios from "axios";
 
-export function postSignUp(userData: User) {
-    axios.post('post link', userData)
+export async function postSignUp(link: string, userData: User) {
+    axios.post(`${link}/signup`, userData)
     .then(response => {
         // Handle success
-        console.log('Response:', response.data);
+        console.log('Response: ', response.data);
     })
     .catch(error => {
         // Handle error
-        console.error('Error:', error);
+        console.error('Error: ', error);
+    });
+}
+
+export async function getLogin(link: string, userData: LoginUser) {
+    axios.post(`${link}/login`, userData)
+    .then(response => {
+        // Handle success
+        console.log('Response: ', response.data);
+    })
+    .catch(error => {
+        // Handle error
+        console.error('Error: ', error);
     });
 }
