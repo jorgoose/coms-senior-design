@@ -1,11 +1,15 @@
 'use client'
 
 import Link from "next/link";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
+import { postLogin } from "@/brokers/axios";
 
 export default function Login() {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setIsLoading(true);
  
         const formData: FormData = new FormData(event.currentTarget);
         const formDataArray: [string, FormDataEntryValue][] = Array.from(formData.entries());
@@ -25,6 +29,14 @@ export default function Login() {
         }
 
         console.log(userData);
+
+        if (process.env.AWS_EC2_SERVER) {
+            await postLogin(process.env.AWS_EC2_SERVER, userData);
+        } else {
+            console.error("Could not resolve server contact");
+        }
+
+        setIsLoading(false);
     }
 
     return (
@@ -34,7 +46,7 @@ export default function Login() {
                 <form onSubmit={onSubmit} className="bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center flex-col m-5 p-5 rounded-2xl shadow-2xl space-y-4 size-5/12">
                     <input className="rounded-md w-1/2 text-black" type="email" name="email" placeholder="Email" required />
                     <input className="rounded-md w-1/2 text-black" type="password" name="password" placeholder="Password" required />
-                    <button type="submit">Login</button>
+                    <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Create Account'}</button>
                 </form>
                 <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Return</Link>
             </div>

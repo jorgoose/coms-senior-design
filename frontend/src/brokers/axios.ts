@@ -12,7 +12,7 @@ export async function postSignUp(link: string, userData: User) {
     });
 }
 
-export async function getLogin(link: string, userData: LoginUser) {
+export async function postLogin(link: string, userData: LoginUser) {
     axios.post(`${link}/login`, userData)
     .then(response => {
         // Handle success
