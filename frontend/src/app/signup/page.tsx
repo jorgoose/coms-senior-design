@@ -1,7 +1,8 @@
+'use client'
+
 import { FormEvent } from 'react';
 import { postSignUp } from '@/brokers/axios';
-
-'use client'
+import Link from 'next/link';
 
 export default function SignUp() {
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -48,6 +49,7 @@ export default function SignUp() {
                     </select>
                     <button type="submit">Create Account</button>
                 </form>
+                <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Return</Link>
             </div>
         </>
     );
