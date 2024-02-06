@@ -1,0 +1,54 @@
+import { FormEvent } from 'react';
+import { postSignUp } from '@/brokers/axios';
+
+'use client'
+
+export default function SignUp() {
+    async function onSubmit(event: FormEvent<HTMLFormElement>) {
+        event.preventDefault();
+ 
+        const formData: FormData = new FormData(event.currentTarget);
+        const formDataArray: [string, FormDataEntryValue][] = Array.from(formData.entries());
+
+        const userData: User = {
+            username: '',
+            email: '',
+            password: '',
+            account_type: 0,
+        };
+
+        for (const pair of formDataArray) {
+            const [key, value] = pair;
+            if (key === 'username') {
+                userData.username = value.toString();
+            } else if (key === 'email') {
+                userData.email = value.toString();
+            } else if (key === 'password') {
+                userData.password = value.toString();
+            } else if (key === 'account_type') {
+                userData.account_type = parseInt(value.toString(), 10);
+            }
+        }
+
+        console.log(userData);
+    }
+
+    return (
+        <>
+            <div className="bg-gradient-to-r from-stone-500 h-screen w-full flex justify-center items-center flex-col">
+                <p className="text-8xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text mb-24">TRENDPLAY</p>
+                <form onSubmit={onSubmit} className="bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center flex-col m-5 p-5 rounded-2xl shadow-2xl space-y-4 size-5/12">
+                    <input className="rounded-md w-1/2 text-black" type="username" name="username" placeholder="Username" required />
+                    <input className="rounded-md w-1/2 text-black" type="email" name="email" placeholder="Email" required />
+                    <input className="rounded-md w-1/2 text-black" type="password" name="password" placeholder="Password" required />
+                    <select className="rounded-md w-1/2 text-black" name="account_type" required>
+                        <option value="">Select Account Type</option>
+                        <option value="0">Gamer</option>
+                        <option value="1">Developer</option>
+                    </select>
+                    <button type="submit">Create Account</button>
+                </form>
+            </div>
+        </>
+    );
+}
