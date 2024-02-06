@@ -22,6 +22,5 @@ jobs:
           key: ${{ secrets.BACKEND_SSH_KEY }}
           script: |
             pkill -f "main.go" || true  # Stops the Gin server, doesn't error if no process is found
-            cd /path/to/your/project  # Change to the directory of your project
             git pull
-            nohup go run main.go &  # Starts the Gin server in the background
+            go run main.go &  # Starts the Gin server in the background
