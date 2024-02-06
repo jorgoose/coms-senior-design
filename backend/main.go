@@ -14,8 +14,5 @@ func main() {
 		})
 	})
 	// Use http.ListenAndServeTLS() instead of r.Run(), use server.crt and server.key
-	err := http.ListenAndServeTLS("443", "server.crt", "server.key", r)
-	if err != nil {
-		panic(err)
-	}
+	r.RunTLS(":443", "server.crt", "server.key")
 }
