@@ -24,4 +24,6 @@ jobs:
             sudo pkill -f "main.go" || true  # Stops the Gin server, doesn't error if no process is found
             cd /coms-senior-design/backend
             git pull
-            sudo nohup go run main.go &> /dev/null &  # Starts the Gin server in the background and detaches it from the SSH session
+            sudo go run main.go &  # Starts the Gin server in the background
+
+            exit 0 # Prevents the action from failing if the server is already stopped
