@@ -1,6 +1,6 @@
 module backend
 
-go 1.21.4
+go 1.23
 
 require (
 	github.com/bytedance/sonic v1.9.1 // indirect
