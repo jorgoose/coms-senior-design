@@ -21,7 +21,13 @@ jobs:
           username: ${{ secrets.BACKEND_USERNAME }}
           key: ${{ secrets.BACKEND_SSH_KEY }}
           script: |
-            sudo pkill -f "main.go" || true  # Stops the Gin server, doesn't error if no process is found
+            # Check if the Gin server is running and stop it gracefully
+            PID=$(pgrep -f "main.go") || true
+            if [ -n "$PID" ]; then
+              sudo kill -SIGTERM "$PID"
+              # Wait a bit to ensure the process has stopped
+              sleep 5
+            fi
             cd /coms-senior-design/backend
             git pull
             sudo go run main.go &  # Starts the Gin server in the background
