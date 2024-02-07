@@ -30,6 +30,7 @@ jobs:
             if [ -f /coms-senior-design/backend/server.pid ]; then
               sudo kill $(cat /coms-senior-design/backend/server.pid) || true
               sudo rm /coms-senior-design/backend/server.pid
+              sleep 5
             fi
 
             # Navigate to the project directory, pull latest changes
@@ -38,3 +39,4 @@ jobs:
 
             # Start the server and save its PID (for use in next Action run)
             sudo nohup go run main.go > server.log 2>&1 & echo $! > server.pid
+

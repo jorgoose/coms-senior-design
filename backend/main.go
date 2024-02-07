@@ -9,7 +9,7 @@ func main() {
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "pong (cool we have live deployments now >:D)",
+			"message": "pong, with live deployment",
 		})
 	})
 	r.RunTLS(":8080", "cert.pem", "key.pem")
