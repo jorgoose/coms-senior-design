@@ -21,15 +21,15 @@ jobs:
           username: ${{ secrets.BACKEND_USERNAME }}
           key: ${{ secrets.BACKEND_SSH_KEY }}
           script: |
-            # Check if the Gin server is running and stop it gracefully
-            PID=$(pgrep -f "main.go") || true
-            if [ -n "$PID" ]; then
-              sudo kill -SIGTERM "$PID"
-              # Wait a bit to ensure the process has stopped
-              sleep 5
+            # Stop the server if it's running
+            if [ -f /coms-senior-design/backend/server.pid ]; then
+              sudo kill $(cat /coms-senior-design/backend/server.pid) || true
+              sudo rm /coms-senior-design/backend/server.pid
             fi
+
+            # Navigate to the project directory, pull latest changes
             cd /coms-senior-design/backend
             git pull
-            sudo go run main.go &  # Starts the Gin server in the background
 
-            exit 0 # Prevents the action from failing if the server is already stopped
+            # Start the server and save its PID (for use in next Action run)
+            sudo nohup go run main.go > server.log 2>&1 & echo $! > server.pid
