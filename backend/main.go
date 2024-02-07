@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Run server with (unsigned) certificate
+// Run server with (unsigned) certificate w/ perm and key
 func main() {
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {

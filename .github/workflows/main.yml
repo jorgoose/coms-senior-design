@@ -28,7 +28,7 @@ jobs:
             fi
 
             # Navigate to the project directory, pull latest changes
-            cd /coms-senior-design/backend
+            cd coms-senior-design/backend
             git pull
 
             # Start the server and save its PID (for use in next Action run)
