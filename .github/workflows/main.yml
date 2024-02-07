@@ -34,7 +34,7 @@ jobs:
             git pull
 
             # Start the server in the background so the action can complete
-            sudo nohup go run main.go &
+            sudo nohup go run main.go > /dev/null 2>&1 &
             echo "Server started"
         
             # Exit
