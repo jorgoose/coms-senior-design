@@ -40,4 +40,4 @@ jobs:
             echo "Server started"
         
             # Exit
-            exit
+            exit 0
