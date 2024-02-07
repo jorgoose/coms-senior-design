@@ -26,17 +26,20 @@ jobs:
           username: ${{ secrets.BACKEND_USERNAME }}
           key: ${{ secrets.BACKEND_SSH_KEY }}
           script: |
+            # Navigate to the project directory
+            cd coms-senior-design/backend
+
             # Stop the server if it's running
-            if [ -f /coms-senior-design/backend/server.pid ]; then
-              sudo kill $(cat /coms-senior-design/backend/server.pid) || true
-              sudo rm /coms-senior-design/backend/server.pid
-              sleep 5
+            if [ -f server.pid ]; then
+              sudo kill $(cat server.pid) || true
+              while [ -e /proc/$(cat server.pid) ]; do sleep 0.1; done
+              rm server.pid
             fi
 
-            # Navigate to the project directory, pull latest changes
-            cd coms-senior-design/backend
+            # Pull latest changes
             git pull
 
             # Start the server and save its PID (for use in next Action run)
-            sudo nohup go run main.go > server.log 2>&1 & echo $! > server.pid
+            sudo nohup go run main.go > server.log 2>&1 & echo $! | sudo tee server.pid
+
 
