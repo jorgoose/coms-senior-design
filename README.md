@@ -18,6 +18,8 @@
 
 ## Architecture
 
+![Diagram of Application Architecture](https://media.discordapp.net/attachments/1196673973543501851/1204851317797945364/image.png?ex=65d63c3b&is=65c3c73b&hm=622c051dc372f3c2ab3673211855d08d0038d2da13b372b766b7bf373db0cb11&=&format=webp&quality=lossless&width=960&height=436)
+
 - **Frontend:** Developed using NextJS and TypeScript, hosted on AWS Amplify for quick deployment and scalability
 - **Core Backend Service:** Built with the Gin framework in Golang, deployed on AWS EC2
 - **Database:** Utilizes Supabase for a cloud-based database solution
