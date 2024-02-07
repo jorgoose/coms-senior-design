@@ -11,35 +11,31 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+      - name: Setup Go environment
+        uses: actions/setup-go@v2
         with:
-          node-version: 20
+          go-version: 1.23
 
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Stop Gin Server, Pull Changes, and Restart
+      - name: Build Go application
+        run: go build -o main ./backend
+
+      - name: Copy binary to server and restart service
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.BACKEND_HOST }}
+          username: ${{ secrets.BACKEND_USERNAME }}
+          key: ${{ secrets.BACKEND_SSH_KEY }}
+          source: "./main"
+          target: "/home/ec2-user/coms-senior-design/backend"
+
+      - name: Restart Gin Server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.BACKEND_HOST }}
           username: ${{ secrets.BACKEND_USERNAME }}
           key: ${{ secrets.BACKEND_SSH_KEY }}
           script: |
-            # Navigate to the project directory
-            cd coms-senior-design/backend
-
-            # Stop the server if it's running
-            if [ -f server.pid ]; then
-              sudo kill $(cat server.pid) || true
-              while [ -e /proc/$(cat server.pid) ]; do sleep 0.1; done
-              rm server.pid
-            fi
-
-            # Pull latest changes
-            git pull
-
-            # Start the server and save its PID (for use in next Action run)
-            sudo nohup go run main.go > server.log 2>&1 & echo $! | sudo tee server.pid
-
-
+            sudo systemctl restart gin-server.service
