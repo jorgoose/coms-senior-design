@@ -33,5 +33,9 @@ jobs:
             cd coms-senior-design/backend
             git pull
 
-            # Start the server
-            sudo nohup go run main.go
+            # Start the server in the background so the action can complete
+            sudo nohup go run main.go &
+            echo "Server started"
+        
+            # Exit
+            exit

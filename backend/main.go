@@ -11,7 +11,7 @@ func main() {
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "pong, also i think deployment is working now?",
+			"message": "pong, also i think deployment is working now? and exiting?",
 		})
 	})
 
