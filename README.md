@@ -1,3 +1,4 @@
+# COM S 402 - Spring 2024 - Group 6
 # TrendPlay: Empowering Indie Game Development
 
 ## Overview
