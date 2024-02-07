@@ -35,8 +35,11 @@ jobs:
             cd coms-senior-design/backend
             git pull
 
+            # Build binary (to use updated code)
+            go build -o main
+
             # Start the server in the background so the action can complete
-            sudo nohup go run main.go > /dev/null 2>&1 &
+            sudo nohup ./main > /dev/null 2>&1 &
             echo "Server started"
         
             # Exit
