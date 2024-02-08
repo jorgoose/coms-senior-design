@@ -31,7 +31,7 @@ func main() {
 		}()
 	})
 
-	if err := srv.ListenAndServeTLS("cert.pem", "key.pem"); err != nil && err != http.ErrServerClosed {
+	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(err)
 	}
 }
