@@ -75,7 +75,7 @@ func main() {
 		
 		  var results []User
 		// Adjust this to match how your Supabase client expects to perform an update operation.
-		err := supabase.DB.From("Users").Update(row).Eq("id", "2a24fb8f-9bd6-4734-99d7-775becf4ec4d").Execute(&results)
+		err := supabase.DB.From("Users").Update(row).Eq("email", "2a24fb8f-9bd6-4734-99d7-775becf4ec4d").Execute(&results)
 	
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
