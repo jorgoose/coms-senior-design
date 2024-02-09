@@ -35,8 +35,8 @@ export default function SignUp() {
         }
         console.log(userData);
 
-        if (process.env.AWS_EC2_SERVER) {
-            await postSignUp(process.env.AWS_EC2_SERVER, userData);
+        if (process.env.EC2_SERVER) {
+            await postSignUp(process.env.EC2_SERVER, userData);
         } else {
             console.error("Could not resolve server contact");
         }
