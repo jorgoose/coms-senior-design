@@ -1,13 +1,25 @@
 package main
 
 import (
+	"backend/utils"
+	"fmt"
 	"context"
 	"net/http"
 	"github.com/gin-gonic/gin"
 )
 
+type Config struct {
+	supabaseKey string
+	supabaseURL string
+}
+
 func main() {
 	r := gin.Default()
+	resourceManager := utils.ResourceManager{};
+	msg := resourceManager.GetProperty("SUPABASE_KEY")
+	fmt.Printf("%s", msg)
+	// config := ReadConfig()
+	// fmt.Printf("%s: %s\n", config.supabaseKey, config.supabaseURL)
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
