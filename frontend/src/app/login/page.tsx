@@ -30,8 +30,8 @@ export default function Login() {
 
         console.log(userData);
 
-        if (process.env.AWS_EC2_SERVER) {
-            await postLogin(process.env.AWS_EC2_SERVER, userData);
+        if (process.env.EC2_SERVER) {
+            await postLogin(process.env.EC2_SERVER, userData);
         } else {
             console.error("Could not resolve server contact");
         }
