@@ -1,7 +1,6 @@
 'use client'
 
 import { FormEvent, useState } from 'react';
-import { postSignUp } from '@/brokers/axios';
 import Link from 'next/link';
 import { signUpNewUser } from '@/utils/supabase/client';
 
@@ -15,32 +14,6 @@ export default function SignUp() {
         const formData: FormData = new FormData(event.currentTarget);
         const formDataArray: [string, FormDataEntryValue][] = Array.from(formData.entries());
 
-        const userData: User = {
-            username: '',
-            email: '',
-            password: '',
-            account_type: 0,
-        };
-
-        for (const pair of formDataArray) {
-            const [key, value] = pair;
-            if (key === 'username') {
-                userData.username = value.toString();
-            } else if (key === 'email') {
-                userData.email = value.toString();
-            } else if (key === 'password') {
-                userData.password = value.toString();
-            } else if (key === 'account_type') {
-                userData.account_type = parseInt(value.toString(), 10);
-            }
-        }
-        console.log(userData);
-
-
-        // SAMS SIGN UP SUPABASE STUFF
-        // --------------------------------------------------------------------
-
-        
         const userDataSignUp: SignUpUser = {
             email: '',
             password: '',
@@ -68,17 +41,6 @@ export default function SignUp() {
             await signUpNewUser(userDataSignUp)
         } else {
             console.error("Darn something broke");
-        }
-
-
-        // END OF SAMS STUFF
-        // --------------------------------------------------------------------
-
-
-        if (process.env.EC2_SERVER) {
-            await postSignUp(process.env.EC2_SERVER, userData);
-        } else {
-            console.error("Could not resolve server contact");
         }
 
         setIsLoading(false);

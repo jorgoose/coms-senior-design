@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { postLogin } from "@/brokers/axios";
 import { signIn } from "@/utils/supabase/client";
 
 export default function Login() {
@@ -31,23 +30,11 @@ export default function Login() {
 
         console.log(userData);
 
-        // SAMS SIGN IN SUPABASE STUFF
-        // --------------------------------------------------------------------
-
         if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
             const data = await signIn(userData);
             console.log(data);
         } else {
             console.error("Darn something broke");
-        }
-
-        // END OF SAMS STUFF
-        // --------------------------------------------------------------------
-
-        if (process.env.EC2_SERVER) {
-            await postLogin(process.env.EC2_SERVER, userData);
-        } else {
-            console.error("Could not resolve server contact");
         }
 
         setIsLoading(false);
