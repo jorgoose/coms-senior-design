@@ -8,6 +8,17 @@ type User = {
     last_login?: Date
 }
 
+type SignUpUser = {
+    email: string
+    password: string
+    options: {
+        data: {
+            username: string
+            account_type: number
+        }
+    }
+}
+
 type LoginUser = {
     email: string
     password: string

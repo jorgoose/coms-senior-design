@@ -3,6 +3,7 @@
 import { FormEvent, useState } from 'react';
 import { postSignUp } from '@/brokers/axios';
 import Link from 'next/link';
+import { signUpNewUser } from '@/utils/supabase/client';
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -34,6 +35,45 @@ export default function SignUp() {
             }
         }
         console.log(userData);
+
+
+        // SAMS SIGN UP SUPABASE STUFF
+        // --------------------------------------------------------------------
+
+        
+        const userDataSignUp: SignUpUser = {
+            email: '',
+            password: '',
+            options: {
+                data: {
+                    username: '',
+                    account_type: 0,
+                }
+            }
+        };
+        for (const pair of formDataArray) {
+            const [key, value] = pair;
+            if (key === 'username') {
+                userDataSignUp.options.data.username = value.toString();
+            } else if (key === 'email') {
+                userDataSignUp.email = value.toString();
+            } else if (key === 'password') {
+                userDataSignUp.password = value.toString();
+            } else if (key === 'account_type') {
+                userDataSignUp.options.data.account_type = parseInt(value.toString(), 10);
+            }
+        }
+
+        if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
+            await signUpNewUser(userDataSignUp)
+        } else {
+            console.error("Darn something broke");
+        }
+
+
+        // END OF SAMS STUFF
+        // --------------------------------------------------------------------
+
 
         if (process.env.EC2_SERVER) {
             await postSignUp(process.env.EC2_SERVER, userData);
