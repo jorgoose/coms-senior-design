@@ -1,8 +1,8 @@
 'use client'
 
 import { FormEvent, useState } from 'react';
-import { postSignUp } from '@/brokers/axios';
 import Link from 'next/link';
+import { signUpNewUser } from '@/utils/supabase/client';
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -14,31 +14,33 @@ export default function SignUp() {
         const formData: FormData = new FormData(event.currentTarget);
         const formDataArray: [string, FormDataEntryValue][] = Array.from(formData.entries());
 
-        const userData: User = {
-            username: '',
+        const userDataSignUp: SignUpUser = {
             email: '',
             password: '',
-            account_type: 0,
+            options: {
+                data: {
+                    username: '',
+                    account_type: 0,
+                }
+            }
         };
-
         for (const pair of formDataArray) {
             const [key, value] = pair;
             if (key === 'username') {
-                userData.username = value.toString();
+                userDataSignUp.options.data.username = value.toString();
             } else if (key === 'email') {
-                userData.email = value.toString();
+                userDataSignUp.email = value.toString();
             } else if (key === 'password') {
-                userData.password = value.toString();
+                userDataSignUp.password = value.toString();
             } else if (key === 'account_type') {
-                userData.account_type = parseInt(value.toString(), 10);
+                userDataSignUp.options.data.account_type = parseInt(value.toString(), 10);
             }
         }
-        console.log(userData);
 
-        if (process.env.EC2_SERVER) {
-            await postSignUp(process.env.EC2_SERVER, userData);
+        if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
+            await signUpNewUser(userDataSignUp)
         } else {
-            console.error("Could not resolve server contact");
+            console.error("Darn something broke");
         }
 
         setIsLoading(false);
