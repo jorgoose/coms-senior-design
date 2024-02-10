@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { postLogin } from "@/brokers/axios";
+import { signIn } from "@/utils/supabase/client";
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -30,10 +30,11 @@ export default function Login() {
 
         console.log(userData);
 
-        if (process.env.EC2_SERVER) {
-            await postLogin(process.env.EC2_SERVER, userData);
+        if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
+            const data = await signIn(userData);
+            console.log(data);
         } else {
-            console.error("Could not resolve server contact");
+            console.error("Darn something broke");
         }
 
         setIsLoading(false);
