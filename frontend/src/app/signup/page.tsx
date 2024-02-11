@@ -59,7 +59,14 @@ export default function SignUp() {
                         <option value="0">Gamer</option>
                         <option value="1">Developer</option>
                     </select>
-                    <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Create Account'}</button>
+                    <button type="submit" disabled={isLoading}>{isLoading ? (
+                        <div className="flex items-center">
+                            <span>Loading...</span>
+                            <img src="/spinning-cat.gif" alt="cat" className="w-full max-h-40 ml-2" />
+                        </div>
+                        ) : (
+                            'Create Account'
+                        )}</button>
                 </form>
                 <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Return</Link>
             </div>

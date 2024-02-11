@@ -47,7 +47,14 @@ export default function Login() {
                 <form onSubmit={onSubmit} className="bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center flex-col m-5 p-5 rounded-2xl shadow-2xl space-y-4 size-5/12">
                     <input className="rounded-md w-1/2 text-black" type="email" name="email" placeholder="Email" required />
                     <input className="rounded-md w-1/2 text-black" type="password" name="password" placeholder="Password" required />
-                    <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Login'}</button>
+                    <button type="submit" disabled={isLoading}>{isLoading ? (
+                        <div className="flex items-center">
+                            <span>Loading...</span>
+                            <img src="/spinning-cat.gif" alt="cat" className="w-full max-h-40 ml-2" />
+                        </div>
+                        ) : (
+                            'Login'
+                        )}</button>
                 </form>
                 <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Return</Link>
             </div>
