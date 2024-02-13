@@ -1,25 +1,18 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Need to implement a package.json and package-lock whereever this is deploying
-
 export async function handler(event) {
   const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const supabase = createClient(supabaseUrl, supabaseKey);
+  
+  let steamData = event.steamData;
 
-  const gameData = {
-    title: 'testGame',
-    developer: 'testGameDev'
-  };
+  // Test data - replace with dynamic data as needed
+  const gameData = steamData.games;
     
   const { data, error } = await supabase
   .from('Games')
-  .insert([
-    { 
-      title: gameData.title,
-      developer: gameData.developer
-    }
-  ])
+  .insert(gameData)
   .select()
 
   if (error) {
@@ -30,3 +23,19 @@ export async function handler(event) {
   console.log('User data updated successfully:', data);
   return { statusCode: 200, body: JSON.stringify(data) };
 }
+
+//this expects the following json...probably going to tweak in future
+// {
+//   "steamData": {
+//     "games": [
+//       {
+//         "title": "TestEvent1",
+//         "developer": "testDev1"
+//       },
+//       {
+//         "title": "TestEvent2",
+//         "developer": "testDev2"
+//       }
+//     ]
+//   }
+// }
