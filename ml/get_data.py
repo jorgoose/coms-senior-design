@@ -1,23 +1,5 @@
-# Simple parse of the 'games.json' file.
-import json
-import requests
-
-
-# returns array of a column
-def get(collumn):
-    url = "https://huggingface.co/datasets/FronkonGames/steam-games-dataset/resolve/main/games.json?download=true"
-    response = requests.get(url)
-    dataset = json.loads(response.text)
-
-    data = []
-
-    for app in dataset:
-        data.append(dataset[app][collumn])
-
-    return data
-
-
 '''
+Example data fetch
 for app in dataset:
     appID = app                                         # AppID, unique identifier for each app (string).
     game = dataset[app]             
