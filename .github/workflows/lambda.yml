@@ -1,0 +1,68 @@
+name: Deploy to AWS Lambda
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+    - 'lambdas/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository content
+      uses: actions/checkout@v2  # Checks-out your repository under $GITHUB_WORKSPACE
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8  #  Python 3.8
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install boto3  # Install AWS SDK for Python
+
+    - name: Deploy to AWS Lambda
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        import boto3
+        import os
+        import zipfile
+
+        # Create a zip file
+        zip_name = "/tmp/deployment.zip"
+        zipf = zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED)
+        for root, dirs, files in os.walk('lambdas'):
+            for file in files:
+                zipf.write(os.path.join(root, file))
+        zipf.close()
+
+        # Deploy to AWS Lambda
+        client = boto3.client('lambda', region_name='us-east-1')
+        with open(zip_name, 'rb') as f:
+            zipped_code = f.read()
+        for dirpath, dirnames, filenames in os.walk('lambdas'):
+            for dirname in dirnames:
+                try:
+                    response = client.update_function_code(
+                        FunctionName=dirname,
+                        ZipFile=zipped_code,
+                    )
+                    print(response)
+                except client.exceptions.ResourceNotFoundException:
+                    response = client.create_function(
+                        FunctionName=dirname,
+                        Runtime='python3.8',
+                        Role='arn:aws:iam::account-id:role/execution_role',  # replace with your Role ARN
+                        Handler='lambda_function.lambda_handler',  # replace with your Handler
+                        Code={
+                            'ZipFile': zipped_code
+                        }
+                    )
+                    print(response)
+
