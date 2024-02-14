@@ -1,11 +1,11 @@
 name: Deploy Lambda Functions
  
 on:
-  workflow_call:
-    inputs:
-      environment:
-        required: true
-        type: string
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambdas/**'
 jobs:
   get-filenames:
     runs-on: ubuntu-latest
