@@ -40,5 +40,19 @@ jobs:
           aws-region: us-east-2
       - name: Zip Lambda functions
         run: zip -j ${{matrix.lambda}}.zip ./lambdas/${{matrix.lambda}}/index.js
+      - name: Check if Lambda exists
+        id: check_lambda
+        run: |
+          if aws lambda get-function --function-name ${{matrix.lambda}}${{inputs.environment}}; then
+            echo "::set-output name=exists::true"
+          else
+            echo "::set-output name=exists::false"
+          fi
+      - name: Create new Lambda function
+        if: steps.check_lambda.outputs.exists == 'false'
+        run: |
+          aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime nodejs16.x --role arn:aws:iam::123456789012:role/service-role/MyTestFunction-role-xmplb3eg --handler index.handler --zip-file fileb://${{matrix.lambda}}.zip
       - name: Update Lambdas code
+        if: steps.check_lambda.outputs.exists == 'true'
         run: aws lambda update-function-code --function-name=${{matrix.lambda}}${{inputs.environment}} --zip-file=fileb://${{matrix.lambda}}.zip
+  
