@@ -1,11 +1,13 @@
 'use client'
 
 import { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { signUpNewUser } from '@/utils/supabase/client';
 
 export default function SignUp() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -39,6 +41,7 @@ export default function SignUp() {
 
         if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
             await signUpNewUser(userDataSignUp)
+            router.push('/temp');
         } else {
             console.error("Darn something broke");
         }

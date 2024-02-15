@@ -1,11 +1,13 @@
 'use client'
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { signIn } from "@/utils/supabase/client";
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const router = useRouter();
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -33,6 +35,7 @@ export default function Login() {
         if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
             const data = await signIn(userData);
             console.log(data);
+            router.push('/temp');
         } else {
             console.error("Darn something broke");
         }
