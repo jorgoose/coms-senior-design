@@ -1,11 +1,12 @@
 'use client'
 
-import Link from "next/link";
-import { FormEvent, useState } from "react";
-import { signIn } from "@/utils/supabase/client";
+import { FormEvent, useState } from 'react';
+import Link from 'next/link';
+import { signIn } from '@/utils/supabase/client';
 
 export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [loginText, setLoginText] = useState<string>('');
 
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -30,14 +31,18 @@ export default function Login() {
 
         console.log(userData);
 
-        if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
+        if (process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
             const data = await signIn(userData);
+
+            if (data.error) {
+                setLoginText(data.error.message)
+            }
             console.log(data);
+            setIsLoading(false);
+
         } else {
             console.error("Darn something broke");
         }
-
-        setIsLoading(false);
     }
 
     return (
@@ -47,7 +52,9 @@ export default function Login() {
                 <form onSubmit={onSubmit} className="bg-gradient-to-r from-blue-400 to-purple-500 flex justify-center items-center flex-col m-5 p-5 rounded-2xl shadow-2xl space-y-4 size-5/12">
                     <input className="rounded-md w-1/2 text-black" type="email" name="email" placeholder="Email" required />
                     <input className="rounded-md w-1/2 text-black" type="password" name="password" placeholder="Password" required />
-                    <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : 'Login'}</button>
+                    <button type="submit" disabled={isLoading}>{
+                        isLoading ? 'Loading...' : 'Login'
+                    }</button>
                 </form>
                 <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Return</Link>
             </div>

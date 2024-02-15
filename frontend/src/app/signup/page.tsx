@@ -24,6 +24,7 @@ export default function SignUp() {
                 }
             }
         };
+
         for (const pair of formDataArray) {
             const [key, value] = pair;
             if (key === 'username') {
@@ -38,12 +39,12 @@ export default function SignUp() {
         }
 
         if(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_KEY) {
-            await signUpNewUser(userDataSignUp)
+            await signUpNewUser(userDataSignUp);
+            setIsLoading(false);
         } else {
+            setIsLoading(false);
             console.error("Darn something broke");
         }
-
-        setIsLoading(false);
     }
 
     return (
