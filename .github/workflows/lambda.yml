@@ -51,7 +51,7 @@ jobs:
       - name: Create new Lambda function
         if: steps.check_lambda.outputs.exists == 'false'
         run: |
-          aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime nodejs16.x --role arn:aws:iam::652182311257:role/aws-reserved/sso.amazonaws.com/AWSReservedSSO_402AdminAccess_1d26d1bf0d13933c --handler index.handler --zip-file fileb://${{matrix.lambda}}.zip
+          aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime nodejs16.x --role arn:aws:iam::652182311257:role/GitHubActionLambda --handler index.handler --zip-file fileb://${{matrix.lambda}}.zip
       - name: Update Lambdas code
         if: steps.check_lambda.outputs.exists == 'true'
         run: aws lambda update-function-code --function-name=${{matrix.lambda}}${{inputs.environment}} --zip-file=fileb://${{matrix.lambda}}.zip
