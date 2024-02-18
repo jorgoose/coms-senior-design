@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link';
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormState } from 'react-dom'
 import { signIn } from '@/app/actions';
 import SubmitButton from '@/app/components/SubmitButton';
 
@@ -11,7 +11,6 @@ const initialState = {
 
 export default function Login() {
     const [state, formAction] = useFormState(signIn, initialState);
-    const { pending } = useFormStatus();
 
     return (
         <>
