@@ -75,7 +75,7 @@ export default function SignUp() {
                     </select>
                     <button type="submit" disabled={isLoading}>{isLoading ? 'Loading...' : `${signupText}`}</button>
                 </form>
-                <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Return</Link>
+                <Link className="absolute bottom-10 left-10 bg-gradient-to-r from-blue-400 to-purple-500 px-4 py-2 text-white rounded-md" href="/">Home</Link>
             </div>
         </>
     );
