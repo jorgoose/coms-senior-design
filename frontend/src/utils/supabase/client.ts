@@ -11,14 +11,15 @@ export function createClient() {
 const supabase = createClient()
 
 export async function signUpNewUser(user: SignUpUser) {
-  const { data, error } = await supabase.auth.signUp(user)
+  const { data, error } = await supabase.auth.signUp(user);
+  return { data, error };
 }
 
 export async function signIn(userCred: LoginUser) {
-  const { data, error } = await supabase.auth.signInWithPassword(userCred)
+  const { data, error } = await supabase.auth.signInWithPassword(userCred);
 
   //inside data is session and user data
-  return { data, error }
+  return { data, error };
 }
 
 export async function signOut() {
