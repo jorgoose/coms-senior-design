@@ -14,13 +14,6 @@ export async function signUpNewUser(user: SignUpUser) {
   return { data, error };
 }
 
-export async function signIn(userCred: LoginUser) {
-  const { data, error } = await supabase.auth.signInWithPassword(userCred);
-
-  //inside data is session and user data
-  return { data, error };
-}
-
 export async function signOut() {
   const { error } = await supabase.auth.signOut()
 }
