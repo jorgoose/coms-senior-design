@@ -1,5 +1,16 @@
 # Frontend
 
+Basic documentation for the frontend, hopefully helpful with stuff like next.js and supabase.
+
+## Running
+
+To run the frontend its recommended to make sure that the environment is properly set up
+1. Run npm i under the frontend/ directory to install all dependencies needed
+2. Create a .env.local file directly under the frontend/ directory
+3. Get the evn variables from someone who already has them or find the Supabase url and key variables
+4. Run the project with `npm run dev` make sure you are under the frontend/ folder
+5. Click on the link that appears in the terminal and enjoy
+
 ## Next.js
 
 ### Routing
