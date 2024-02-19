@@ -2,6 +2,21 @@
 
 Basic documentation for the frontend, hopefully helpful with stuff like next.js and supabase.
 
+# Table of Contents
+
+1. [Running](#running)
+2. [Next.js](#nextjs)
+   - [Routing](#routing)
+   - [States](#states)
+     - [UseFormState](#useformstate)
+     - [UseFormStatus](#useformstatus)
+3. [Components](#components)
+4. [Supabase Auth](#supabase-auth)
+   - [Route Protection](#route-protection)
+5. [Api](#api)
+
+---
+
 ## Running
 
 To run the frontend its recommended to make sure that the environment is properly set up
