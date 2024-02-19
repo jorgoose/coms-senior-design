@@ -13,6 +13,8 @@ export default async function Home() {
     redirect('/login');
   }
 
+  console.log(data);
+
   return (
     <>
       <div className="bg-gradient-to-r from-stone-500 h-screen w-full flex justify-center items-center flex-col">
