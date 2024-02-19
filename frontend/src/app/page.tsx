@@ -1,6 +1,18 @@
 import Link from "next/link";
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
+import { createClient } from '@/utils/supabase/server'
+
+export default async function Home() {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect('/login');
+  }
+
   return (
     <>
       <div className="bg-gradient-to-r from-stone-500 h-screen w-full flex justify-center items-center flex-col">
@@ -11,6 +23,3 @@ export default function Home() {
     </>
   );
 }
-
-// Important stuff
-// <div className="tenor-gif-embed" data-postid="1175703927588788964" data-share-method="host" data-aspect-ratio="0.564257" data-width="100%"><a href="https://tenor.com/view/spinning-cat-gif-1175703927588788964">Spinning Cat GIF</a>from <a href="https://tenor.com/search/spinning-gifs">Spinning GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
