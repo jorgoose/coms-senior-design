@@ -130,7 +130,7 @@ Supabase authentication functions are stored in the app/actions.ts file. For bot
 
 Route protection is also included in the above docs as they are closely related.
 
-## Route Protection
+### Route Protection
 
 Route protection is being done via Supabase auth. By using the following code we are able to redirect unauthorized users to the /login page where they can then login or choose to signup.
 
