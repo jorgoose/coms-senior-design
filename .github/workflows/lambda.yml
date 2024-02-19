@@ -1,0 +1,68 @@
+name: Deploy Lambda Functions
+ 
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'lambdas/**'
+jobs:
+  get-filenames:
+    runs-on: ubuntu-latest
+    outputs:
+      lambdaArray: ${{ steps.getLambdas.outputs.lambdas }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Get functions filenames
+        id: getLambdas
+        run: |
+          lambdas=$(tree -d -L 1 -J ./lambdas | jq -j -c '.[0].contents | map(.name)')
+          echo ::set-output name=lambdas::${lambdas}
+  update-code:
+    needs: get-filenames
+    strategy:
+      matrix:
+        lambda: ${{ fromJSON(needs.get-filenames.outputs.lambdaArray) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Get AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      # This will delete all the lambdas that are not in the repository. Need to be careful and transfer existing Lambdas into this repository before enabling.
+      # - name: Delete removed Lambdas
+      #   run: |
+      #     for lambda in $(aws lambda list-functions --query 'Functions[*].[FunctionName]' --output text); do
+      #       if [[ ! -d "./lambdas/${lambda}" ]]; then
+      #         aws lambda delete-function --function-name ${lambda}
+      #       fi
+      #     done
+      
+      - name: Zip Lambda functions
+        run: zip -j ${{matrix.lambda}}.zip ./lambdas/${{matrix.lambda}}/index.js
+      - name: Check if Lambda exists
+        id: check_lambda
+        run: |
+          if aws lambda get-function --function-name ${{matrix.lambda}}${{inputs.environment}}; then
+            echo "::set-output name=exists::true"
+          else
+            echo "::set-output name=exists::false"
+          fi
+      - name: Create new Lambda function
+        if: steps.check_lambda.outputs.exists == 'false'
+        run: |
+          aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime nodejs16.x --role arn:aws:iam::652182311257:role/GitHubActionLambda --handler index.handler --zip-file fileb://${{matrix.lambda}}.zip
+      - name: Update Lambdas code
+        if: steps.check_lambda.outputs.exists == 'true'
+        run: aws lambda update-function-code --function-name=${{matrix.lambda}}${{inputs.environment}} --zip-file=fileb://${{matrix.lambda}}.zip
+  
