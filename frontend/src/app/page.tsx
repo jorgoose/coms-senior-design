@@ -1,6 +1,18 @@
 import Link from "next/link";
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
 
-export default function Home() {
+import { createClient } from '@/utils/supabase/server'
+
+export default async function Home() {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+
+  const { data, error } = await supabase.auth.getUser();
+  if (error || !data?.user) {
+    redirect('/login');
+  }
+
   return (
     <>
       <div className="bg-gradient-to-r from-stone-500 h-screen w-full flex justify-center items-center flex-col">

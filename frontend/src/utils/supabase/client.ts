@@ -7,8 +7,6 @@ export function createClient() {
   )
 }
 
-const supabase = createClient()
-
-export async function signOut() {
-  const { error } = await supabase.auth.signOut()
-}
+// export async function signOut() {
+//   const { error } = await supabase.auth.signOut()
+// }
