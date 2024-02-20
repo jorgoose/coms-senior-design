@@ -3,6 +3,7 @@
 ## Technologies
 - NextJS
 - TailwindCSS
+- AWS Amplify
 
 ### What is NextJS?
 NextJS is a React framework that allows for server side rendering (SSR) and a few other modern features. It is a great tool for building web applications and has a lot of built in features that make it easy to use.
