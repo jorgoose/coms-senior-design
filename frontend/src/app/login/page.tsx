@@ -26,7 +26,7 @@ export default function Login() {
                     </p>
                     <SubmitButton use='Login' />
                 </form>
-                <div className="text-white">Don't have an account? <Link href="/signup" className="underline">Sign up</Link></div>
+                <div className="text-white">No account? <Link href="/signup" className="underline">Sign up</Link></div>
             </div>
         </>
     );
