@@ -1,19 +1,39 @@
 package main
 
 import (
+	"backend/utils"
+	"fmt"
 	"context"
 	"net/http"
 	"github.com/gin-gonic/gin"
+ 	supa "github.com/nedpals/supabase-go"
 )
+
 
 func main() {
 	r := gin.Default()
+	resourceManager := utils.ResourceManager{};
+	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
+	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
+	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
+
 
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong, plus sweet this is actually deploying live now",
 		})
 	})
+
+	r.GET("/getAllGames", func(c *gin.Context) {
+		var allGames map[string]interface{}
+		err := supabase.DB.from("TestGameEndpoints").Select("*").Execute(&allGames)
+		if err != nil {
+			panic(err)
+		}
+		c.JSON(200, allGames)
+		fmt.Println(allGames)
+	})
+			
 
 	srv := &http.Server{
 		Addr:    ":8080",
