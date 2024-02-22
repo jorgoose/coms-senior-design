@@ -1,6 +1,6 @@
 # Team Contributions
 
-This document outlines the contributions of each team member to the project, broken down by the different components of the project.
+This document outlines the contributions and accomplishments of each team member to the project, broken down by the different components of the project.
 
 # Demo 1
 
