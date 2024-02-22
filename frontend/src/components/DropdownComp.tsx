@@ -32,8 +32,8 @@ const DropdownComp: React.FC = () => {
                     className="rounded-full w-8 h-8"
                     src="/placeholder.svg"
                     style={{
-                    aspectRatio: '1 / 1',
-                    objectFit: 'cover',
+                        aspectRatio: '1 / 1',
+                        objectFit: 'cover',
                     }}
                 />
                 <span className="sr-only">Toggle user menu</span>
