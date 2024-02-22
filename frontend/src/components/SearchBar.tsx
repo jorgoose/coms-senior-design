@@ -4,7 +4,6 @@ import React, { useState, FocusEvent } from 'react';
 import SearchIcon from './icons/SearchIcon';
 
 interface SearchInputProps {
-    // className: string;
     placeholder: string;
     type: string;
 }
