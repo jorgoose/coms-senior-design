@@ -41,16 +41,16 @@ const DropdownComp: React.FC = () => {
             {isOpen && (
                 <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-stone-800 text-stone-400">
                     <div className="rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 gradient-text" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 font-bold text-violet-500" role="menuitem">
                             My Account
                         </a>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 gradient-text" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 font-bold text-violet-500" role="menuitem">
                             Settings
                         </a>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 gradient-text" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 font-bold text-violet-500" role="menuitem">
                             Support
                         </a>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 gradient-text" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 font-bold text-violet-500" role="menuitem">
                             Logout
                         </a>
                     </div>

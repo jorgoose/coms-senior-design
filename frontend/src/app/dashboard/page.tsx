@@ -41,8 +41,6 @@ export default async function Home() {
                     <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b border-stone-700 bg-stone-800 px-6">
                         <div className="w-full flex-1">
                             <SearchBar 
-                                className="w-full bg-stone-700 shadow-none appearance-none rounded-lg pl-8 h-9 md:w-2/3 lg:w-1/3 focus:outline-none 
-                                    focus:ring-2 focus:ring-purple-800 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text"
                                 placeholder="Search games..."
                                 type="search"
                             />
