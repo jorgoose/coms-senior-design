@@ -34,9 +34,11 @@ body {
 
 input::placeholder {
   color: transparent;
-  background: linear-gradient(to right, #4F46E5, #9333EA);
+  background: linear-gradient(to right, #9333EA, #4F46E5);
   -webkit-background-clip: text;
   background-clip: text;
+  color: #6B3FE7; /* sets the color of both caret and text */
+  -webkit-text-fill-color: transparent; /* sets just the text color */
 }
 
 .gradient-text {
