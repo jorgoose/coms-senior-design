@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import GamepadIcon from "../../components/icons/GamepadIcon";
 
 import { createClient } from '@/utils/supabase/server'
-import NavBarComp from "../../components/NavBarComp";
+import SideBarComp from "../../components/SideBarComp";
 
 export default async function Home() {
     const cookieStore = cookies();
@@ -22,23 +22,23 @@ export default async function Home() {
                 <div className="flex items-center space-x-4">
                 <GamepadIcon className="w-8 h-8" />
                 <Link className="text-lg font-semibold" href="#">
-                    GameStats
+                    TrendPlay
                 </Link>
                 </div>
                 <nav className="flex space-x-4">
-                    <Link className="py-2 hover:underline" href="#">
+                    {/* <Link className="py-2 hover:underline" href="#">
                         Home
                     </Link>
                     <Link className="py-2 hover:underline" href="#">
                         Upcoming Games
-                    </Link>
+                    </Link> */}
                     <Link className="px-4 py-2 bg-white text-gray-900 rounded-md" href="#">
                         Sign Out
                     </Link>
                 </nav>
             </header>
             <main className="flex flex-1 overflow-hidden">
-                <NavBarComp />
+                <SideBarComp />
             </main>
         </div>
       </>
