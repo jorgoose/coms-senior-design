@@ -18,25 +18,49 @@
 
 ## Technologies Used in the Frontend
 
-- NextJS
+- Next.js
 - TailwindCSS
 - Vite
 - AWS Amplify
 
-### What is NextJS?
-NextJS is a React framework that allows for server side rendering (SSR) and a few other modern features. It is a great tool for building web applications and has a lot of built-in features that make it easy to use.
+
+### What is Next.js?
+
+<img src="https://embed.zenn.studio/api/optimize-og-image/40b78d97cd17a7db5433/https%3A%2F%2Fnextjs.org%2Fstatic%2Fblog%2Fnext-14%2Ftwitter-card.png" alt="Next.js" width="500"/>
+
+Next.js is a React framework that allows for server side rendering (SSR) and a few other modern features. It is a great tool for building web applications and has a lot of built-in features that make it easy to use.
+
+We are using Next.js v14, which is the latest version. Be careful when looking at documentation, StackOverflow, etc. as many things are different in v14 compared to previous versions.
+
+[Next.js Documentation](https://nextjs.org/docs)
 
 ### What is TailwindCSS?
+
+<img src="https://miro.medium.com/v2/resize:fit:1400/1*__f27S-qQF2CAASt5bOwqg.png" alt="Next.js" width="500"/>
+
+
 TailwindCSS is a CSS framework that allows you to easily place custom styles within your components, so you can avoid having to write large amounts of custom CSS. The developers of TailwindCSS have also done research and design choices that automatically make your styles more appealing to spacing and layout preferences of the human eye.
 
 ### What is Vite?
+
+<img src="https://vitejs.dev/logo.svg" alt="Vite" width="100"/>
+
 Vite is a build tool that aims to provide a faster and leaner development experience for modern web development projects. It consists of two major parts: a dev server that lets you run your project locally, and a build command that lets you build your project for production.
 
 ### What is AWS Amplify?
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--mkZY0XpP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://day-journal.com/memo/images/logo/aws/amplify.png" alt="AWS Amplify" width="100"/>
+
 AWS Amplify is a set of tools and services that enables mobile and front-end web developers to build secure, scalable full stack applications, powered by AWS. Amplify automatically configures things like a server to host the app, a publicly accessible URL, and a CI/CD pipeline to deploy changes we make to the app.
 
+#### Accessing AWS Amplify from the AWS Console
+1. Go to the AWS Management Console (https://console.aws.amazon.com/)
+2. Our frontend is hosted in the `us-east-1` region, so make sure you are in that region (you can change the region in the top right corner)
+2. In the top search bar, type "Amplify" and click on "AWS Amplify"
+3. Underneath "All apps", you should see `coms-senior-design` - click on it
+4. From here you can access the public URL, adjust environment variables, and several other things
 
-## Getting Started
+## Starting the Frontend Locally
 
 To get started with the frontend, you will need to have NodeJS installed on your machine. You can download NodeJS from the official website [here](https://nodejs.org/en/download/).
 
@@ -166,6 +190,43 @@ If `pending` is true, the form has been submitted, we will disable the button `a
 ## Components
 
 Components will be stored in the folder `src/components` so that they can be imported and used anywhere in the project.
+
+An example of this could be a `Button` component that is used in multiple places in the project. We can create a `Button` component in the `src/components` folder, something like:
+
+```tsx
+interface ButtonProps {
+    text: string;
+    onClick: () => void;
+}
+
+const Button: React.FC<ButtonProps> = ({ text, onClick }) => {
+    return (
+        <button onClick={onClick}>
+            {text}
+        </button>
+    );
+
+};
+
+export default Button; // This exports the component so it can be used in other files
+```
+
+and then import at the top of other files like so:
+
+```tsx
+import Button from '@/components/Button';
+```
+
+which allows us to use the `Button` component in the file like so:
+
+```tsx
+// ... some frontend code
+<div>
+    <Button text="Click me" onClick={() => console.log('Button clicked')} />
+</div>
+
+// ... rest of frontend code
+```
 
 ## API
 
