@@ -1,2 +1,2 @@
 ## Supabase Connection Properties
-env.properties
+.env
