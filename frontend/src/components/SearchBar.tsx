@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type }) => {
                 <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4" />
                 <input
                     className={`w-full bg-stone-700 shadow-none appearance-none rounded-lg pl-8 h-9 md:w-2/3 lg:w-1/3 focus:outline-none 
-                    focus:ring-2 focus:ring-purple-800 ${isFocused ? 'gradient-text' : 'text-sky-400'}`}
+                    focus:ring-2 focus:ring-purple-800 ${isFocused ? 'text-sky-400' : 'text-sky-400'}`}
                     placeholder={placeholder}
                     type={type}
                     onFocus={handleFocus}

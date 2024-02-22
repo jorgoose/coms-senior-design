@@ -27,7 +27,7 @@ export default async function Home() {
                         <div className="flex h-[60px] items-center border-b border-stone-700 px-5">
                             <Link className="flex items-center gap-2 font-semibold" href="#">
                                 <GamepadIcon className="h-6 w-6" />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">TrendPlay</span>
+                                <span className="text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">TrendPlay</span>
                             </Link>
                             <button className="ml-auto h-8 w-8 text-transparent">
                                 <BellIcon className="h-5 w-5" />
