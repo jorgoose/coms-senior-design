@@ -30,11 +30,9 @@ To run the frontend its recommended to make sure that the environment is properl
 
 ### Routing
 
-Routing is folder based, any folder under the src/app/ folder has the capability to create a route. To create a route using a folder, simply add a page.tsx file where page is the literal name of the file and then a route with the name of the folder will be created and accessible.
+Routing is folder based, any folder under the `src/app/` folder has the capability to create a route. To create a route using a folder, simply add a `page.tsx` file where page is the literal name of the file and then a route with the name of the folder will be created and accessible.
 
-Ex.
-
-for this structure: src/app/dashboard/page.tsx a route will be created which is accessible on the web using /dashboard
+Ex: The file `src/app/dashboard/page.tsx` will be associated with the route `http://localhost:3000/dashboard`
 
 ### States
 
@@ -120,7 +118,12 @@ If pending is true, the form has been submitted, we will disable the button ```a
 
 ## Components
 
-Components will be stored in the folder 'components' which is directly under src so that they can be imported and used anywhere in the project.
+Components will be stored in the folder `src/components` so that they can be imported and used anywhere in the project.
+
+## API
+
+API requests to data sources outside the frontend, mainly the backend server, will use Axios. Axios gives us a way to make HTTP requests to the backend server and handle the responses.
+
 
 ## Supabase Auth
 
