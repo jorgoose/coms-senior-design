@@ -34,44 +34,54 @@ const SideBarComp: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center space-x-1 space-y-1 px-5">
-                    <div className="hover:bg-stone-700 rounded-md">
+                <div className="px-5">
+                    <div className="flex items-center space-x-1 space-y-1 hover:bg-stone-700 rounded corners">
                         <CalendarIcon className="w-6 h-5" />
-                        <Label className="font-bold text-violet-500" htmlFor="steam-count">
-                            Upcoming Games
-                        </Label>
+                        <div className="hover:bg-stone-700 rounded-md">
+                            <Label className="font-bold text-violet-500" htmlFor="steam-count">
+                                Upcoming Games
+                            </Label>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center space-x-1 space-y-1 px-5">
-                    <div className="hover:bg-stone-700 rounded-md">
+                <div className="px-5">
+                    <div className="flex items-center space-x-1 space-y-1 hover:bg-stone-700 rounded corners">
                         <ClipboardIcon className="w-6 h-5" />
-                        <Label className="font-bold text-violet-500" htmlFor="past-reviews">
-                            Release Predictions
-                        </Label>
+                        <div className="hover:bg-stone-700 rounded-md">
+                            <Label className="font-bold text-violet-500" htmlFor="past-reviews">
+                                Release Predictions
+                            </Label>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center space-x-1 space-y-1 px-5">
-                    <div className="hover:bg-stone-700 rounded-md">
+                <div className="px-5">
+                    <div className="flex items-center space-x-1 space-y-1 hover:bg-stone-700 rounded corners">
                         <LightbulbIcon className="w-6 h-5" />
-                        <Label className="font-bold text-violet-500" htmlFor="publisher-details">
-                            Draft Game Idea
-                        </Label>
+                        <div className="hover:bg-stone-700 rounded-md">
+                            <Label className="font-bold text-violet-500" htmlFor="publisher-details">
+                                Draft Game Idea
+                            </Label>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center space-x-1 space-y-1 px-5">
-                    <div className="hover:bg-stone-700 rounded-md">
+                <div className="px-5">
+                    <div className="flex items-center space-x-1 space-y-1 hover:bg-stone-700 rounded corners">
                         <TextIcon className="w-6 h-5" />
-                        <Label className="font-bold text-violet-500" htmlFor="twitch-viewership">
-                            Idea Exchange
-                        </Label>
+                        <div className="hover:bg-stone-700 rounded-md">
+                            <Label className="font-bold text-violet-500" htmlFor="twitch-viewership">
+                                Idea Exchange
+                            </Label>
+                        </div>
                     </div>
                 </div>
-                <div className="flex items-center space-x-1 space-y-1 px-5">
-                    <div className="hover:bg-stone-700 rounded-md">
+                <div className="px-5">
+                    <div className="flex items-center space-x-1 space-y-1 hover:bg-stone-700 rounded corners">
                         <NewspaperIcon className="w-6 h-5" />
-                        <Label className="font-bold text-violet-500" htmlFor="twitch-viewership">
-                            Gaming Industry Roundup
-                        </Label>
+                        <div className="hover:bg-stone-700 rounded-md">
+                            <Label className="font-bold text-violet-500" htmlFor="twitch-viewership">
+                                Gaming Industry Roundup
+                            </Label>
+                        </div>
                     </div>
                 </div>
             </div>
