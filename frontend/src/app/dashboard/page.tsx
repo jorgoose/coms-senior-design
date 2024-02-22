@@ -39,10 +39,6 @@ export default async function Home() {
                 </div>
                 <div className="flex flex-col">
                     <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b border-stone-700 bg-stone-800 px-6">
-                        <Link className="lg:hidden text-orange-500" href="#">
-                            <GamepadIcon className="h-6 w-6" />
-                            <span className="sr-only">Home</span>
-                        </Link>
                         <div className="w-full flex-1">
                             <SearchBar 
                                 className="w-full bg-stone-700 shadow-none appearance-none rounded-lg pl-8 h-9 md:w-2/3 lg:w-1/3 text-stone-400"
