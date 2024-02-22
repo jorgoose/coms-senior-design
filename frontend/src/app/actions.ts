@@ -36,7 +36,7 @@ export async function signUp(prevState: any, formData: FormData) {
     // type-casting here for convenience
     // in practice, you should validate your inputs
     const data = {
-        username: formData.get('usename') as string,
+        username: formData.get('username') as string,
         email: formData.get('email') as string,
         password: formData.get('password') as string,
         account_type: formData.get('account_type') as string
