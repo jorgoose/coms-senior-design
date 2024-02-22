@@ -2,38 +2,45 @@ package main
 
 import (
 	"backend/utils"
-	"fmt"
 	"context"
+	"fmt"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
- 	supa "github.com/nedpals/supabase-go"
+	supa "github.com/nedpals/supabase-go"
+	"github.com/joho/godotenv"
 )
 
-
 func main() {
+	// Load .env file
+	if err := godotenv.Load(".env"); err != nil {
+		fmt.Println("Error loading .env file")
+	}
+
 	r := gin.Default()
-	resourceManager := utils.ResourceManager{};
+	resourceManager := utils.ResourceManager{}
 	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
-
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(200, gin.H{
-			"message": "pong, plus sweet this is actually deploying live now",
+			"message": "pong",
 		})
 	})
 
-	r.GET("/getAllGames", func(c *gin.Context) {
-		var allGames map[string]interface{}
-		err := supabase.DB.from("TestGameEndpoints").Select("*").Execute(&allGames)
+	r.GET("/example-get-request", func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
 		if err != nil {
-			panic(err)
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
 		}
-		c.JSON(200, allGames)
-		fmt.Println(allGames)
+	
+		c.JSON(http.StatusOK, res)
 	})
-			
 
 	srv := &http.Server{
 		Addr:    ":8080",
@@ -49,11 +56,9 @@ func main() {
 				panic(err) // failure/timeout shutting down the server gracefully
 			}
 		}()
-	})
+	})			
 
-	if err := srv.ListenAndServeTLS("cert.pem", "key.pem"); err != nil && err != http.ErrServerClosed {
-		panic(err)
+	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		panic(err) // General server failure
 	}
 }
-
-
