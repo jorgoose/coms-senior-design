@@ -84,7 +84,7 @@ const initialState = {
     message: '',
 }
 
-export default function randomFunc() {
+export default function RandomFunc() {
     const [state, formAction] = useFormState(signIn, initialState);
 }
 ```
@@ -140,7 +140,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 
-export default async function someRoute() {
+export default async function SomeRoute() {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
