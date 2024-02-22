@@ -12,7 +12,7 @@ const NewspaperIcon: React.FC<NewspaperIconProps> = ({ className }) => {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke="#6B3FE7"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"

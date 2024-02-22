@@ -10,7 +10,7 @@ const LightbulbIcon: React.FC<LightbulbIconProps> = ({ className }) => {
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke="#6B3FE7"
       strokeWidth="2"
       className={className}
     >

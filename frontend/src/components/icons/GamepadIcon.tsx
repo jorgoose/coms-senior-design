@@ -1,3 +1,4 @@
+// src/components/ui/icons/GamepadIcon.tsx
 import React from 'react';
 
 interface GamepadIconProps {
@@ -12,17 +13,24 @@ const GamepadIcon: React.FC<GamepadIconProps> = ({ className }) => {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="currentColor"
+      stroke="#292524"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
     >
-      <line x1="6" x2="10" y1="12" y2="12"></line>
-      <line x1="8" x2="8" y1="10" y2="14"></line>
-      <line x1="15" x2="15.01" y1="13" y2="13"></line>
-      <line x1="18" x2="18.01" y1="11" y2="11"></line>
-      <rect width="20" height="12" x="2" y="6" rx="2"></rect>
+      <defs>
+        <linearGradient id="iconGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" style={{ stopColor: '#4F46E5' }} /> {/* from-blue-400 */}
+          <stop offset="100%" style={{ stopColor: '#9333EA' }} /> {/* to-purple-500 */}
+        </linearGradient>
+      </defs>
+
+      <path d="M2 6h20v12H2z" fill="url(#iconGradient)" />
+      <path d="M6 12h4" />
+      <path d="M8 10v4" />
+      <path d="M15 13h0.01" />
+      <path d="M18 11h0.01" />
     </svg>
   );
 };

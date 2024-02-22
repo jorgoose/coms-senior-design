@@ -31,3 +31,17 @@ body {
     text-wrap: balance;
   }
 }
+
+input::placeholder {
+  color: transparent;
+  background: linear-gradient(to right, #4F46E5, #9333EA);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, #4F46E5, #9333EA); /* Tailwind's from-blue-400 to-purple-500 */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

@@ -1,10 +1,10 @@
 import React from 'react';
 
-interface ClipboardIconProps {
+interface SearchIconProps {
   className?: string;
 }
 
-const ClipboardIcon: React.FC<ClipboardIconProps> = ({ className }) => {
+const SearchIcon: React.FC<SearchIconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,10 +18,10 @@ const ClipboardIcon: React.FC<ClipboardIconProps> = ({ className }) => {
       strokeLinejoin="round"
       className={className}
     >
-      <rect width="8" height="4" x="8" y="2" rx="1" ry="1" />
-      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
     </svg>
   );
 };
 
-export default ClipboardIcon;
+export default SearchIcon;
