@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 const DropdownComp: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);

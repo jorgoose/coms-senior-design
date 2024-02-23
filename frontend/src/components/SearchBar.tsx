@@ -1,6 +1,5 @@
 'use client';
 
-import React, { useState, FocusEvent } from 'react';
 import SearchIcon from './icons/SearchIcon';
 
 interface SearchInputProps {

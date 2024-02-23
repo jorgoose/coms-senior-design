@@ -1,6 +1,4 @@
 // src/components/ui/icons/GamepadIcon.tsx
-import React from 'react';
-
 interface GamepadIconProps {
   className?: string;
 }

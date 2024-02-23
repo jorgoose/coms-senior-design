@@ -5,7 +5,6 @@ import GamepadIcon from "../../components/icons/GamepadIcon";
 
 import { createClient } from '@/utils/supabase/server'
 import SideBarComp from "../../components/SideBarComp";
-import SearchIcon from "../../components/icons/SearchIcon"
 import BellIcon from "../../components/icons/BellIcon"
 import DropdownComp from "@/components/DropdownComp";
 import SearchBar from "@/components/SearchBar";

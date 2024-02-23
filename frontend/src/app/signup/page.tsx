@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link';
 import SubmitButton from '@/components/SubmitButton';
 import { signUp } from '@/app/actions';
 import { useFormState } from 'react-dom';
