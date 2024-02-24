@@ -7,9 +7,15 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	supa "github.com/nedpals/supabase-go"
 	"github.com/joho/godotenv"
+	supa "github.com/nedpals/supabase-go"
 )
+
+// Will probilly move this to another go file later after testing
+type GameBody struct {
+	ID		string `json: "id"`
+	Name 	string 	`json: "Name"`
+}
 
 func main() {
 	// Load .env file
@@ -62,6 +68,27 @@ func main() {
 		}
 	
 		c.JSON(http.StatusOK, res)
+	})
+
+	r.POST("/sendgame", func(c *gin.Context) {
+		var game GameBody
+
+		// Parse JSON data from the request body | works
+		if err := c.BindJSON(&game); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+		//fmt.Println(game) {105610 Terraria}
+
+		// Insert the parsed JSON data into the Supabase database | testing
+		insertResult := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
+			"id": game.ID,
+			"Name": game.Name,
+		})
+		// Respond with the result of the insertion
+		c.JSON(http.StatusOK, gin.H{"result": insertResult})
 	})
 
 	srv := &http.Server{
