@@ -83,7 +83,7 @@ func main() {
 		//fmt.Println(game) {105610 Terraria}
 
 		// Insert the parsed JSON data into the Supabase database | testing
-		insertResult := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
+		insertResult := supabase.DB.From("TestBasic").Insert(map[string]interface{}{
 			"id": game.ID,
 			"Name": game.Name,
 		})
