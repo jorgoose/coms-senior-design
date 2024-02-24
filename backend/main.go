@@ -71,6 +71,8 @@ func main() {
 	})
 
 	r.POST("/sendgame", func(c *gin.Context) {
+		var res []map[string]interface{}
+
 		var game GameBody
 
 		// Parse JSON data from the request body | works
@@ -82,11 +84,11 @@ func main() {
 		}
 		//fmt.Println(game) {105610 Terraria}
 
-		// Insert the parsed JSON data into the Supabase database | testing
+		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("TestBasic").Insert(map[string]interface{}{
 			"id": game.ID,
 			"Name": game.Name,
-		})
+		}).Execute(&res)
 		// Respond with the result of the insertion
 		c.JSON(http.StatusOK, gin.H{"result": insertResult})
 	})
