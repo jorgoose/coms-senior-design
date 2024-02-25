@@ -106,6 +106,23 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"result": deleteResult})
 	})
 
+	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
+		var res []map[string]interface{}
+	
+		// Get the ID from the URL parameter
+		id := c.Param("id")
+		collum := c.Param("collum")
+		value := c.Param("value")
+	
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("TestBasic").Update(map[string]interface{}{
+			collum: value, // Update 
+		}).Eq("id", id).Execute(&res)
+	
+		// Respond with the result of the update operation
+		c.JSON(http.StatusOK, gin.H{"result": updateResult})
+	})
+
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: r,
