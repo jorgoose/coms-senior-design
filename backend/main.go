@@ -82,15 +82,28 @@ func main() {
 			})
 			return
 		}
-		//fmt.Println(game) {105610 Terraria}
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("TestBasic").Insert(map[string]interface{}{
 			"id": game.ID,
 			"Name": game.Name,
 		}).Execute(&res)
+
+
 		// Respond with the result of the insertion
 		c.JSON(http.StatusOK, gin.H{"result": insertResult})
+	})
+
+	r.DELETE("/deletegame/:id", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		id := c.Param("id")
+
+		// delete the parsed JSON data into the Supabase database
+		deleteResult := supabase.DB.From("TestBasic").Delete().Eq("id", id).Execute(&res)
+
+		// Respond with the result of the delete
+		c.JSON(http.StatusOK, gin.H{"result": deleteResult})
 	})
 
 	srv := &http.Server{
