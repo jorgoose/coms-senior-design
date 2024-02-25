@@ -89,9 +89,14 @@ func main() {
 			"Name": game.Name,
 		}).Execute(&res)
 
-
-		// Respond with the result of the insertion
-		c.JSON(http.StatusOK, gin.H{"result": insertResult})
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+	
+		c.JSON(http.StatusOK, res)
 	})
 
 	r.DELETE("/deletegame/:id", func(c *gin.Context) {
@@ -102,8 +107,14 @@ func main() {
 		// delete the parsed JSON data into the Supabase database
 		deleteResult := supabase.DB.From("TestBasic").Delete().Eq("id", id).Execute(&res)
 
-		// Respond with the result of the delete
-		c.JSON(http.StatusOK, gin.H{"result": deleteResult})
+		if deleteResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": deleteResult.Error(),
+			})
+			return
+		}
+	
+		c.JSON(http.StatusOK, res)
 	})
 
 	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
@@ -119,8 +130,14 @@ func main() {
 			collum: value, // Update 
 		}).Eq("id", id).Execute(&res)
 	
-		// Respond with the result of the update operation
-		c.JSON(http.StatusOK, gin.H{"result": updateResult})
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+	
+		c.JSON(http.StatusOK, res)
 	})
 
 	srv := &http.Server{
