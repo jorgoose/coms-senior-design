@@ -79,6 +79,32 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint creates a new game in the TestGameEndpoints table
+	// tested using Thunder Client: http://localhost:8080/create-game/69/ayy/lmao
+	// This is still "incomplete", since we don't know what our tables are going to end
+	// up holding. easily adjustable.
+	r.POST("/create-game/:id/:title/:desc", func(c *gin.Context) {
+		var res []map[string]interface{}
+		title := c.Param("title")
+		desc := c.Param("desc")
+		id := c.Param("id")
+		
+		err := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
+			"AppID": id,
+			"Name": title,
+			"About the game": desc,
+		}).Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: r,
