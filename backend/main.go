@@ -37,7 +37,21 @@ func main() {
 
 	// Ex: If you used a query like ... .Select("*").Single(), you would use "var res map[string]interface{}" instead since it's only one row
 
-	r.GET("/example-get-request", func(c *gin.Context) {
+	// r.GET("/example-get-request", func(c *gin.Context) {
+	// 	var res []map[string]interface{}
+	// 	err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
+	// 	if err != nil {
+	// 		c.JSON(http.StatusInternalServerError, gin.H{
+	// 			"error": err.Error(),
+	// 		})
+	// 		return
+	// 	}
+	
+	// 	c.JSON(http.StatusOK, res)
+	// })
+
+	// This endpoint retrieves all games from the TestGameEndpoints table
+	r.GET("/get-all-games", func(c *gin.Context) {
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
 		if err != nil {
@@ -46,10 +60,11 @@ func main() {
 			})
 			return
 		}
-	
+
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint retrieves a single game from the TestGameEndpoints table
 	r.GET("/get-one-game/:id", func(c *gin.Context) {
 		var res []map[string]interface{}
 		id := c.Param("id")
