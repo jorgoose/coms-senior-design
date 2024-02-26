@@ -45,6 +45,8 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint retrieves a single column from the TestGameEndpoints table
+	// localhost:8080/request/AppID
 	r.GET("/request/:collum", func(c *gin.Context) {
 		collum := c.Param("collum")
 		var res []map[string]interface{}
@@ -60,6 +62,7 @@ func main() {
 	})
 	
 	// This endpoint retrieves a single game from the TestGameEndpoints table
+	// localhost:8080/get-one-game/80 
 	r.GET("/get-one-game/:id", func(c *gin.Context) {
 		var res []map[string]interface{}
 		id := c.Param("id")
@@ -74,6 +77,8 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint retrieves a single game from the TestGameEndpoints table
+	// localhost:8080/requestgame/80
 	r.GET("/requestgame/:AppID", func(c *gin.Context) {
 		id := c.Param("AppID")
 		var res []map[string]interface{}
@@ -88,6 +93,8 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint sends a game to the TestGameEndpoints table
+	
 	r.POST("/sendgame", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -180,6 +187,8 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint deletes a game in the TestGameEndpoints table
+	// tested using Thunder Client: http://localhost:8080/deletegame/69
 	r.DELETE("/deletegame/:AppID", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -198,6 +207,8 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint updates a game in the TestGameEndpoints table
+	// tested using Thunder Client: http://localhost:8080/updategame/69/Name/UpdatedName
 	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -220,7 +231,7 @@ func main() {
 
 		c.JSON(http.StatusOK, res)
 	})
-	
+
 	// This endpoint deletes a game in the TestGameEndpoints table
 	// tested using Thunder Client: http://localhost:8080/delete-game/69
 	// This runs based off of the AppID, which frontend needs to somehow obtain.
@@ -243,7 +254,6 @@ func main() {
 
 	// This endpoint updates a game in the TestGameEndpoints table
 	// tested using Thunder Client: http://localhost:8080/update-game/69/baba/booey
-
 	r.PUT("/update-game/:id/:title/:desc", func(c *gin.Context) {
 		var res []map[string]interface{}
 		title := c.Param("title")
