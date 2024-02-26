@@ -66,6 +66,20 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	r.GET("/requestgame/:AppID", func(c *gin.Context) {
+		id := c.Param("AppID")
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	r.POST("/sendgame", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -80,9 +94,46 @@ func main() {
 		}
 
 		// Insert the parsed JSON data into the Supabase database
-		insertResult := supabase.DB.From("TestBasic").Insert(map[string]interface{}{
-			"id":   game.AppID,
-			"Name": game.Name,
+		insertResult := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
+			"AppID":                      game.AppID,
+			"Name":                       game.Name,
+			"Release date":               game.Release_date,
+			"Estimated owners":           game.Estimated_owners,
+			"Peak CCU":                   game.Peak_CCU,
+			"Required age":               game.Required_age,
+			"Price":                      game.Price,
+			"DLC count":                  game.DLC_count,
+			"About the game":             game.About_the_game,
+			"Supported languages":        game.Supported_languages,
+			"Full audio languages":       game.Full_audio_languages,
+			"Reviews":                    game.Reviews,
+			"Header image":               game.Header_image,
+			"Website":                    game.Website,
+			"Support url":                game.Support_url,
+			"Support email":              game.Support_email,
+			"Windows":                    game.Windows,
+			"Mac":                        game.Mac,
+			"Linux":                      game.Linux,
+			"Metacritic score":           game.Metacritic_score,
+			"Metacritic url":             game.Metacritic_url,
+			"User score":                 game.User_score,
+			"Positive":                   game.Positive,
+			"Negative":                   game.Negative,
+			"Score rank":                 game.Score_rank,
+			"Achievements":               game.Achievements,
+			"Recommendations":            game.Recommendations,
+			"Notes":                      game.Notes,
+			"Average playtime forever":   game.Average_playtime_forever,
+			"Average playtime two weeks": game.Average_playtime_two_weeks,
+			"Median playtime forever":    game.Median_playtime_forever,
+			"Median playtime two weeks":  game.Median_playtime_two_weeks,
+			"Developers":                 game.Developers,
+			"Publishers":                 game.Publishers,
+			"Categories":                 game.Categories,
+			"Genres":                     game.Genres,
+			"Tags":                       game.Tags,
+			"Screenshots":                game.Screenshots,
+			"Movies":                     game.Movies,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -95,13 +146,13 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	r.DELETE("/deletegame/:id", func(c *gin.Context) {
+	r.DELETE("/deletegame/:AppID", func(c *gin.Context) {
 		var res []map[string]interface{}
 
-		id := c.Param("id")
+		id := c.Param("AppID")
 
 		// delete the parsed JSON data into the Supabase database
-		deleteResult := supabase.DB.From("TestBasic").Delete().Eq("id", id).Execute(&res)
+		deleteResult := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
 
 		if deleteResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
@@ -122,9 +173,9 @@ func main() {
 		value := c.Param("value")
 
 		// Update the specified record in the Supabase database
-		updateResult := supabase.DB.From("TestBasic").Update(map[string]interface{}{
+		updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
 			collum: value, // Update
-		}).Eq("id", id).Execute(&res)
+		}).Eq("AppID", id).Execute(&res)
 
 		if updateResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
