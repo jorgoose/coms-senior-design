@@ -2,7 +2,11 @@
 
 import Image from "next/image"
 import { useState } from "react";
-import OverviewContent from "@/components/OverviewContent";
+import OverviewContent from "@/components/gameview/OverviewContent";
+import SideBarComp from "@/components/SideBarComp";
+import Link from "next/link";
+import GamepadIcon from "@/components/icons/GamepadIcon";
+import BellIcon from "@/components/icons/BellIcon";
 
 export default function Gameview() {
     const [selectedView, setSelectedView] = useState('overview');
@@ -27,33 +31,50 @@ export default function Gameview() {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center bg-gradient-to-r from-stone-500">
-            <div className="flex flex-col justify-center items-center w-full m-4">
-                <Image
-                className="rounded-lg"
-                src="https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977"
-                alt="Example Image"
-                width={500}
-                height={500}
-                />
-            </div>
-            <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text text-center">Counter-Strike: Condition Zero</p>
-            <div className="flex gap-4 mb-4 mt-2">
-                <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'overview' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('overview')}>
-                    Overview
-                </button>
-                <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'developerProfile' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('developerProfile')}>
-                    Developer Profile
-                </button>
-                <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'releasePredictions' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('releasePredictions')}>
-                    Release Predictions
-                </button>
-                <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'discussion' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('discussion')}>
-                    Discussion
-                </button>
-            </div>
-            <div>
-                {renderContent()}
+        <div className="dark grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-gradient-to-r from-stone-500 text-stone-200">
+            <div className="hidden border-r border-stone-700 bg-stone-800 lg:block">
+                    <div className="flex h-full max-h-screen flex-col gap-2">
+                        <div className="flex h-[60px] items-center border-b border-stone-700 px-5">
+                            <Link className="flex items-center gap-2 font-semibold" href="#">
+                                <GamepadIcon className="h-6 w-6" />
+                                <span className="text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">TrendPlay</span>
+                            </Link>
+                            <button className="ml-auto h-8 w-8 text-transparent">
+                                <BellIcon className="h-5 w-5" />
+                                <span className="sr-only">Toggle notifications</span>
+                            </button>
+                        </div>
+                        <SideBarComp />
+                    </div>
+                </div>
+            <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center w-full m-4">
+                    <Image
+                    className="rounded-lg"
+                    src="https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977"
+                    alt="Example Image"
+                    width={500}
+                    height={500}
+                    />
+                </div>
+                <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text text-center">Counter-Strike: Condition Zero</p>
+                <div className="flex gap-4 mb-4 mt-2">
+                    <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'overview' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('overview')}>
+                        Overview
+                    </button>
+                    <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'developerProfile' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('developerProfile')}>
+                        Developer Profile
+                    </button>
+                    <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'releasePredictions' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('releasePredictions')}>
+                        Release Predictions
+                    </button>
+                    <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'discussion' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('discussion')}>
+                        Discussion
+                    </button>
+                </div>
+                <div>
+                    {renderContent()}
+                </div>
             </div>
         </div>
     );
