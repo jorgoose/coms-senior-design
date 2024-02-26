@@ -29,27 +29,6 @@ func main() {
 		})
 	})
 
-	// Why do we need "var res []map[string]interface{}"?
-	// ===================================================
-	// 1. Go needs a type for the response of the query
-	// 2. The beginning "[]" defines a slice, which is just Go's way of defining a list / dynamic array
-	// 3. "map[string]interface{}" is a map with string keys and interface{} values (interface{} just basically means "any type")
-
-	// Ex: If you used a query like ... .Select("*").Single(), you would use "var res map[string]interface{}" instead since it's only one row
-
-	// r.GET("/example-get-request", func(c *gin.Context) {
-	// 	var res []map[string]interface{}
-	// 	err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
-	// 	if err != nil {
-	// 		c.JSON(http.StatusInternalServerError, gin.H{
-	// 			"error": err.Error(),
-	// 		})
-	// 		return
-	// 	}
-	
-	// 	c.JSON(http.StatusOK, res)
-	// })
-
 	// This endpoint retrieves all games from the TestGameEndpoints table
 	r.GET("/get-all-games", func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -95,6 +74,26 @@ func main() {
 			"About the game": desc,
 		}).Execute(&res)
 
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint deletes a game in the TestGameEndpoints table
+	// tested using Thunder Client: http://localhost:8080/delete-game/69
+	// This runs based off of the AppID, which frontend needs to somehow obtain.
+	// Or we just use title since title will always be unique, but then we have to
+	// deal with spaces and stuff. :(
+	r.DELETE("/delete-game/:id", func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Param("id")
+
+		err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
