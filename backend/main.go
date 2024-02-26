@@ -11,11 +11,7 @@ import (
 	supa "github.com/nedpals/supabase-go"
 )
 
-// Will probilly move this to another go file later after testing
-type GameBody struct {
-	ID		string `json: "id"`
-	Name 	string 	`json: "Name"`
-}
+// go run .
 
 func main() {
 	// Load .env file
@@ -52,7 +48,7 @@ func main() {
 			})
 			return
 		}
-	
+
 		c.JSON(http.StatusOK, res)
 	})
 
@@ -66,7 +62,7 @@ func main() {
 			})
 			return
 		}
-	
+
 		c.JSON(http.StatusOK, res)
 	})
 
@@ -85,7 +81,7 @@ func main() {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("TestBasic").Insert(map[string]interface{}{
-			"id": game.ID,
+			"id":   game.ID,
 			"Name": game.Name,
 		}).Execute(&res)
 
@@ -95,7 +91,7 @@ func main() {
 			})
 			return
 		}
-	
+
 		c.JSON(http.StatusOK, res)
 	})
 
@@ -113,30 +109,30 @@ func main() {
 			})
 			return
 		}
-	
+
 		c.JSON(http.StatusOK, res)
 	})
 
 	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
 		var res []map[string]interface{}
-	
+
 		// Get the ID from the URL parameter
 		id := c.Param("id")
 		collum := c.Param("collum")
 		value := c.Param("value")
-	
+
 		// Update the specified record in the Supabase database
 		updateResult := supabase.DB.From("TestBasic").Update(map[string]interface{}{
-			collum: value, // Update 
+			collum: value, // Update
 		}).Eq("id", id).Execute(&res)
-	
+
 		if updateResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": updateResult.Error(),
 			})
 			return
 		}
-	
+
 		c.JSON(http.StatusOK, res)
 	})
 
@@ -154,7 +150,7 @@ func main() {
 				panic(err) // failure/timeout shutting down the server gracefully
 			}
 		}()
-	})			
+	})
 
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(err) // General server failure
