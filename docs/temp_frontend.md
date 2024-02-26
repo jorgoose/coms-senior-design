@@ -1,34 +1,34 @@
 # Frontend
 
-Basic documentation for the frontend, hopefully helpful with stuff like next.js and supabase.
+## Technologies
+- NextJS
+- TailwindCSS
+- AWS Amplify
 
-# Table of Contents
+### What is NextJS?
+NextJS is a React framework that allows for server side rendering (SSR) and a few other modern features. It is a great tool for building web applications and has a lot of built in features that make it easy to use.
 
-1. [Running](#running)
-2. [Next.js](#nextjs)
-   - [Routing](#routing)
-   - [States](#states)
-     - [UseFormState](#useformstate)
-     - [UseFormStatus](#useformstatus)
-3. [Components](#components)
-4. [Supabase Auth](#supabase-auth)
-   - [Route Protection](#route-protection)
-5. [Api](#api)
+### What is TailwindCSS?
+TailwindCSS is a CSS framework that allows you to easily place custom styles within your components, so you can avoid having to write large amounts of custom CSS. The developers of TailwindCSS have also done research and design choices that automatically make your styles more appealing to spacing and layout preferences of the human eye.
 
----
+## Getting Started
+To get started with the frontend, you will need to have NodeJS installed on your machine. You can download NodeJS from the official website [here](https://nodejs.org/en/download/).
 
-## Running
+Once you have NodeJS installed, you can navigate to the `frontend` directory in the root of the project and run the following command to install the necessary dependencies:
 
-To run the frontend its recommended to make sure that the environment is properly set up
-1. Run npm i under the frontend/ directory to install all dependencies needed
-2. Create a .env.local file directly under the frontend/ directory
-3. Get the evn variables from someone who already has them or find the Supabase url and key variables
-4. Run the project with `npm run dev` make sure you are under the frontend/ folder
-5. Click on the link that appears in the terminal and enjoy
+```bash
+npm install
+```
 
-## Next.js
+After the dependencies are installed, you can run the following command to start the development server:
 
-### Routing
+```bash
+npm run dev
+```
+
+This will start the frontend server locally, and you can access it by navigating to `http://localhost:3000` in your web browser.
+
+## NextJS Routing
 
 Routing is folder based, any folder under the `src/app/` folder has the capability to create a route. To create a route using a folder, simply add a `page.tsx` file where page is the literal name of the file and then a route with the name of the folder will be created and accessible.
 
@@ -82,7 +82,7 @@ const initialState = {
     message: '',
 }
 
-export default function RandomFunc() {
+export default function randomFunc() {
     const [state, formAction] = useFormState(signIn, initialState);
 }
 ```
@@ -125,39 +125,4 @@ Components will be stored in the folder `src/components` so that they can be imp
 API requests to data sources outside the frontend, mainly the backend server, will use Axios. Axios gives us a way to make HTTP requests to the backend server and handle the responses.
 
 
-## Supabase Auth
 
-Supabase authentication functions are stored in the app/actions.ts file. For both sign in and sign up we use revalidatePath to essentially reset the session as soon as a user successfully logs in. This way we keep a user's current session completely separated from any past sessions. After revalidating the path (which is specifically the '/' path) we then redirect the user to '/' which can serve as a true homepage.
-
-[Server side authentication with supabase docs.](https://supabase.com/docs/guides/auth/server-side/nextjs)
-
-Route protection is also included in the above docs as they are closely related.
-
-### Route Protection
-
-Route protection is being done via Supabase auth. By using the following code we are able to redirect unauthorized users to the /login page where they can then login or choose to signup.
-
-```tsx
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
-
-import { createClient } from '@/utils/supabase/server'
-
-export default async function SomeRoute() {
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-
-    const { data, error } = await supabase.auth.getUser();
-    if (error || !data?.user) {
-        redirect('/login');
-    }
-
-    return (
-        // html stuff
-    );
-}
-```
-
-## Api
-
-As of right now to make api requests I am using axios, a simple method of making calls. So far however, api calls have not been necessary as Supabase has been taking care of it.
