@@ -33,8 +33,9 @@ export default function Gameview() {
 
     return (
         <div className="dark grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-gradient-to-r from-stone-500 text-stone-200">
-            <div className="hidden border-r border-stone-700 bg-stone-800 lg:block">
-                <div className="flex h-full max-h-screen flex-col gap-2">
+            {/* Sticky sidebar and top bar div, use sticky and top-0 */}
+            <div className="border-r border-stone-700 bg-stone-800 lg:block">
+                <div className="sticky top-0">
                     <div className="flex h-[60px] items-center border-b border-stone-700 px-5">
                         <Link className="flex items-center gap-2 font-semibold" href="#">
                             <GamepadIcon className="h-6 w-6" />
@@ -49,11 +50,12 @@ export default function Gameview() {
                 </div>
             </div>
             <div className="lg:col-span-1">
-                <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b border-stone-700 bg-stone-800 px-6">
+                {/* Sticky header, use sticky and top-0 */}
+                <header className="sticky top-0 flex h-14 lg:h-[60px] items-center gap-4 border-b border-stone-700 bg-stone-800 px-6">
                     <div className="w-full flex-1"></div>
                     <DropdownComp />
                 </header>
-                <div className="flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center overflow-auto">
                     <div className="flex flex-col justify-center items-center w-full">
                         <div className="w-full max-w-screen-xl">
                             <Image
