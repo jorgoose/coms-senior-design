@@ -3,6 +3,8 @@
 import Image from "next/image"
 import { useState } from "react";
 import OverviewContent from "@/components/gameview/OverviewContent";
+import DeveloperProfileContent from "@/components/gameview/DeveloperProfileContent";
+import DiscussionContent from "@/components/gameview/DiscussionContent";
 import SideBarComp from "@/components/SideBarComp";
 import Link from "next/link";
 import GamepadIcon from "@/components/icons/GamepadIcon";
@@ -19,12 +21,10 @@ export default function Gameview() {
             case 'overview':
                 return <OverviewContent 
                         description={desc} />;
-            // case 'developerProfile':
-            //     return <DeveloperProfileContent />;
-            // case 'releasePredictions':
-            //     return <ReleasePredictionsContent />;
-            // case 'discussion':
-            //     return <DiscussionContent />;
+            case 'developerProfile':
+                return <DeveloperProfileContent />;
+            case 'discussion':
+                return <DiscussionContent />;
             default:
                 return <OverviewContent 
                         description={desc} />;
@@ -75,9 +75,6 @@ export default function Gameview() {
                             </button>
                             <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'developerProfile' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('developerProfile')}>
                                 Developer Profile
-                            </button>
-                            <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'releasePredictions' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('releasePredictions')}>
-                                Release Predictions
                             </button>
                             <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'discussion' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('discussion')}>
                                 Discussion
