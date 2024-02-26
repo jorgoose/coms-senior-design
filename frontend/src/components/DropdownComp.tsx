@@ -29,7 +29,7 @@ const DropdownComp: React.FC = () => {
             >
                 <img
                     alt="Avatar"
-                    className="rounded-full w-8 h-8 shadow hover:shadow-lg shadow-sky-500/80"
+                    className="rounded-full w-8 h-8"
                     src="/placeholder.svg"
                     style={{
                         aspectRatio: '1 / 1',
