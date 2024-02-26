@@ -55,39 +55,37 @@ export default function Gameview() {
                     <div className="w-full flex-1"></div>
                     <DropdownComp />
                 </header>
-                <div className="flex flex-col justify-center items-center overflow-auto">
-                    <div className="flex flex-col justify-center items-center w-full">
-                        <div className="w-full max-w-screen-xl">
-                            <Image
-                                className="rounded-lg w-full"
-                                src="https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977"
-                                alt="Example Image"
-                                width={500}
-                                height={500}
-                            />
-                        </div>
-                    </div>
+                <div className="overflow-auto">
                     <div className="w-full max-w-screen-xl">
-                        <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text text-center mt-4">
+                        <Image
+                            className="rounded-lg w-full"
+                            src="https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977"
+                            alt="Example Image"
+                            width={500}
+                            height={500}
+                        />
+                    </div>
+                    <div className="m-4">
+                        <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text mb-6">
                             Counter-Strike: Condition Zero
                         </p>
-                    </div>
-                    <div className="flex gap-4 mb-4 mt-2">
-                        <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'overview' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('overview')}>
-                            Overview
-                        </button>
-                        <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'developerProfile' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('developerProfile')}>
-                            Developer Profile
-                        </button>
-                        <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'releasePredictions' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('releasePredictions')}>
-                            Release Predictions
-                        </button>
-                        <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'discussion' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('discussion')}>
-                            Discussion
-                        </button>
-                    </div>
-                    <div>
-                        {renderContent()}
+                        <div className="flex gap-4 mb-4 mt-2">
+                            <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'overview' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('overview')}>
+                                Overview
+                            </button>
+                            <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'developerProfile' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('developerProfile')}>
+                                Developer Profile
+                            </button>
+                            <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'releasePredictions' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('releasePredictions')}>
+                                Release Predictions
+                            </button>
+                            <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'discussion' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('discussion')}>
+                                Discussion
+                            </button>
+                        </div>
+                        <div>
+                            {renderContent()}
+                        </div>
                     </div>
                 </div>
             </div>
