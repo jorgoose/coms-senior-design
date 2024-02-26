@@ -81,7 +81,7 @@ func main() {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("TestBasic").Insert(map[string]interface{}{
-			"id":   game.ID,
+			"id":   game.AppID,
 			"Name": game.Name,
 		}).Execute(&res)
 

@@ -1,6 +1,44 @@
 package main
 
 type GameBody struct {
-	ID		string `json: "id"`
-	Name 	string 	`json: "Name"`
+	AppID                      string `json: "id"`
+	Name                       string `json: "Name"`
+	Release_date               string `json: "release_date"`
+	Estimated_owners           string `json: "Estimated_owners"`
+	Peak_CCU                   string `json: "Peak_CCU"`
+	Required_age               string `json: "Required_age"`
+	Price                      string `json: "Price"`
+	DLC_count                  string `json: "DLC_count"`
+	About_the_game             string `json: "About_the_game"`
+	Supported_languages        string `json: "Supported_languages"`
+	Full_audio                 string `json: "Full_audio"`
+	languages                  string `json: "languages"`
+	Reviews_                   string `json: "Reviews"`
+	Header_image               string `json: "Header_image"`
+	Website                    string `json: "Website"`
+	Support_url                string `json: "Support_url"`
+	Support_email              string `json: "Support_email"`
+	Windows                    string `json: "Windowz"`
+	Mac                        string `json: "Mac"`
+	Linux                      string `json: "Linux"`
+	Metacritic_score           string `json: "Metacritic_score"`
+	Metacritic_url             string `json: "Metacritic_url"`
+	User_score                 string `json: "User_score"`
+	Positive                   string `json: "Positive"`
+	Negative                   string `json: "Negative"`
+	Score_rank                 string `json: "Score_rank"`
+	Achievements               string `json: "Achievements"`
+	Recommendations            string `json: "Recommendations"`
+	Notes                      string `json: "Notes"`
+	Average_playtime_forever   string `json: "Average_playtime_forever"`
+	Average_playtime_two_weeks string `json: "Average_playtime_two_weeks"`
+	Median_playtime_forever    string `json: "Median_playtime_forever"`
+	Median_playtime_two_weeks  string `json: "Median_playtime_two_weeks"`
+	Developers                 string `json: "Developers"`
+	Publishers                 string `json: "Publishers"`
+	Categories                 string `json: "Categories"`
+	Genres                     string `json: "Genres"`
+	Tags                       string `json: "Tags"`
+	Screenshots                string `json: "Screenshots"`
+	Movies                     string `json: "Movies"`
 }
