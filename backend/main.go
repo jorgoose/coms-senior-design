@@ -50,6 +50,20 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	r.GET("/get-one-game/:id", func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Param("id")
+		err := supabase.DB.From("TestGameEndpoints").Select("*").Eq("AppID", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: r,
