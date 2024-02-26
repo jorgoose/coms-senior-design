@@ -104,6 +104,30 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint updates a game in the TestGameEndpoints table
+	// tested using Thunder Client: http://localhost:8080/update-game/69/baba/booey
+
+	r.PUT("/update-game/:id/:title/:desc", func(c *gin.Context) {
+		var res []map[string]interface{}
+		title := c.Param("title")
+		desc := c.Param("desc")
+		id := c.Param("id")
+
+		err := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
+			"Name": title,
+			"About the game": desc,
+		}).Eq("AppID", id).Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: r,
