@@ -85,7 +85,7 @@ func main() {
 
 		var game GameBody
 
-		// Parse JSON data from the request body | works
+		// Parse JSON data from the request body | 
 		if err := c.BindJSON(&game); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
@@ -93,7 +93,7 @@ func main() {
 			return
 		}
 
-		// Insert the parsed JSON data into the Supabase database
+		// Insert the parsed JSON data into the Supabase database | works
 		insertResult := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
 			"AppID":                      game.AppID,
 			"Name":                       game.Name,
