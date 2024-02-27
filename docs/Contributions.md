@@ -27,10 +27,10 @@ This document outlines the contributions and accomplishments of each team member
 ### Sam:
 
 ### Madhav:
-    - AWS lambda
-        - Get request to Steam API for all their games
-    - Machine Learning
-        - ML model to predict game sales number based on its header image
+- AWS lambda
+    - Get request to Steam API for all their games
+- Machine Learning
+    - ML model to predict game sales number based on its header image
 
 ---
 
