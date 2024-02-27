@@ -9,6 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
+
+	// Docs
+	"github.com/swaggo/gin-swagger" // gin-swagger middleware
+	"github.com/swaggo/files"       // swagger embed files
+	_ "backend/docs"               // This is where the docs are found
 )
 
 // go run .
@@ -25,11 +30,11 @@ func main() {
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	// Swagger documentation endpoint
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// Example of using a handler function "ping" to handle the request
+	r.GET("/ping", ping)
 
 	// This endpoint retrieves all games from the TestGameEndpoints table
 	r.GET("/get-all-games", func(c *gin.Context) {
@@ -227,4 +232,15 @@ func main() {
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(err) // General server failure
 	}
+}
+
+// @Summary Ping the server
+// @Description Check if the server is up and running
+// @Produce json
+// @Success 200 {object} string
+// @Router /ping [get]
+func ping(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "pong",
+	})
 }
