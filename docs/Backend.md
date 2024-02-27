@@ -7,6 +7,8 @@
 
 ### What is Go?
 
+<!-- TODO: Overview of Go language -->
+
 ### What is Gin?
 
 #### Data Type Example with Gin Endpoint
