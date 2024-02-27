@@ -11,10 +11,55 @@ import GamepadIcon from "@/components/icons/GamepadIcon";
 import BellIcon from "@/components/icons/BellIcon";
 import DropdownComp from "@/components/DropdownComp";
 
+const dummyData = [
+    {
+        "About the game":"With its extensive Tour of Duty campaign, a near-limitless number of skirmish modes, updates and new content for Counter-Strike's award-winning multiplayer game play, plus over 12 bonus single player missions, Counter-Strike: Condition Zero is a tremendous offering of single and multiplayer content.",
+        "Achievements":"0",
+        "AppID":"80",
+        "Average playtime forever":"1523",
+        "Average playtime two weeks":"18",
+        "Categories":"Single-player,Multi-player,Valve Anti-Cheat enabled",
+        "DLC count":"0",
+        "Developers":"Valve",
+        "Estimated owners":"5000000 - 10000000",
+        "Full audio languages":"[]",
+        "Genres":"Action",
+        "Header image":"https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+        "Linux":"TRUE",
+        "Mac":"TRUE",
+        "Median playtime forever":"36",
+        "Median playtime two weeks":"22",
+        "Metacritic score":"65",
+        "Metacritic url":"https://www.metacritic.com/game/pc/counter-strike-condition-zero?ftag=MCD-06-10aaa1f",
+        "Movies":null,
+        "Name":"Counter-Strike: Condition Zero",
+        "Negative":"1871",
+        "Notes":null,
+        "Peak CCU":"425",
+        "Positive":"19314",
+        "Price":"9.99",
+        "Publishers":"Valve",
+        "Recommendations":"15155",
+        "Release date":"1-Mar-04",
+        "Required age":"0",
+        "Reviews":null,
+        "Score rank":null,
+        "Screenshots":null,
+        "Support email":null,
+        "Support url":"http://steamcommunity.com/app/80",
+        "Supported languages":"['English', 'French', 'German', 'Italian', 'Spanish - Spain', 'Simplified Chinese', 'Traditional Chinese', 'Korean']",
+        "Tags":"Action,FPS,Shooter,Multiplayer,First-Person,Singleplayer,Classic,Tactical,Team-Based,Competitive,Military,Strategy,Online Co-Op,Adventure,Survival,Atmospheric,Open World,Old School,Simulation,Dark",
+        "User score":"0",
+        "Website":null,
+        "Windows":"TRUE"
+    }
+]
+
 export default function Gameview() {
     const [selectedView, setSelectedView] = useState('overview');
 
-    const desc = "With its extensive Tour of Duty campaign, a near-limitless number of skirmish modes, updates and new content for Counter-Strike's award-winning multiplayer game play, plus over 12 bonus single player missions, Counter-Strike: Condition Zero is a tremendous offering of single and multiplayer content.";
+    const desc = dummyData[0]["About the game"];
+    const dev = dummyData[0].Developers;
 
     const renderContent = (): JSX.Element => {
         switch (selectedView) {
@@ -22,7 +67,8 @@ export default function Gameview() {
                 return <OverviewContent 
                         description={desc} />;
             case 'developerProfile':
-                return <DeveloperProfileContent />;
+                return <DeveloperProfileContent
+                        developer={dev} />;
             case 'discussion':
                 return <DiscussionContent />;
             default:
