@@ -18,7 +18,7 @@ import (
 	_ "backend/docs"               // This is where the docs are found
 )
 
-// To start the server: "go run .". This will start the server on port 8080 by default.
+// To start the server: "go run .". This will start the server on port 8080 by default, with a shutdown endpoint at /shutdown.
 
 func main() {
 	// Load .env file
