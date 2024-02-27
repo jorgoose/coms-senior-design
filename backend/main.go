@@ -80,22 +80,6 @@ func main() {
 	})
 
 	// This endpoint retrieves a single game from the TestGameEndpoints table
-	// localhost:8080/get-one-game/80
-	r.GET("/get-one-game/:id", func(c *gin.Context) {
-		var res []map[string]interface{}
-		id := c.Param("id")
-		err := supabase.DB.From("TestGameEndpoints").Select("*").Eq("AppID", id).Execute(&res)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// This endpoint retrieves a single game from the TestGameEndpoints table
 	// localhost:8080/requestgame/80
 	r.GET("/requestgame/:AppID", func(c *gin.Context) {
 		id := c.Param("AppID")
@@ -179,32 +163,6 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// This endpoint creates a new game in the TestGameEndpoints table
-	// tested using Thunder Client: http://localhost:8080/create-game/69/ayy/lmao
-	// This is still "incomplete", since we don't know what our tables are going to end
-	// up holding. easily adjustable.
-	r.POST("/create-game/:id/:title/:desc", func(c *gin.Context) {
-		var res []map[string]interface{}
-		title := c.Param("title")
-		desc := c.Param("desc")
-		id := c.Param("id")
-
-		err := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
-			"AppID":          id,
-			"Name":           title,
-			"About the game": desc,
-		}).Execute(&res)
-
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
 	// This endpoint updates a game in the TestGameEndpoints table
 	// tested using Thunder Client: http://localhost:8080/updategame/69/Name/UpdatedName
 	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
@@ -235,9 +193,9 @@ func main() {
 	// This runs based off of the AppID, which frontend needs to somehow obtain.
 	// Or we just use title since title will always be unique, but then we have to
 	// deal with spaces and stuff. :(
-	r.DELETE("/delete-game/:id", func(c *gin.Context) {
+	r.DELETE("/delete-game/:AppID", func(c *gin.Context) {
 		var res []map[string]interface{}
-		id := c.Param("id")
+		id := c.Param("AppID")
 
 		err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
 		if err != nil {
