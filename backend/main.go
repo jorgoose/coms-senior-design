@@ -63,10 +63,10 @@ func main() {
 
 	// This endpoint gets collum for
 	r.GET("/request/:sele/:collum/:equal", func(c *gin.Context) {
-		sele := c.Param("select")
+		sele := c.Param("sele")
 		collum := c.Param("collum")
 		equal := c.Param("equal")
-		
+
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select(sele).Eq(collum, equal).Execute(&res)
 		if err != nil {
