@@ -61,10 +61,12 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	r.GET("/AppID/:dev", func(c *gin.Context) {
-		dev := c.Param("dev")
+	// This endpoint gets collum for
+	r.GET("/request/:sele/:equal", func(c *gin.Context) {
+		sele := c.Param("select")
+		dev := c.Param("equal")
 		var res []map[string]interface{}
-		err := supabase.DB.From("TestGameEndpoints").Select("AppID").Eq("Developers", dev).Execute(&res)
+		err := supabase.DB.From("TestGameEndpoints").Select(sele).Eq("Developers", dev).Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -201,26 +203,6 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// This endpoint deletes a game in the TestGameEndpoints table
-	// tested using Thunder Client: http://localhost:8080/deletegame/69
-	r.DELETE("/deletegame/:AppID", func(c *gin.Context) {
-		var res []map[string]interface{}
-
-		id := c.Param("AppID")
-
-		// delete the parsed JSON data into the Supabase database
-		deleteResult := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
-
-		if deleteResult != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": deleteResult.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
 	// This endpoint updates a game in the TestGameEndpoints table
 	// tested using Thunder Client: http://localhost:8080/updategame/69/Name/UpdatedName
 	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
@@ -256,29 +238,6 @@ func main() {
 		id := c.Param("id")
 
 		err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// This endpoint updates a game in the TestGameEndpoints table
-	// tested using Thunder Client: http://localhost:8080/update-game/69/baba/booey
-	r.PUT("/update-game/:id/:title/:desc", func(c *gin.Context) {
-		var res []map[string]interface{}
-		title := c.Param("title")
-		desc := c.Param("desc")
-		id := c.Param("id")
-
-		err := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
-			"Name":           title,
-			"About the game": desc,
-		}).Eq("AppID", id).Execute(&res)
-
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
