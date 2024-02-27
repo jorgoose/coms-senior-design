@@ -58,8 +58,10 @@ const dummyData = [
 export default function Gameview() {
     const [selectedView, setSelectedView] = useState('overview');
 
-    const desc = dummyData[0]["About the game"];
-    const dev = dummyData[0].Developers;
+    const parsed = dummyData[0];
+
+    const desc = parsed["About the game"];
+    const dev = parsed.Developers;
 
     const renderContent = (): JSX.Element => {
         switch (selectedView) {

@@ -1,4 +1,5 @@
 // This will display all the other games made by the same developer
+// Right now it displays the developer
 interface DeveloperProfileContentProps {
     developer: string
 }
