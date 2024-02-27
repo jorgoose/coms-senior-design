@@ -35,9 +35,10 @@ jobs:
             cd coms-senior-design/backend
             git pull
 
-            # Add Go to PATH
-            export PATH=$(go env GOPATH)/bin:$PATH
-
+            # Add Go to PATH and set GOROOT
+            export PATH=$PATH:/usr/local/go/bin
+            export GOROOT=/usr/local/go
+            
             # Generate docs using Swagger
             swag init
 
