@@ -38,13 +38,14 @@ jobs:
             # Add Go to PATH and set GOROOT
             export PATH=$PATH:/usr/local/go/bin
             export GOROOT=/usr/local/go
+
+            export PATH=$(go env GOPATH)/bin:$PATH
             
             # Generate docs using Swagger
             swag init
 
             # Combinee the three above lines into a one liner for "go run ."
-            go run . > /dev/null 2>&1 &
-            echo "Server started"
+            go run . &
         
             # Exit
             exit 0
