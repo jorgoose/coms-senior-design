@@ -50,22 +50,6 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// This endpoint retrieves a single column from the TestGameEndpoints table
-	// localhost:8080/request/AppID
-	r.GET("/request/:collum", func(c *gin.Context) {
-		collum := c.Param("collum")
-		var res []map[string]interface{}
-		err := supabase.DB.From("TestGameEndpoints").Select(collum).Execute(&res)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
 	// This endpoint selects all elements where its collum == equal
 	r.GET("/request/:sele/:collum/:equal", func(c *gin.Context) {
 		sele := c.Param("sele")
