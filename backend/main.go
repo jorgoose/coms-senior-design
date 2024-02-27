@@ -60,9 +60,23 @@ func main() {
 
 		c.JSON(http.StatusOK, res)
 	})
-	
+
+	r.GET("/request/:dev", func(c *gin.Context) {
+		dev := c.Param("dev")
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select("AppID").Eq("Developers", dev).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	// This endpoint retrieves a single game from the TestGameEndpoints table
-	// localhost:8080/get-one-game/80 
+	// localhost:8080/get-one-game/80
 	r.GET("/get-one-game/:id", func(c *gin.Context) {
 		var res []map[string]interface{}
 		id := c.Param("id")
@@ -94,13 +108,13 @@ func main() {
 	})
 
 	// This endpoint sends a game to the TestGameEndpoints table
-	
+
 	r.POST("/sendgame", func(c *gin.Context) {
 		var res []map[string]interface{}
 
 		var game GameBody
 
-		// Parse JSON data from the request body | 
+		// Parse JSON data from the request body |
 		if err := c.BindJSON(&game); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
@@ -170,10 +184,10 @@ func main() {
 		title := c.Param("title")
 		desc := c.Param("desc")
 		id := c.Param("id")
-		
+
 		err := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
-			"AppID": id,
-			"Name": title,
+			"AppID":          id,
+			"Name":           title,
 			"About the game": desc,
 		}).Execute(&res)
 
@@ -261,7 +275,7 @@ func main() {
 		id := c.Param("id")
 
 		err := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
-			"Name": title,
+			"Name":           title,
 			"About the game": desc,
 		}).Eq("AppID", id).Execute(&res)
 
