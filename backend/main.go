@@ -61,7 +61,7 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	r.GET("/request/:dev", func(c *gin.Context) {
+	r.GET("/AppID/:dev", func(c *gin.Context) {
 		dev := c.Param("dev")
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select("AppID").Eq("Developers", dev).Execute(&res)
