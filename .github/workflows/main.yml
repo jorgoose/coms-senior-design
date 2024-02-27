@@ -46,6 +46,3 @@ jobs:
 
             # Combinee the three above lines into a one liner for "go run ."
             go run . &
-        
-            # Exit
-            exit 0
