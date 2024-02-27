@@ -9,6 +9,11 @@ import (
 	"github.com/gin-gonic/gin"
 	supa "github.com/nedpals/supabase-go"
 	"github.com/joho/godotenv"
+
+	// Docs
+	"github.com/swaggo/gin-swagger" // gin-swagger middleware
+	"github.com/swaggo/files"       // swagger embed files
+	_ "backend/docs"               // This is where the docs are found
 )
 
 func main() {
@@ -23,11 +28,11 @@ func main() {
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	// Swagger documentation endpoint
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// Example of using a handler function "ping" to handle the request
+	r.GET("/ping", ping)
 
 	// Why do we need "var res []map[string]interface{}"?
 	// ===================================================
@@ -69,4 +74,15 @@ func main() {
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(err) // General server failure
 	}
+}
+
+// @Summary Ping the server
+// @Description Check if the server is up and running
+// @Produce json
+// @Success 200 {object} string
+// @Router /ping [get]
+func ping(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "pong",
+	})
 }
