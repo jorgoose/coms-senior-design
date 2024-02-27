@@ -27,7 +27,7 @@ jobs:
           key: ${{ secrets.BACKEND_SSH_KEY }}
           script: |
             # Stop the server if it's running
-            curl -k -X GET https://localhost:8080/shutdown || true
+            curl -k -X GET http://localhost:8080/shutdown || true
             # Wait for the server to stop
             sleep 5
 
