@@ -15,6 +15,14 @@ This document outlines the contributions and accomplishments of each team member
 ## Backend and Serverless Functions
 
 ### David:
+- Set up the Supabase tables
+    - Games
+    - GameAnalytics
+    - GameConcepts
+    - Reviews
+    - Users
+- Selected and provided the frontend with test Game data
+    - Stored the test Game data in table TestGamesEndpoint
 
 ### Sam:
 
