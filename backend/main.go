@@ -61,7 +61,7 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// This endpoint gets collum for
+	// This endpoint selects all elements where its collum == equal
 	r.GET("/request/:sele/:collum/:equal", func(c *gin.Context) {
 		sele := c.Param("sele")
 		collum := c.Param("collum")
