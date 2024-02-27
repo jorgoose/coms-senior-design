@@ -1,11 +1,13 @@
 package main
 
 import (
+	// Stdlib imports
 	"backend/utils"
 	"context"
 	"fmt"
 	"net/http"
 
+	// External dependencies
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"

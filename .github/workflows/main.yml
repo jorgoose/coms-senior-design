@@ -35,6 +35,12 @@ jobs:
             cd coms-senior-design/backend
             git pull
 
+            # Add Go to PATH
+            export PATH=$(go env GOPATH)/bin:$PATH
+
+            # Generate docs using Swagger
+            swag init
+
             # Build binary (to use updated code)
             go build -o main
 
