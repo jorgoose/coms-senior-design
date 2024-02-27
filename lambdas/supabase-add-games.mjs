@@ -24,7 +24,7 @@ export async function handler(event) {
   return { statusCode: 200, body: JSON.stringify(data) };
 }
 
-//this expects the following json...probably going to tweak in future
+// This expects JSON in a specific format... probably going to tweak in future
 // {
 //   "steamData": {
 //     "games": [
