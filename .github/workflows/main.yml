@@ -41,11 +41,8 @@ jobs:
             # Generate docs using Swagger
             swag init
 
-            # Build binary (to use updated code)
-            go build -o main
-
-            # Start the server in the background so the action can complete
-            sudo nohup ./main > /dev/null 2>&1 &
+            # Combinee the three above lines into a one liner for "go run ."
+            go run . > /dev/null 2>&1 &
             echo "Server started"
         
             # Exit
