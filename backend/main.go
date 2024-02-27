@@ -18,7 +18,7 @@ import (
 	_ "backend/docs"               // This is where the docs are found
 )
 
-// To start the server: "go run ." or "go run main.go"
+// To start the server: "go run ."
 
 func main() {
 	// Load .env file
