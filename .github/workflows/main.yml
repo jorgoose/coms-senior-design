@@ -45,4 +45,4 @@ jobs:
             swag init
 
             # Combinee the three above lines into a one liner for "go run ."
-            go run . &
+            nohup go run . > app.log 2>&1 &
