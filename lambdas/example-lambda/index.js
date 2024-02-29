@@ -2,7 +2,7 @@
 exports.handler = async (event) => {
     const response = {
         statusCode: 200,
-        body: JSON.stringify('Auto deployments for Lambda functions are pretty rad'),
+        body: JSON.stringify('La Lambda habla en Español ahora!'),
     };
     return response;
 }

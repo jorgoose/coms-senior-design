@@ -40,13 +40,13 @@ jobs:
           aws-region: us-east-2
 
       # This will delete all the lambdas that are not in the repository. Need to be careful and transfer existing Lambdas into this repository before enabling.
-      # - name: Delete removed Lambdas
-      #   run: |
-      #     for lambda in $(aws lambda list-functions --query 'Functions[*].[FunctionName]' --output text); do
-      #       if [[ ! -d "./lambdas/${lambda}" ]]; then
-      #         aws lambda delete-function --function-name ${lambda}
-      #       fi
-      #     done
+      - name: Delete removed Lambdas
+        run: |
+          for lambda in $(aws lambda list-functions --query 'Functions[*].[FunctionName]' --output text); do
+            if [[ ! -d "./lambdas/${lambda}" ]]; then
+              aws lambda delete-function --function-name ${lambda}
+            fi
+          done
       
       - name: Zip Lambda functions
         run: zip -j ${{matrix.lambda}}.zip ./lambdas/${{matrix.lambda}}/index.js
