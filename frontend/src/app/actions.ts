@@ -11,7 +11,7 @@ export async function signIn(prevState: any, formData: FormData) {
     const supabase = createClient(cookieStore);
 
     // type-casting here for convenience
-    // in practice, you should validate your inputs
+    // in practice, we should validate your inputs
     const data = {
         email: formData.get('email') as string,
         password: formData.get('password') as string,
@@ -21,7 +21,7 @@ export async function signIn(prevState: any, formData: FormData) {
 
     if (error) {
         return {
-            message: 'Please enter valid credentials',
+            message: error.message,
         }
     } else {
         revalidatePath('/', 'layout');
@@ -34,7 +34,7 @@ export async function signUp(prevState: any, formData: FormData) {
     const supabase = createClient(cookieStore)
   
     // type-casting here for convenience
-    // in practice, you should validate your inputs
+    // in practice, we should validate your inputs
     const data = {
         username: formData.get('username') as string,
         email: formData.get('email') as string,
@@ -46,7 +46,7 @@ export async function signUp(prevState: any, formData: FormData) {
   
     if (error) {
         return {
-            message: 'Account already in use',
+            message: error.message,
         }
     } else {
         revalidatePath('/', 'layout');
