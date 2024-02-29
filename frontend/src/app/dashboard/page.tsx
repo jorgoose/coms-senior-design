@@ -8,6 +8,7 @@ import SideBarComp from "../../components/SideBarComp";
 import BellIcon from "../../components/icons/BellIcon"
 import DropdownComp from "@/components/DropdownComp";
 import SearchBar from "@/components/SearchBar";
+import TestComp from "@/components/TestComp";
 
 export default async function Home() {
     const cookieStore = cookies();
@@ -47,6 +48,7 @@ export default async function Home() {
                         <DropdownComp />
                     </header>
                 </div>
+                <TestComp />
             </div>
         </>
     );
