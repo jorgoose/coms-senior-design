@@ -10,6 +10,9 @@ import Link from "next/link";
 import GamepadIcon from "@/components/icons/GamepadIcon";
 import BellIcon from "@/components/icons/BellIcon";
 import DropdownComp from "@/components/DropdownComp";
+import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { createClient } from '@/utils/supabase/server'
 
 const dummyData = [
     {
@@ -55,7 +58,15 @@ const dummyData = [
     }
 ]
 
-export default function Gameview() {
+export default async function Gameview() {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+  
+    const { data, error } = await supabase.auth.getUser();
+    if (error || !data?.user) {
+      redirect('/login');
+    }
+
     const [selectedView, setSelectedView] = useState('overview');
 
     const parsed = dummyData[0];
