@@ -11,6 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
+	"github.com/gin-contrib/cors"
 
 	// Docs
 	"github.com/swaggo/gin-swagger" // gin-swagger middleware
@@ -27,6 +28,10 @@ func main() {
 	}
 
 	r := gin.Default()
+
+	// CORS (Allows all origins)
+	r.Use(cors.Default())
+	
 	resourceManager := utils.ResourceManager{}
 	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
