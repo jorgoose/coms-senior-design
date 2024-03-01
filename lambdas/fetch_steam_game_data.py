@@ -42,9 +42,22 @@ def get_game_info(appid):
     
 def cleanse_games_data(games_data):
     for game in games_data:
+
+        # The key "supported_languages" is a string with a comma-separated list of languages
+        # We want to convert it into a list of languages. First remove the HTML tags from the string
+        game["supported_languages"] = BeautifulSoup(game["supported_languages"], "html.parser").get_text()
+
+        # Remove "*languages with full audio support" and "*"'s from the string
+        game["supported_languages"] = game["supported_languages"].replace("*languages with full audio support", "")
+        game["supported_languages"] = game["supported_languages"].replace("*", "")
+
+        # Then store the array of languages in the key "supported_languages"
+        game["supported_languages"] = game["supported_languages"].split(", ")
+
         # The keys "detailed_description" and "short_description" contain HTML tags which we want to remove
-        game["detailed_description"] = BeautifulSoup(game["detailed_description"], "lxml").text
-        game["short_description"] = BeautifulSoup(game["short_description"], "lxml").text
+        # We need to remove the HTML tags from the string
+        game["detailed_description"] = BeautifulSoup(game["detailed_description"], "html.parser").get_text()
+        game["short_description"] = BeautifulSoup(game["short_description"], "html.parser").get_text()
 
         # For the keys "pc_requirements", "mac_requirements", and "linux_requirements", we want to extract the "minimum" and "recommended" values into separate keys (ex: "pc_requirements_min", "pc_requirements_rec", etc.)
         # Then remove the original keys
@@ -77,7 +90,7 @@ def main():
     # Initialize an empty list to store game data
     fetched_game_data = []
 
-    num_games_to_fetch = 50
+    num_games_to_fetch = 10
 
     start_time = time.time()
 
