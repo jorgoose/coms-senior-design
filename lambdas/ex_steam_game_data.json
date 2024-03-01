@@ -181,7 +181,7 @@
                 "path_full": "https://cdn.akamai.steamstatic.com/steam/apps/10/0000002543.1920x1080.jpg?t=1666823513"
             }
         ],
-        "recommendations": 147200,
+        "recommendations": 147207,
         "release_date": {
             "coming_soon": false,
             "date": "Nov 1, 2000"
@@ -204,9 +204,10 @@
                 "rating": "16"
             }
         },
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -340,7 +341,7 @@
                 "path_full": "https://cdn.akamai.steamstatic.com/steam/apps/20/0000000168.1920x1080.jpg?t=1579634708"
             }
         ],
-        "recommendations": 5905,
+        "recommendations": 5906,
         "release_date": {
             "coming_soon": false,
             "date": "Apr 1, 1999"
@@ -359,9 +360,10 @@
             "notes": "Includes intense violence and blood."
         },
         "ratings": null,
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -510,9 +512,10 @@
                 "rating": "16"
             }
         },
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -657,9 +660,10 @@
             "notes": null
         },
         "ratings": null,
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -780,7 +784,7 @@
                 "path_full": "https://cdn.akamai.steamstatic.com/steam/apps/50/0000000159.1920x1080.jpg?t=1579628243"
             }
         ],
-        "recommendations": 18189,
+        "recommendations": 18194,
         "release_date": {
             "coming_soon": false,
             "date": "Nov 1, 1999"
@@ -796,9 +800,10 @@
             "notes": null
         },
         "ratings": null,
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -955,9 +960,10 @@
                 "descriptors": ""
             }
         },
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -1155,7 +1161,7 @@
                 "path_full": "https://cdn.akamai.steamstatic.com/steam/apps/70/0000002351.1920x1080.jpg?t=1700269108"
             }
         ],
-        "recommendations": 89440,
+        "recommendations": 89446,
         "release_date": {
             "coming_soon": false,
             "date": "Nov 8, 1998"
@@ -1179,9 +1185,10 @@
                 "rating": "16"
             }
         },
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -1323,7 +1330,7 @@
                 "path_full": "https://cdn.akamai.steamstatic.com/steam/apps/80/0000002535.1920x1080.jpg?t=1602535977"
             }
         ],
-        "recommendations": 17989,
+        "recommendations": 17992,
         "release_date": {
             "coming_soon": false,
             "date": "Mar 1, 2004"
@@ -1343,7 +1350,8 @@
                 "rating": "18"
             }
         },
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection"
     },
     {
         "type": "game",
@@ -1459,7 +1467,7 @@
                 "path_full": "https://cdn.akamai.steamstatic.com/steam/apps/130/0000000131.1920x1080.jpg?t=1579629868"
             }
         ],
-        "recommendations": 13393,
+        "recommendations": 13394,
         "release_date": {
             "coming_soon": false,
             "date": "Jun 1, 2001"
@@ -1475,9 +1483,10 @@
             "notes": null
         },
         "ratings": null,
-        "pc_requirements_min": "\r\n\t\t\t<p><strong>Minimum:</strong> 500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t<p><strong>Recommended:</strong> 800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection<br /></p>\r\n\t\t\t",
-        "mac_requirements_min": "Minimum: OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
-        "linux_requirements_min": "Minimum: Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
+        "pc_requirements_min": "500 mhz processor, 96mb ram, 16mb video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "pc_requirements_rec": "800 mhz processor, 128mb ram, 32mb+ video card, Windows XP, Mouse, Keyboard, Internet Connection",
+        "mac_requirements_min": "OS X  Snow Leopard 10.6.3, 1GB RAM, 4GB Hard Drive Space,NVIDIA GeForce 8 or higher, ATI X1600 or higher, or Intel HD 3000 or higher Mouse, Keyboard, Internet Connection",
+        "linux_requirements_min": "Linux Ubuntu 12.04, Dual-core from Intel or AMD at 2.8 GHz, 1GB Memory, nVidia GeForce 8600/9600GT, ATI/AMD Radeaon HD2600/3600 (Graphic Drivers: nVidia 310, AMD 12.11), OpenGL 2.1, 4GB Hard Drive Space, OpenAL Compatible Sound Card"
     },
     {
         "type": "game",
@@ -1723,7 +1732,7 @@
                 "highlight": false
             }
         ],
-        "recommendations": 147250,
+        "recommendations": 147279,
         "achievements": {
             "total": 33,
             "highlighted": [
@@ -1792,7 +1801,7 @@
                 "descriptors": "Violenza\r\nPaura"
             }
         },
-        "pc_requirements_min": "<strong>Minimum:</strong><br><ul class=\"bb_ul\"><li><strong>OS *:</strong> Windows 7, Vista, XP<br></li><li><strong>Processor:</strong> 1.7 Ghz<br></li><li><strong>Memory:</strong> 512 MB RAM<br></li><li><strong>Graphics:</strong> DirectX 8.1 level Graphics Card (requires support for SSE)<br></li><li><strong>Storage:</strong> 6500 MB available space</li></ul>",
-        "mac_requirements_min": "<strong>Minimum:</strong><br><ul class=\"bb_ul\"><li><strong>OS:</strong> Leopard 10.5.8, Snow Leopard 10.6.3, or higher<br></li><li><strong>Memory:</strong> 1 GB RAM<br></li><li><strong>Graphics:</strong> Nvidia GeForce8 or higher, ATI X1600 or higher, Intel HD 3000 or higher</li></ul>"
+        "pc_requirements_min": "Minimum:OS *: Windows 7, Vista, XPProcessor: 1.7 GhzMemory: 512 MB RAMGraphics: DirectX 8.1 level Graphics Card (requires support for SSE)Storage: 6500 MB available space",
+        "mac_requirements_min": "Minimum:OS: Leopard 10.5.8, Snow Leopard 10.6.3, or higherMemory: 1 GB RAMGraphics: Nvidia GeForce8 or higher, ATI X1600 or higher, Intel HD 3000 or higher"
     }
 ]

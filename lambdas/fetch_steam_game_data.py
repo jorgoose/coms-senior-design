@@ -3,7 +3,8 @@ import json
 import time
 import os
 
-from bs4 import BeautifulSoup
+import warnings
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 
 # Load dotenv
 from dotenv import load_dotenv
@@ -63,13 +64,38 @@ def cleanse_games_data(games_data):
         # Then remove the original keys
         # For each platform, there's a possibility that the requirements value is an empty array, so we need to check for that
         # For minimum or recommended, there's a possibility that the key doesn't exist, so we need to check for that as well.
+
+        # Ignore the warning about the markup resembling a locator
+        warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
+
         for platform in ["pc_requirements", "mac_requirements", "linux_requirements"]:
             if game.get(platform):
                 if game[platform].get("minimum"):
                     game[f"{platform}_min"] = game[platform]["minimum"]
+                    # Remove non-text elements from the string (ex: <strong>, <br>, etc.)
+                    game[f"{platform}_min"] = BeautifulSoup(game[f"{platform}_min"], "html.parser").get_text()
+
+                    # If "Minimum:" is in the string, remove it
+                    game[f"{platform}_min"] = game[f"{platform}_min"].replace("Minimum: ", "")
+
+                    # Remove newlines from the string
+                    game[f"{platform}_min"] = game[f"{platform}_min"].replace("\n", "")
+
+                    # There is a special case where the minimum requirements string actually also contains the recommended requirements
+                    # This is indicated by the string "Recommended:" in the string
+                    # If this is the case, we need to split the string into two separate strings and assign accordingly
+                    if "Recommended:" in game[f"{platform}_min"]:
+                        game[f"{platform}_rec"] = game[f"{platform}_min"].split("Recommended: ")[1]
+                        game[f"{platform}_min"] = game[f"{platform}_min"].split("Recommended: ")[0]
+
                 if game[platform].get("recommended"):
                     game[f"{platform}_rec"] = game[platform]["recommended"]
+                    # Remove non-text elements from the string (ex: <strong>, <br>, etc.)
+                    game[f"{platform}_rec"] = BeautifulSoup(game[f"{platform}_rec"], "html.parser").get_text()
                 game.pop(platform)
+
+        # Re-enable the warning about the markup resembling a locator
+        warnings.filterwarnings("default", category=MarkupResemblesLocatorWarning)
 
         # "recommendations" should be set to the value of recommendations["total"]
         if game.get("recommendations"):
