@@ -103,7 +103,7 @@ func main() {
 
 	// This endpoint updates a game in the TestGameEndpoints table
 	// using query string parameters instead of URL parameters
-	// tested using Thunder Client: http://localhost:8080/update-game?AppID=69&collum=Name&value=UpdatedName
+	// tested using Thunder Client: http://localhost:8080/update-game?AppID=620&collum=Name&value=Test
 	r.PUT("/update-game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -126,10 +126,10 @@ func main() {
 
 		c.JSON(http.StatusOK, res)
 	})
-	
+
 	// This endpoint deletes a game in the TestGameEndpoints table
 	// using query string parameters instead of URL parameters
-	// tested using Thunder Client: http://localhost:8080/delete-game?AppID=69
+	// tested using Thunder Client: http://localhost:8080/delete-game?AppID=620
 	r.DELETE("/delete-game", func(c *gin.Context) {
 		var res []map[string]interface{}
 		id := c.Query("AppID")
@@ -146,6 +146,8 @@ func main() {
 	})
 
 	// This endpoint sends a game to the TestGameEndpoints table
+	// using a JSON body, pinned in #backend in the Discord server
+	// note, the JSON body is subject to change once steam data is available.
 	r.POST("/send-game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
