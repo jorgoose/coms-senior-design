@@ -37,13 +37,18 @@ func main() {
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
 	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: r,
+	}
+
 	// Swagger documentation endpoint
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Example of using a handler function "ping" to handle the request
 	r.GET("/ping", ping)
 
-	// This endpoint retrieves all games from the TestGameEndpoints table
+	// This endpoint retrieves all data for all games from the TestGameEndpoints table
 	r.GET("/get-all-games", func(c *gin.Context) {
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
@@ -58,10 +63,14 @@ func main() {
 	})
 
 	// This endpoint selects all elements where its collum == equal
-	r.GET("/request/:sele/:collum/:equal", func(c *gin.Context) {
-		sele := c.Param("sele")
-		collum := c.Param("collum")
-		equal := c.Param("equal")
+	// using query string parameters instead of URL parameters
+	// lhttp://localhost:8080/request?sele=AppID&collum=Name&equal=Portal%202
+	// the above endpoint returns the AppID of the game named Portal 2,
+	// note that the game name has a space in it, so it is encoded as %20
+	r.GET("/request", func(c *gin.Context) {
+		sele := c.Query("sele")
+		collum := c.Query("collum")
+		equal := c.Query("equal")
 
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select(sele).Eq(collum, equal).Execute(&res)
@@ -75,12 +84,57 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// This endpoint retrieves a single game from the TestGameEndpoints table
-	// localhost:8080/requestgame/80
-	r.GET("/requestgame/:AppID", func(c *gin.Context) {
-		id := c.Param("AppID")
+	// This endpoint retrieves a single game form the TestGamesEndpoints table
+	// This will use a query string parameter instead of the URL parameter
+	// localhost:8080/request-game?AppID=80
+	r.GET("/request-game", func(c *gin.Context) {
+		appID := c.Query("AppID")
 		var res []map[string]interface{}
-		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", id).Execute(&res)
+		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", appID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint updates a game in the TestGameEndpoints table
+	// using query string parameters instead of URL parameters
+	// tested using Thunder Client: http://localhost:8080/update-game?AppID=620&collum=Name&value=Test
+	r.PUT("/update-game", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		// Get the ID from the URL parameter
+		id := c.Query("AppID")
+		collum := c.Query("collum")
+		value := c.Query("value")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
+			collum: value, // Update
+		}).Eq("AppID", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint deletes a game in the TestGameEndpoints table
+	// using query string parameters instead of URL parameters
+	// tested using Thunder Client: http://localhost:8080/delete-game?AppID=620
+	r.DELETE("/delete-game", func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("AppID")
+
+		err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -92,8 +146,9 @@ func main() {
 	})
 
 	// This endpoint sends a game to the TestGameEndpoints table
-
-	r.POST("/sendgame", func(c *gin.Context) {
+	// using a JSON body, pinned in #backend in the Discord server
+	// note, the JSON body is subject to change once steam data is available.
+	r.POST("/send-game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
 		var game GameBody
@@ -158,56 +213,6 @@ func main() {
 
 		c.JSON(http.StatusOK, res)
 	})
-
-	// This endpoint updates a game in the TestGameEndpoints table
-	// tested using Thunder Client: http://localhost:8080/updategame/69/Name/UpdatedName
-	r.PUT("/updategame/:id/:collum/:value", func(c *gin.Context) {
-		var res []map[string]interface{}
-
-		// Get the ID from the URL parameter
-		id := c.Param("id")
-		collum := c.Param("collum")
-		value := c.Param("value")
-
-		// Update the specified record in the Supabase database
-		updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
-			collum: value, // Update
-		}).Eq("AppID", id).Execute(&res)
-
-		if updateResult != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": updateResult.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// This endpoint deletes a game in the TestGameEndpoints table
-	// tested using Thunder Client: http://localhost:8080/delete-game/69
-	// This runs based off of the AppID, which frontend needs to somehow obtain.
-	// Or we just use title since title will always be unique, but then we have to
-	// deal with spaces and stuff. :(
-	r.DELETE("/delete-game/:AppID", func(c *gin.Context) {
-		var res []map[string]interface{}
-		id := c.Param("AppID")
-
-		err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: r,
-	}
 
 	r.GET("/shutdown", func(c *gin.Context) {
 		c.JSON(200, gin.H{
