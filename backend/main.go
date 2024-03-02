@@ -76,9 +76,26 @@ func main() {
 	})
 
 	// This endpoint retrieves a single game from the TestGameEndpoints table
-	// localhost:8080/requestgame/80
-	r.GET("/requestgame/:AppID", func(c *gin.Context) {
+	// localhost:8080/request-game/80
+	r.GET("/request-game/:AppID", func(c *gin.Context) {
 		id := c.Param("AppID")
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint retrieves a single game form the TestGamesEndpoints table
+	// This will use a query string parameter instead of the URL parameter
+	// localhost:8080/request-game?AppID=80
+	r.GET("/request-game", func(c *gin.Context) {
+		id := c.Query("AppID")
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", id).Execute(&res)
 		if err != nil {
