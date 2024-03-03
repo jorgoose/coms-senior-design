@@ -8,6 +8,7 @@ import SideBarComp from "../../components/SideBarComp";
 import BellIcon from "../../components/icons/BellIcon"
 import DropdownComp from "@/components/DropdownComp";
 import SearchBar from "@/components/SearchBar";
+import GameCard from "@/components/GameCardComp";
 
 export default async function Home() {
     const cookieStore = cookies();
@@ -17,6 +18,45 @@ export default async function Home() {
     if (error || !data?.user) {
       redirect('/login');
     }
+
+    const games = [
+        {
+            id: 1,
+            title: "The Legend of Zelda: Breath of the Wild",
+            description: "Explore the wilds of Hyrule any way you like.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 2,
+            title: "God of War",
+            description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 3,
+            title: "The Witcher 3: Wild Hunt",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 4,
+            title: "Overwatch",
+            description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 5,
+            title: "Minecraft",
+            description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 6,
+            title: "Cyberpunk 2077",
+            description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+    ];
   
     return (
         <>
@@ -46,6 +86,15 @@ export default async function Home() {
                         </div>
                         <DropdownComp />
                     </header>
+                    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+                        <div className="p-5">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                                {games.map((game) => (
+                                    <GameCard key={game.id} game={game} />
+                                ))}
+                            </div>
+                        </div>
+                    </main>
                 </div>
             </div>
         </>
