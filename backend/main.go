@@ -29,8 +29,13 @@ func main() {
 
 	r := gin.Default()
 
-	// CORS (Allows all origins)
-	r.Use(cors.Default())
+	r.Use(cors.New(cors.Config{
+        AllowOrigins:     []string{"*"}, 
+        AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
+        AllowHeaders:     []string{"Origin", "Content-Type"},
+        ExposeHeaders:    []string{"Content-Length"},
+        AllowCredentials: true,
+    }))
 	
 	resourceManager := utils.ResourceManager{}
 	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
@@ -204,6 +209,7 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// Start the server
 	srv := &http.Server{
 		Addr:    ":8080",
 		Handler: r,
@@ -221,7 +227,7 @@ func main() {
 	})
 
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-		panic(err) // General server failure
+		panic(err) // failure/timeout starting the server
 	}
 }
 
