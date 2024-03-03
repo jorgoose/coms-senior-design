@@ -6,17 +6,19 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 
 	// External dependencies
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
-	"github.com/gin-contrib/cors"
 
 	// Docs
-	"github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"github.com/swaggo/files"       // swagger embed files
-	_ "backend/docs"               // This is where the docs are found
+	_ "backend/docs" // This is where the docs are found
+
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 // To start the server: "go run .". This will start the server on port 8080 by default, with a shutdown endpoint at /shutdown.
@@ -31,7 +33,7 @@ func main() {
 
 	// CORS (Allows all origins)
 	r.Use(cors.Default())
-	
+
 	resourceManager := utils.ResourceManager{}
 	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
@@ -91,6 +93,56 @@ func main() {
 		appID := c.Query("AppID")
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", appID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	r.GET("/request-game-genres", func(c *gin.Context) {
+		Genres := c.Query("Genres")
+		var res []map[string]interface{}
+
+		Genres_array := strings.Split(Genres, ",")
+
+		//Filter for what we want
+		body := supabase.DB.From("TestGameEndpoints").Select()
+
+		fmt.Print(Genres_array)
+
+		// TODO
+		body.In("Genres", Genres_array)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// get games allowed for ages > age
+	r.GET("/request-game-age", func(c *gin.Context) {
+		age := c.Query("age")
+		var res []map[string]interface{}
+
+		//Filter for what we want
+		body := supabase.DB.From("TestGameEndpoints").Select()
+
+		body.Gt("Required age", age)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
