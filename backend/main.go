@@ -153,6 +153,30 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// get games released between two dates
+	r.GET("/request-game-date", func(c *gin.Context) {
+		from := c.Query("from")
+		to := c.Query("to")
+		var res []map[string]interface{}
+
+		//Filter for what we want
+		body := supabase.DB.From("TestGameEndpoints").Select()
+
+		body.Gt("Release date", from).Lt("Release date", to)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	// This endpoint updates a game in the TestGameEndpoints table
 	// using query string parameters instead of URL parameters
 	// tested using Thunder Client: http://localhost:8080/update-game?AppID=620&collum=Name&value=Test
