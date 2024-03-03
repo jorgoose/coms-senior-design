@@ -97,10 +97,12 @@ export default async function Home() {
                 <div className="flex flex-col">
                     <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b border-stone-700 bg-stone-800 px-6">
                         <div className="w-full flex-1">
-                            <SearchBar 
-                                placeholder="Search games..."
-                                type="search"
-                            />
+                            <div className="p-5">
+                                <SearchBar 
+                                    placeholder="Search games..."
+                                    type="search"
+                                />
+                            </div>
                         </div>
                         <DropdownComp />
                     </header>
