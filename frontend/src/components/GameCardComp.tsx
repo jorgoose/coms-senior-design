@@ -12,17 +12,12 @@ interface GameCardProps {
 
 const GameCard: React.FC<GameCardProps> = ({ className = '', game }) => {
     return (
-        <div className="w-48 h-64 bg-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flip-card">
-      <div className="flip-card-inner">
-        <div className="flip-card-front">
-          <img src={game.imageUrl} alt={game.title} className="w-full h-full object-cover"/>
+        <div className="w-48 h-60 bg-stone-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition duration-300 ease-in-out">
+            <img className="w-full h-2/3 object-cover" src={game.imageUrl} alt={`Cover for ${game.title}`} />
+            <div className="px-4 py-2 h-1/3 flex items-center">
+                <h3 className="text-white text-sm font-bold">{game.title}</h3>
+            </div>
         </div>
-        <div className="bg-gray-700 bg-opacity-75 text-white p-4 flip-card-back">
-          <h3 className="text-lg font-bold">{game.title}</h3>
-          <p className="text-sm">{game.description}</p>
-        </div>
-      </div>
-    </div>
     );
 };
 

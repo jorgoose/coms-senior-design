@@ -56,6 +56,24 @@ export default async function Home() {
             description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
             imageUrl: "https://via.placeholder.com/150",
         },
+        {
+            id: 7,
+            title: "The Legend of Zelda: Breath of the Wild",
+            description: "Explore the wilds of Hyrule any way you like.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 8,
+            title: "God of War",
+            description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
+        {
+            id: 9,
+            title: "The Witcher 3: Wild Hunt",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://via.placeholder.com/150",
+        },
     ];
   
     return (
@@ -88,7 +106,7 @@ export default async function Home() {
                     </header>
                     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
                         <div className="p-5">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
                                 {games.map((game) => (
                                     <GameCard key={game.id} game={game} />
                                 ))}
