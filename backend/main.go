@@ -103,6 +103,7 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// Gets genres that exactly match whats given | needs more testing
 	r.GET("/request-game-genres", func(c *gin.Context) {
 		Genres := c.Query("Genres")
 		var res []map[string]interface{}
@@ -115,7 +116,7 @@ func main() {
 		fmt.Print(Genres_array)
 
 		// TODO
-		body.In("Genres", Genres_array)
+		body.Cd("Genres", Genres_array)
 
 		// Execute Filter
 		err := body.Execute(&res)
