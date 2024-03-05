@@ -103,7 +103,7 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// Gets genres that exactly match whats given | needs more testing
+	// Gets genres that have whats requested.
 	r.GET("/request-game-genres", func(c *gin.Context) {
 		Genres := c.Query("Genres")
 		var res []map[string]interface{}
@@ -113,10 +113,34 @@ func main() {
 		//Filter for what we want
 		body := supabase.DB.From("TestGameEndpoints").Select()
 
-		fmt.Print(Genres_array)
+		// TODO
+		body.Cs("Genres", Genres_array)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// Gets Languages that have whats requested.
+	r.GET("/request-game-lang", func(c *gin.Context) {
+		Languages := c.Query("Languages")
+		var res []map[string]interface{}
+
+		Languages_array := strings.Split(Languages, ",")
+
+		//Filter for what we want
+		body := supabase.DB.From("TestGameEndpoints").Select()
 
 		// TODO
-		body.Cd("Genres", Genres_array)
+		body.Cs("Supported languages", Languages_array)
 
 		// Execute Filter
 		err := body.Execute(&res)
