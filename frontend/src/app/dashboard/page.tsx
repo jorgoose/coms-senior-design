@@ -68,13 +68,139 @@ export default async function Home() {
             description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
             imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
         },
+        {
+            id: 12,
+            title: "Destiny 2",
+            description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+        },
+        {
+            id: 13,
+            title: "Counter Strike: Condition Zero",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+        },
+        {
+            id: 14,
+            title: "Team Fortress",
+            description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+        },
+        {
+            id: 15,
+            title: "PUBG Battlegrounds",
+            description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+        },
+        {
+            id: 16,
+            title: "Apex Legends",
+            description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+        },
+        {
+            id: 17,
+            title: "Alf Life: Episode Two",
+            description: "Explore the wilds of Hyrule any way you like.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+        },
+        {
+            id: 19,
+            title: "Dota Two",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+        },
+        {
+            id: 22,
+            title: "Destiny 2",
+            description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+        },
+        {
+            id: 23,
+            title: "Counter Strike: Condition Zero",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+        },
+        {
+            id: 24,
+            title: "Team Fortress",
+            description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+        },
+        {
+            id: 25,
+            title: "PUBG Battlegrounds",
+            description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+        },
+        {
+            id: 26,
+            title: "Apex Legends",
+            description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+        },
+        {
+            id: 72,
+            title: "Alf Life: Episode Two",
+            description: "Explore the wilds of Hyrule any way you like.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+        },
+        {
+            id: 29,
+            title: "Dota Two",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+        },
+        {
+            id: 32,
+            title: "Destiny 2",
+            description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+        },
+        {
+            id: 33,
+            title: "Counter Strike: Condition Zero",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+        },
+        {
+            id: 43,
+            title: "Team Fortress",
+            description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+        },
+        {
+            id: 35,
+            title: "PUBG Battlegrounds",
+            description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+        },
+        {
+            id: 36,
+            title: "Apex Legends",
+            description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+        },
+        {
+            id: 37,
+            title: "Alf Life: Episode Two",
+            description: "Explore the wilds of Hyrule any way you like.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+        },
+        {
+            id: 39,
+            title: "Dota Two",
+            description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+        },
     ];
   
     return (
         <>
-            <div className="dark grid min-h-screen w-full lg:grid-cols-[280px_1fr] bg-gradient-to-r from-stone-500 text-stone-200">
-                <div className="hidden border-r border-stone-700 bg-stone-800 lg:block">
-                    <div className="flex h-full max-h-screen flex-col gap-2">
+            <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
+                <div className="fixed top-0 left-0 h-screen w-[280px] border-r border-stone-700 bg-stone-800 overflow-auto lg:block">
+                    <div className="flex flex-col gap-2">
                         <div className="flex h-[60px] items-center border-b border-stone-700 px-5">
                             <Link className="flex items-center gap-2 font-semibold" href="#">
                                 <GamepadIcon className="h-6 w-6" />
@@ -88,8 +214,8 @@ export default async function Home() {
                         <SideBarComp />
                     </div>
                 </div>
-                <div className="flex flex-col">
-                    <header className="flex h-14 lg:h-[60px] items-center gap-4 border-b border-stone-700 bg-stone-800 px-6">
+                <div className="flex flex-col w-full lg:pl-[280px]">
+                    <header className="fixed top-0 z-10 w-full h-14 lg:h-[60px] border-b border-stone-700 bg-stone-800 px-6 flex items-center gap-4">
                         <div className="w-full flex-1">
                             <div className="p-5">
                                 <SearchBar 
@@ -100,7 +226,7 @@ export default async function Home() {
                         </div>
                         <DropdownComp />
                     </header>
-                    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
+                    <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6 pt-[60px] lg:pt-[60px] overflow-auto">
                         <div className="p-5">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                                 {games.map((game) => (
