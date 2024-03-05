@@ -22,57 +22,51 @@ export default async function Home() {
     const games = [
         {
             id: 1,
-            title: "The Legend of Zelda: Breath of the Wild",
+            title: "Rainbow Six Siege",
             description: "Explore the wilds of Hyrule any way you like.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1655223333",
         },
         {
             id: 2,
-            title: "God of War",
+            title: "Destiny 2",
             description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
         },
         {
             id: 3,
-            title: "The Witcher 3: Wild Hunt",
+            title: "Counter Strike: Condition Zero",
             description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
         },
         {
             id: 4,
-            title: "Overwatch",
+            title: "Team Fortress",
             description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
         },
         {
             id: 5,
-            title: "Minecraft",
+            title: "PUBG Battlegrounds",
             description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
         },
         {
             id: 6,
-            title: "Cyberpunk 2077",
+            title: "Apex Legends",
             description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
         },
         {
             id: 7,
-            title: "The Legend of Zelda: Breath of the Wild",
+            title: "Alf Life: Episode Two",
             description: "Explore the wilds of Hyrule any way you like.",
-            imageUrl: "https://via.placeholder.com/150",
-        },
-        {
-            id: 8,
-            title: "God of War",
-            description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
         },
         {
             id: 9,
-            title: "The Witcher 3: Wild Hunt",
+            title: "Dota Two",
             description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-            imageUrl: "https://via.placeholder.com/150",
+            imageUrl: "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
         },
     ];
   
@@ -108,7 +102,7 @@ export default async function Home() {
                     </header>
                     <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
                         <div className="p-5">
-                            <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                                 {games.map((game) => (
                                     <GameCard key={game.id} game={game} />
                                 ))}
