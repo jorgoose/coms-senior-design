@@ -226,6 +226,38 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// Gets genres that have whats requested.
+	r.GET("/Filter-Game", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		Genres := c.Query("Genres")
+		Languages := c.Query("Languages")
+		Year := c.Query("Year")
+
+		Genres_array := strings.Split(Genres, ",")
+		Languages_array := strings.Split(Languages, ",")
+
+		//Filter for what we want
+		body := supabase.DB.From("TestGameEndpoints").Select()
+
+		// TODO
+		body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
+		body.Cs("Genres", Genres_array)
+		body.Cs("Supported languages", Languages_array)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	// This endpoint updates a game in the TestGameEndpoints table
 	// using query string parameters instead of URL parameters
 	// tested using Thunder Client: http://localhost:8080/update-game?AppID=620&collum=Name&value=Test
