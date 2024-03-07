@@ -31,15 +31,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup node
-        if: ${{ endsWith(matrix.lambda, '.js') }}
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Setup python
-        if: ${{ endsWith(matrix.lambda, '.py') }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
       - name: Get AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -53,17 +47,27 @@ jobs:
               aws lambda delete-function --function-name ${lambda}
             fi
           done
-      - name: Zip Lambda functions
+      - name: Determine runtime and handler
+        id: runtime_handler
         run: |
-          if [[ ${{ endsWith(matrix.lambda, '.js') }} == 'true' ]]; then
-            zip -j ${{matrix.lambda}}.zip ./lambdas/${{matrix.lambda}}/index.js
-          elif [[ ${{ endsWith(matrix.lambda, '.py') }} == 'true' ]]; then
-            zip -r ${{matrix.lambda}}.zip ./lambdas/${{matrix.lambda}}
+          if [ -f "./lambdas/${{ matrix.lambda }}/index.js" ]; then
+            echo "::set-output name=runtime::nodejs16.x"
+            echo "::set-output name=handler::index.handler"
+            echo "::set-output name=zip_file::./lambdas/${{ matrix.lambda }}/index.js"
+          elif [ -f "./lambdas/${{ matrix.lambda }}/lambda_function.py" ]; then
+            echo "::set-output name=runtime::python3.9"
+            echo "::set-output name=handler::lambda_function.lambda_handler"
+            echo "::set-output name=zip_file::./lambdas/${{ matrix.lambda }}/lambda_function.py"
+          else
+            echo "No supported lambda handler found"
+            exit 1
           fi
+      - name: Zip Lambda function
+        run: zip -j ${{ matrix.lambda }}.zip ${{ steps.runtime_handler.outputs.zip_file }}
       - name: Check if Lambda exists
         id: check_lambda
         run: |
-          if aws lambda get-function --function-name ${{matrix.lambda}}${{inputs.environment}}; then
+          if aws lambda get-function --function-name ${{ matrix.lambda }}; then
             echo "::set-output name=exists::true"
           else
             echo "::set-output name=exists::false"
@@ -71,11 +75,12 @@ jobs:
       - name: Create new Lambda function
         if: steps.check_lambda.outputs.exists == 'false'
         run: |
-          if [[ ${{ endsWith(matrix.lambda, '.js') }} == 'true' ]]; then
-            aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime nodejs16.x --role arn:aws:iam::652182311257:role/GitHubActionLambda --handler index.handler --zip-file fileb://${{matrix.lambda}}.zip
-          elif [[ ${{ endsWith(matrix.lambda, '.py') }} == 'true' ]]; then
-            aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime python3.9 --role arn:aws:iam::652182311257:role/GitHubActionLambda --handler lambda_function.lambda_handler --zip-file fileb://${{matrix.lambda}}.zip
-          fi
-      - name: Update Lambda code
+          aws lambda create-function \
+            --function-name ${{ matrix.lambda }} \
+            --runtime ${{ steps.runtime_handler.outputs.runtime }} \
+            --role arn:aws:iam::652182311257:role/GitHubActionLambda \
+            --handler ${{ steps.runtime_handler.outputs.handler }} \
+            --zip-file fileb://${{ matrix.lambda }}.zip
+      - name: Update Lambdas code
         if: steps.check_lambda.outputs.exists == 'true'
-        run: aws lambda update-function-code --function-name=${{matrix.lambda}}${{inputs.environment}} --zip-file=fileb://${{matrix.lambda}}.zip
+        run: aws lambda update-function-code --function-name=${{ matrix.lambda }} --zip-file=fileb://${{ matrix.lambda }}.zip

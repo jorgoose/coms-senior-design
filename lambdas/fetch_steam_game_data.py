@@ -89,7 +89,7 @@ def print_progress_bar(current, total, bar_length=20):
     spaces = " " * (bar_length - len(arrow))
     print(f"\rProgress: [{arrow + spaces}] {current}/{total}", end="", flush=True)
 
-
+# TODO: Extrapolate to seperate functions for seperation of concerns
 def main():
     game_id_list, have_more_results, last_appid = fetch_games_list()
     fetched_game_data = []
