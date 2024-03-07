@@ -25,7 +25,7 @@ def fetch_games_list():
     }
     response = requests.get(BASE_URL, params=params)
     data = response.json()["response"]
-
+    
     return data["apps"], data["have_more_results"], data["last_appid"]
 
 
@@ -82,7 +82,6 @@ def extract_requirements_text(requirements_html):
     requirements_text = requirements_text.replace("Minimum: ", "")
     requirements_text = requirements_text.replace("\n", "")
     return requirements_text
-
 
 def print_progress_bar(current, total, bar_length=20):
     progress = current / total
