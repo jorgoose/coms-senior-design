@@ -15,7 +15,7 @@ This is just one example of how Lambda functions can be used. They can also be u
 
 # How do I create a Lambda Function within the project?
 
-To create a new Lambda function:
+To create a new Lambda function using JavaScript (Node.js) in the project, follow these steps:
 
 1. Navigate to the `lambdas` directory in the root of the project.
 2. Create a new directory with the name of the Lambda function you want to create (i.e. "example-lambda")
@@ -33,6 +33,24 @@ exports.handler = async (event) => {
     };
     return response;
 };
+```
+
+To create a new Lambda function using Python, follow these steps:
+
+1. Navigate to the `lambdas` directory in the root of the project.
+2. Create a new directory with the name of the Lambda function you want to create (i.e. "example-lambda-python")
+3. Inside the new directory, create a file called `lambda_function.py` (i.e. `example-lambda-python/lambda_function.py`)
+4. Write your Lambda function handler code in the `lambda_function.py` file, nesting it inside a function called `lambda_handler`.
+
+Here's an example of what the `lambda_function.py` file might look like:
+
+```python
+def lambda_handler(event, context):
+    # Your custom Lambda function code would go in here
+    return {
+        'statusCode': 200,
+        'body': 'Hello from Lambda!'
+    }
 ```
 
 # I've added my Lambda function code, now what?
