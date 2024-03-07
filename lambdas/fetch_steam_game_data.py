@@ -25,7 +25,7 @@ def fetch_games_list():
     }
     response = requests.get(BASE_URL, params=params)
     data = response.json()["response"]
-    
+
     return data["apps"], data["have_more_results"], data["last_appid"]
 
 
@@ -106,7 +106,6 @@ def main():
     cleansed_game_data = cleanse_games_data(fetched_game_data)
     
     print(f"\nTime taken: {time.time() - start_time:.2f}s")
-
 
     with open("ex_steam_game_data.json", "w") as file:
         json.dump(cleansed_game_data, file, indent=4)
