@@ -26,6 +26,10 @@ def fetch_games_list():
     response = requests.get(BASE_URL, params=params)
     data = response.json()["response"]
 
+    # For now, restrict the number of games to 20
+    # TODO: Remove in finalized version in production
+    return data["apps"][:20], data["have_more_results"], data["last_appid"]
+
     return data["apps"], data["have_more_results"], data["last_appid"]
 
 
@@ -90,18 +94,17 @@ def print_progress_bar(current, total, bar_length=20):
     print(f"\rProgress: [{arrow + spaces}] {current}/{total}", end="", flush=True)
 
 # TODO: Extrapolate to seperate functions for seperation of concerns
-def main():
+def lambda_handler(event, context):
     game_id_list, have_more_results, last_appid = fetch_games_list()
     fetched_game_data = []
-    num_games_to_fetch = 100
     start_time = time.time()
 
-    for i, game in enumerate(game_id_list[:num_games_to_fetch]):
+    for i, game in enumerate(game_id_list):
         appid = game["appid"]
         game_info = fetch_game_info(appid)
         if game_info and game_info.get("success"):
             fetched_game_data.append(game_info["data"])
-        print_progress_bar(i + 1, num_games_to_fetch)
+        print_progress_bar(i + 1, len(game_id_list))
 
     cleansed_game_data = cleanse_games_data(fetched_game_data)
     
@@ -110,6 +113,7 @@ def main():
     with open("ex_steam_game_data.json", "w") as file:
         json.dump(cleansed_game_data, file, indent=4)
 
+    return cleansed_game_data
 
 if __name__ == "__main__":
-    main()
+    lambda_handler(None, None)
