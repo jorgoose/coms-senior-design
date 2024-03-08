@@ -1,11 +1,12 @@
 name: Deploy Lambda Functions
- 
+
 on:
   push:
     branches:
       - main
     paths:
       - 'lambdas/**'
+
 jobs:
   get-filenames:
     runs-on: ubuntu-latest
@@ -19,6 +20,7 @@ jobs:
         run: |
           lambdas=$(tree -d -L 1 -J ./lambdas | jq -j -c '.[0].contents | map(.name)')
           echo ::set-output name=lambdas::${lambdas}
+
   update-code:
     needs: get-filenames
     strategy:
@@ -38,8 +40,6 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-
-      # This will delete all the lambdas that are not in the repository. Need to be careful and transfer existing Lambdas into this repository before enabling.
       - name: Delete removed Lambdas
         run: |
           for lambda in $(aws lambda list-functions --query 'Functions[*].[FunctionName]' --output text); do
@@ -47,13 +47,27 @@ jobs:
               aws lambda delete-function --function-name ${lambda}
             fi
           done
-      
-      - name: Zip Lambda functions
-        run: zip -j ${{matrix.lambda}}.zip ./lambdas/${{matrix.lambda}}/index.js
+      - name: Determine runtime and handler
+        id: runtime_handler
+        run: |
+          if [ -f "./lambdas/${{ matrix.lambda }}/index.js" ]; then
+            echo "::set-output name=runtime::nodejs16.x"
+            echo "::set-output name=handler::index.handler"
+            echo "::set-output name=zip_file::./lambdas/${{ matrix.lambda }}/index.js"
+          elif [ -f "./lambdas/${{ matrix.lambda }}/lambda_function.py" ]; then
+            echo "::set-output name=runtime::python3.9"
+            echo "::set-output name=handler::lambda_function.lambda_handler"
+            echo "::set-output name=zip_file::./lambdas/${{ matrix.lambda }}/lambda_function.py"
+          else
+            echo "No supported lambda handler found"
+            exit 1
+          fi
+      - name: Zip Lambda function
+        run: zip -j ${{ matrix.lambda }}.zip ${{ steps.runtime_handler.outputs.zip_file }}
       - name: Check if Lambda exists
         id: check_lambda
         run: |
-          if aws lambda get-function --function-name ${{matrix.lambda}}${{inputs.environment}}; then
+          if aws lambda get-function --function-name ${{ matrix.lambda }}; then
             echo "::set-output name=exists::true"
           else
             echo "::set-output name=exists::false"
@@ -61,8 +75,12 @@ jobs:
       - name: Create new Lambda function
         if: steps.check_lambda.outputs.exists == 'false'
         run: |
-          aws lambda create-function --function-name ${{matrix.lambda}}${{inputs.environment}} --runtime nodejs16.x --role arn:aws:iam::652182311257:role/GitHubActionLambda --handler index.handler --zip-file fileb://${{matrix.lambda}}.zip
+          aws lambda create-function \
+            --function-name ${{ matrix.lambda }} \
+            --runtime ${{ steps.runtime_handler.outputs.runtime }} \
+            --role arn:aws:iam::652182311257:role/GitHubActionLambda \
+            --handler ${{ steps.runtime_handler.outputs.handler }} \
+            --zip-file fileb://${{ matrix.lambda }}.zip
       - name: Update Lambdas code
         if: steps.check_lambda.outputs.exists == 'true'
-        run: aws lambda update-function-code --function-name=${{matrix.lambda}}${{inputs.environment}} --zip-file=fileb://${{matrix.lambda}}.zip
-  
+        run: aws lambda update-function-code --function-name=${{ matrix.lambda }} --zip-file=fileb://${{ matrix.lambda }}.zip
