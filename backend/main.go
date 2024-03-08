@@ -103,130 +103,9 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
-	// Gets genres that have whats requested.
-	r.GET("/request-game-genres", func(c *gin.Context) {
-		Genres := c.Query("Genres")
-		var res []map[string]interface{}
-
-		Genres_array := strings.Split(Genres, ",")
-
-		//Filter for what we want
-		body := supabase.DB.From("TestGameEndpoints").Select()
-
-		// TODO
-		body.Cs("Genres", Genres_array)
-
-		// Execute Filter
-		err := body.Execute(&res)
-
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// Gets Languages that have whats requested.
-	r.GET("/request-game-lang", func(c *gin.Context) {
-		Languages := c.Query("Languages")
-		var res []map[string]interface{}
-
-		Languages_array := strings.Split(Languages, ",")
-
-		//Filter for what we want
-		body := supabase.DB.From("TestGameEndpoints").Select()
-
-		// TODO
-		body.Cs("Supported languages", Languages_array)
-
-		// Execute Filter
-		err := body.Execute(&res)
-
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// get games allowed for ages > age
-	r.GET("/request-game-age", func(c *gin.Context) {
-		age := c.Query("age")
-		var res []map[string]interface{}
-
-		//Filter for what we want
-		body := supabase.DB.From("TestGameEndpoints").Select()
-
-		body.Gt("Required age", age)
-
-		// Execute Filter
-		err := body.Execute(&res)
-
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// get games released between two dates
-	r.GET("/request-game-date", func(c *gin.Context) {
-		from := c.Query("from")
-		to := c.Query("to")
-		var res []map[string]interface{}
-
-		//Filter for what we want
-		body := supabase.DB.From("TestGameEndpoints").Select()
-
-		body.Gt("Release date", from).Lt("Release date", to)
-
-		// Execute Filter
-		err := body.Execute(&res)
-
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// get games released between two dates
-	r.GET("/request-game-price", func(c *gin.Context) {
-		from := c.Query("from")
-		to := c.Query("to")
-		var res []map[string]interface{}
-
-		//Filter for what we want
-		body := supabase.DB.From("TestGameEndpoints").Select()
-
-		body.Gt("Price", from).Lt("Price", to)
-
-		// Execute Filter
-		err := body.Execute(&res)
-
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	})
-
-	// Gets genres that have whats requested.
+	// Gets all games that fit the given query
+	// TODO : need to add more filters when nessessary
+	// Ex. http://localhost:8080/Filter-Game/?Genres=Free to Play,Action&Languages='English'&Year=2007
 	r.GET("/Filter-Game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -237,10 +116,10 @@ func main() {
 		Genres_array := strings.Split(Genres, ",")
 		Languages_array := strings.Split(Languages, ",")
 
-		//Filter for what we want
+		//Get all games
 		body := supabase.DB.From("TestGameEndpoints").Select()
 
-		// TODO
+		// Add Filters
 		body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
 		body.Cs("Genres", Genres_array)
 		body.Cs("Supported languages", Languages_array)
