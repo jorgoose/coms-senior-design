@@ -6,17 +6,19 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"strings"
 
 	// External dependencies
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
-	"github.com/gin-contrib/cors"
 
 	// Docs
-	"github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"github.com/swaggo/files"       // swagger embed files
-	_ "backend/docs"               // This is where the docs are found
+	_ "backend/docs" // This is where the docs are found
+
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
 )
 
 // To start the server: "go run .". This will start the server on port 8080 by default, with a shutdown endpoint at /shutdown.
@@ -96,6 +98,40 @@ func main() {
 		appID := c.Query("AppID")
 		var res []map[string]interface{}
 		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", appID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// Gets all games that fit the given query
+	// TODO : need to add more filters when nessessary
+	// Ex. http://localhost:8080/Filter-Game/?Genres=Free to Play,Action&Languages='English'&Year=2007
+	r.GET("/Filter-Game", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		Genres := c.Query("Genres")
+		Languages := c.Query("Languages")
+		Year := c.Query("Year")
+
+		Genres_array := strings.Split(Genres, ",")
+		Languages_array := strings.Split(Languages, ",")
+
+		//Get all games
+		body := supabase.DB.From("TestGameEndpoints").Select()
+
+		// Add Filters
+		body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
+		body.Cs("Genres", Genres_array)
+		body.Cs("Supported languages", Languages_array)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),

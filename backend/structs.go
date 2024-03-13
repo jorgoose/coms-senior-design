@@ -1,42 +1,42 @@
 package main
 
 type GameBody struct {
-	AppID                      string
+	AppID                      int
 	Name                       string
 	Release_date               string
 	Estimated_owners           string
-	Peak_CCU                   string
-	Required_age               string
-	Price                      string
-	DLC_count                  string
+	Peak_CCU                   int
+	Required_age               int
+	Price                      float32
+	DLC_count                  int
 	About_the_game             string
-	Supported_languages        string
-	Full_audio_languages       string
+	Supported_languages        []string
+	Full_audio_languages       []string
 	Reviews                    string
 	Header_image               string
 	Website                    string
 	Support_url                string
 	Support_email              string
-	Windows                    string
-	Mac                        string
-	Linux                      string
-	Metacritic_score           string
+	Windows                    bool
+	Mac                        bool
+	Linux                      bool
+	Metacritic_score           int
 	Metacritic_url             string
-	User_score                 string
-	Positive                   string
-	Negative                   string
+	User_score                 int
+	Positive                   int
+	Negative                   int
 	Score_rank                 string
-	Achievements               string
-	Recommendations            string
+	Achievements               int
+	Recommendations            int
 	Notes                      string
-	Average_playtime_forever   string
-	Average_playtime_two_weeks string
-	Median_playtime_forever    string
-	Median_playtime_two_weeks  string
+	Average_playtime_forever   int
+	Average_playtime_two_weeks int
+	Median_playtime_forever    int
+	Median_playtime_two_weeks  int
 	Developers                 string
 	Publishers                 string
 	Categories                 string
-	Genres                     string
+	Genres                     []string
 	Tags                       string
 	Screenshots                string
 	Movies                     string
