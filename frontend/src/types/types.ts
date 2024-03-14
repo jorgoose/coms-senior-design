@@ -23,3 +23,10 @@ type LoginUser = {
     email: string
     password: string
 }
+
+type Game = {
+    AppID: number;
+    Name: string;
+    description: string;
+    "Header image": string;
+}

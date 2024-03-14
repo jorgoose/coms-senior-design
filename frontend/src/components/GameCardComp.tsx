@@ -2,12 +2,7 @@
 
 interface GameCardProps {
     className?: string;
-    game: {
-        AppID: number;
-        Name: string;
-        description: string;
-        "Header image": string;
-    };
+    game: Game;
 }
 
 const GameCard: React.FC<GameCardProps> = ({ className = '', game }) => {

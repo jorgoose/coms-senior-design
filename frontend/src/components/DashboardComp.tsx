@@ -193,7 +193,7 @@ interface DashboardCompProps {
 
 const DashboardComp: React.FC<DashboardCompProps> = () => {
 
-    const [games, setGames] = useState([]);
+    const [games, setGames] = useState<Game[]>([]);
 
     const [ searchQuery, setSearchQuery ] = useState('');
 
