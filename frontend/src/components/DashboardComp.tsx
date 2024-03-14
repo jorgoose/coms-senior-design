@@ -14,183 +14,6 @@ import SidebarMenuComp from "./SidebarMenuComp";
 import TitleComponent from "./header/TitleComponent";
 import LayoutComponent from "./header/LayoutComponent";
 
-const dummyData = [
-    {
-        AppID: 1,
-        Name: "Rainbow Six Siege",
-        description: "Explore the wilds of Hyrule any way you like.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1655223333",
-    },
-    {
-        AppID: 2,
-        Name: "Destiny 2",
-        description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
-    },
-    {
-        AppID: 3,
-        Name: "Counter Strike: Condition Zero",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
-    },
-    {
-        AppID: 4,
-        Name: "Team Fortress",
-        description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
-    },
-    {
-        AppID: 5,
-        Name: "PUBG Battlegrounds",
-        description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
-    },
-    {
-        AppID: 6,
-        Name: "Apex Legends",
-        description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
-    },
-    {
-        AppID: 7,
-        Name: "Alf Life: Episode Two",
-        description: "Explore the wilds of Hyrule any way you like.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
-    },
-    {
-        AppID: 9,
-        Name: "Dota Two",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
-    },
-    {
-        AppID: 12,
-        Name: "Destiny 2",
-        description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
-    },
-    {
-        AppID: 13,
-        Name: "Counter Strike: Condition Zero",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
-    },
-    {
-        AppID: 14,
-        Name: "Team Fortress",
-        description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
-    },
-    {
-        AppID: 15,
-        Name: "PUBG Battlegrounds",
-        description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
-    },
-    {
-        AppID: 16,
-        Name: "Apex Legends",
-        description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
-    },
-    {
-        AppID: 17,
-        Name: "Alf Life: Episode Two",
-        description: "Explore the wilds of Hyrule any way you like.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
-    },
-    {
-        AppID: 19,
-        Name: "Dota Two",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
-    },
-    {
-        AppID: 22,
-        Name: "Destiny 2",
-        description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
-    },
-    {
-        AppID: 23,
-        Name: "Counter Strike: Condition Zero",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
-    },
-    {
-        AppID: 24,
-        Name: "Team Fortress",
-        description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
-    },
-    {
-        AppID: 25,
-        Name: "PUBG Battlegrounds",
-        description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
-    },
-    {
-        AppID: 26,
-        Name: "Apex Legends",
-        description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
-    },
-    {
-        AppID: 72,
-        Name: "Alf Life: Episode Two",
-        description: "Explore the wilds of Hyrule any way you like.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
-    },
-    {
-        AppID: 29,
-        Name: "Dota Two",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
-    },
-    {
-        AppID: 32,
-        Name: "Destiny 2",
-        description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
-    },
-    {
-        AppID: 33,
-        Name: "Counter Strike: Condition Zero",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
-    },
-    {
-        AppID: 43,
-        Name: "Team Fortress",
-        description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
-    },
-    {
-        AppID: 35,
-        Name: "PUBG Battlegrounds",
-        description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
-    },
-    {
-        AppID: 36,
-        Name: "Apex Legends",
-        description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
-    },
-    {
-        AppID: 37,
-        Name: "Alf Life: Episode Two",
-        description: "Explore the wilds of Hyrule any way you like.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
-    },
-    {
-        AppID: 39,
-        Name: "Dota Two",
-        description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
-        "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
-    },
-];
-
 const DashboardComp: React.FC<{}> = () => {
 
     const [games, setGames] = useState<Game[]>([]);
@@ -230,3 +53,180 @@ const DashboardComp: React.FC<{}> = () => {
 };
 
 export default DashboardComp;
+
+// const dummyData = [
+//     {
+//         AppID: 1,
+//         Name: "Rainbow Six Siege",
+//         description: "Explore the wilds of Hyrule any way you like.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/359550/header.jpg?t=1655223333",
+//     },
+//     {
+//         AppID: 2,
+//         Name: "Destiny 2",
+//         description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+//     },
+//     {
+//         AppID: 3,
+//         Name: "Counter Strike: Condition Zero",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+//     },
+//     {
+//         AppID: 4,
+//         Name: "Team Fortress",
+//         description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+//     },
+//     {
+//         AppID: 5,
+//         Name: "PUBG Battlegrounds",
+//         description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+//     },
+//     {
+//         AppID: 6,
+//         Name: "Apex Legends",
+//         description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+//     },
+//     {
+//         AppID: 7,
+//         Name: "Alf Life: Episode Two",
+//         description: "Explore the wilds of Hyrule any way you like.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+//     },
+//     {
+//         AppID: 9,
+//         Name: "Dota Two",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+//     },
+//     {
+//         AppID: 12,
+//         Name: "Destiny 2",
+//         description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+//     },
+//     {
+//         AppID: 13,
+//         Name: "Counter Strike: Condition Zero",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+//     },
+//     {
+//         AppID: 14,
+//         Name: "Team Fortress",
+//         description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+//     },
+//     {
+//         AppID: 15,
+//         Name: "PUBG Battlegrounds",
+//         description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+//     },
+//     {
+//         AppID: 16,
+//         Name: "Apex Legends",
+//         description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+//     },
+//     {
+//         AppID: 17,
+//         Name: "Alf Life: Episode Two",
+//         description: "Explore the wilds of Hyrule any way you like.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+//     },
+//     {
+//         AppID: 19,
+//         Name: "Dota Two",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+//     },
+//     {
+//         AppID: 22,
+//         Name: "Destiny 2",
+//         description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+//     },
+//     {
+//         AppID: 23,
+//         Name: "Counter Strike: Condition Zero",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+//     },
+//     {
+//         AppID: 24,
+//         Name: "Team Fortress",
+//         description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+//     },
+//     {
+//         AppID: 25,
+//         Name: "PUBG Battlegrounds",
+//         description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+//     },
+//     {
+//         AppID: 26,
+//         Name: "Apex Legends",
+//         description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+//     },
+//     {
+//         AppID: 72,
+//         Name: "Alf Life: Episode Two",
+//         description: "Explore the wilds of Hyrule any way you like.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+//     },
+//     {
+//         AppID: 29,
+//         Name: "Dota Two",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+//     },
+//     {
+//         AppID: 32,
+//         Name: "Destiny 2",
+//         description: "Kratos and his son Atreus face the oncoming Norse apocalypse, Ragnarok.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1085660/header.jpg?t=1657835870",
+//     },
+//     {
+//         AppID: 33,
+//         Name: "Counter Strike: Condition Zero",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977",
+//     },
+//     {
+//         AppID: 43,
+//         Name: "Team Fortress",
+//         description: "Team-based multiplayer shooter featuring a wide array of unique heroes, fast-paced and fun gameplay, and characters that you will learn to love",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/440/header.jpg?t=1592263852",
+//     },
+//     {
+//         AppID: 35,
+//         Name: "PUBG Battlegrounds",
+//         description: "A game about placing blocks and going on adventures. Explore randomly generated worlds and build amazing things from the simplest of homes to the grandest of castles.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/578080/header.jpg?t=1658287469",
+//     },
+//     {
+//         AppID: 36,
+//         Name: "Apex Legends",
+//         description: "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour, and body modification.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/1172470/header.jpg?t=1657217209",
+//     },
+//     {
+//         AppID: 37,
+//         Name: "Alf Life: Episode Two",
+//         description: "Explore the wilds of Hyrule any way you like.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/420/header.jpg?t=1602536144",
+//     },
+//     {
+//         AppID: 39,
+//         Name: "Dota Two",
+//         description: "Geralt of Rivia embarks on a quest to find the child of prophecy in a vast open world rich with merchant cities, pirate islands, dangerous mountain passes, and forgotten caverns to explore.",
+//         "Header image": "https://cdn.akamai.steamstatic.com/steam/apps/570/header.jpg?t=1658774750",
+//     },
+// ];
