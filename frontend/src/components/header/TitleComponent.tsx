@@ -2,10 +2,10 @@
 
 import React from "react";
 import Link from "next/link";
-import GamepadIcon from "./icons/GamepadIcon";
-import BellIcon from "./icons/BellIcon";
-import SearchBar from "@/components/SearchBar";
-import DropdownComp from "@/components/DropdownComp";
+import GamepadIcon from "../icons/GamepadIcon";
+import BellIcon from "../icons/BellIcon";
+import SearchBar from "@/components/header/SearchBar";
+import DropdownComp from "@/components/header/DropdownComp";
 
 interface TitleComponentProps {
     searchQuery: string;

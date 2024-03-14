@@ -4,15 +4,15 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import GamepadIcon from "./icons/GamepadIcon";
 
-import SideBarComp from "./SideBarComp";
+import SideBarComp from "./header/SideBarComp";
 import BellIcon from "./icons/BellIcon"
-import DropdownComp from "@/components/DropdownComp";
-import SearchBar from "@/components/SearchBar";
+import DropdownComp from "@/components/header/DropdownComp";
+import SearchBar from "@/components/header/SearchBar";
 import GameCard from "@/components/GameCardComp";
 import { getAllGames } from '@/api/games';
 import SidebarMenuComp from "./SidebarMenuComp";
-import TitleComponent from "./TitleComponent";
-import LayoutComponent from "./LayoutComponent";
+import TitleComponent from "./header/TitleComponent";
+import LayoutComponent from "./header/LayoutComponent";
 
 const dummyData = [
     {

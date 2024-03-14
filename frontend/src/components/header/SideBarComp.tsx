@@ -1,11 +1,11 @@
 import Label from "./LabelComp"
-import HomeIcon from './icons/HomeIcon';
-import LineChartIcon from './icons/LineChartIcon';
-import CalendarIcon from './icons/CalendarIcon';
-import ClipboardIcon from './icons/ClipboardIcon';
-import LightbulbIcon from './icons/LightBulbIcon';
-import TextIcon from './icons/TextIcon';
-import NewspaperIcon from './icons/NewspaperIcon';
+import HomeIcon from '../icons/HomeIcon';
+import LineChartIcon from '../icons/LineChartIcon';
+import CalendarIcon from '../icons/CalendarIcon';
+import ClipboardIcon from '../icons/ClipboardIcon';
+import LightbulbIcon from '../icons/LightBulbIcon';
+import TextIcon from '../icons/TextIcon';
+import NewspaperIcon from '../icons/NewspaperIcon';
 
 const SideBarComp: React.FC = () => {
     const handleClick = (label: string) => {

@@ -1,10 +1,10 @@
 import Image from "next/image"
-import SideBarComp from "@/components/SideBarComp";
+import SideBarComp from "@/components/header/SideBarComp";
 import ButtonBar from "@/components/gameview/ButtonBar";
 import Link from "next/link";
 import GamepadIcon from "@/components/icons/GamepadIcon";
 import BellIcon from "@/components/icons/BellIcon";
-import DropdownComp from "@/components/DropdownComp";
+import DropdownComp from "@/components/header/DropdownComp";
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
