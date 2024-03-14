@@ -1,11 +1,10 @@
 import SideBarComp from "./SideBarComp";
-import SidebarMenuComp from "./SidebarMenuComp";
 import TitleComponent from "./TitleComponent";
 
 interface LayoutComponentProps {
     children: React.ReactNode;
     searchQuery: string;
-    setSearchQuery: (query: string) => void;
+    setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const LayoutComponent: React.FC<LayoutComponentProps> = ({ children, searchQuery, setSearchQuery }) => {
