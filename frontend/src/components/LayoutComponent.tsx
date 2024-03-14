@@ -2,7 +2,13 @@ import SideBarComp from "./SideBarComp";
 import SidebarMenuComp from "./SidebarMenuComp";
 import TitleComponent from "./TitleComponent";
 
-const LayoutComponent = ({ children, searchQuery, setSearchQuery }) => {
+interface LayoutComponentProps {
+    children: React.ReactNode;
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
+}
+
+const LayoutComponent: React.FC<LayoutComponentProps> = ({ children, searchQuery, setSearchQuery }) => {
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-r from-stone-500 text-stone-200">
             <TitleComponent

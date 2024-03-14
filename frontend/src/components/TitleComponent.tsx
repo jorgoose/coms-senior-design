@@ -9,7 +9,7 @@ import DropdownComp from "@/components/DropdownComp";
 
 interface TitleComponentProps {
     searchQuery: string;
-    setSearchQuery: string;
+    setSearchQuery: (query: string) => void;
 }
 
 const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQuery }) => {
