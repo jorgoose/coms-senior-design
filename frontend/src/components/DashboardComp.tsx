@@ -11,10 +11,7 @@ import SearchBar from "@/components/SearchBar";
 import GameCard from "@/components/GameCardComp";
 import { getAllGames } from '@/api/games';
 
-interface DashboardCompProps {
-}
-
-const DashboardComp: React.FC<DashboardCompProps> = () => {
+const DashboardComp: React.FC<{}> = () => {
 
     const [games, setGames] = useState<Game[]>([]);
 
