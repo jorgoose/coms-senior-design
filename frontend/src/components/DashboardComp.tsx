@@ -197,26 +197,20 @@ const DashboardComp: React.FC<DashboardCompProps> = () => {
 
     const [ searchQuery, setSearchQuery ] = useState('');
 
-    // const handleSearch = (query: SetStateAction<string>) => {
-    //     setSearchQuery(query);
-    // };
-
     const filteredGames = games.filter((game) =>
         game?.Name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {
-        // Fetch games when component mounts
         async function fetchGames() {
             try {
                 const response = await getAllGames();
                 console.log(response.data);
-                setGames(response.data); // Assuming the response contains game data
+                setGames(response.data);
             } catch (error) {
                 console.error('Error fetching games:', error);
             }
         }
-
         fetchGames();
     }, []);
 

@@ -13,9 +13,22 @@ interface GameCardProps {
 const GameCard: React.FC<GameCardProps> = ({ className = '', game }) => {
     return (
         <div className="py-2">
-            <div className="w-56 h-44 bg-stone-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition duration-300 ease-in-out">
-                <img className="w-max h-fit object-cover" src={game["Header image"]} alt={`Cover for ${game.Name}`} />
-                <div className="px-4 py-3 h-2/5 flex items-center">
+            <div className="w-56 h-44 bg-stone-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition duration-300 ease-in-out relative">
+                {game["Header image"]!="" ? (
+                    <img 
+                        className="w-max h-fit object-cover" 
+                        src={game["Header image"]} 
+                        alt={`Cover for ${game.Name}`} 
+                    />
+                ) : (
+                    <div className="w-full h-full flex items-center justify-center">
+                        <img
+                            className="object-contain h-3/5" 
+                            alt={`Cover for ${game.Name}`} 
+                        />
+                    </div>
+                )}
+                <div className="absolute bottom-0 px-4 py-3 flex items-center"> 
                     <h3 className="text-white text-sm font-bold align-middle">{game.Name}</h3>
                 </div>
             </div>
