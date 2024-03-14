@@ -13,7 +13,7 @@ const SideBarComp: React.FC = () => {
     };
 
     return (
-        <div className="pt-[65px] w-[250px] overflow-auto py-4 bg-stone-800 border-r border-stone-700">
+        <div className="fixed top-[60px] lg:top-[50px] w-[280px] h-screen overflow-auto py-4 bg-stone-800 border-r border-stone-700">
             <nav className="py-4 grid items-start text-sm font-medium gradient=text">
                 <div className="space-y-6">
                     <div className="px-5">

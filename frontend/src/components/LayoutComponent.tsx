@@ -11,7 +11,7 @@ const LayoutComponent = ({ children, searchQuery, setSearchQuery }) => {
             />
             <div className="flex flex-grow">
                 <SideBarComp />
-                <main className="flex-grow p-4 md:p-6 overflow-auto">
+                <main className="flex-grow p-4 md:p-6 overflow-auto ml-[280px]">
                     {children}
                 </main>
             </div>

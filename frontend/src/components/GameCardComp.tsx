@@ -6,7 +6,7 @@ interface GameCardProps {
 
 const GameCard: React.FC<GameCardProps> = ({ game }) => {
     return (
-        <div className="py-3">
+        <div className="py-3 px-4">
             <div className="w-56 h-44 bg-stone-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition duration-300 ease-in-out relative">
                 {game["Header image"]!="" ? (
                     <img 
