@@ -27,6 +27,10 @@ This document outlines the contributions and accomplishments of each team member
     - Stored the test Game data in table TestGamesEndpoint
 
 ### Sam:
+- Did a spike on running node modules with AWS Lambdas
+    - Inserted Hard Coded Game Data from Lambda to Supabase
+- Implemented Supabase Trigger to insert users from auth table into our User table
+- Implemented Supabase Function to execute the logic of inserting users into our own User table
 
 ### Madhav:
 - AWS lambda

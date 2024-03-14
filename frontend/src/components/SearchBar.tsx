@@ -5,9 +5,11 @@ import SearchIcon from './icons/SearchIcon';
 interface SearchInputProps {
     placeholder: string;
     type: string;
+    searchQuery: string;
+    setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type }) => {
+const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type, searchQuery, setSearchQuery }) => {
     return (
         <form>
             <div className="relative">
@@ -17,6 +19,8 @@ const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type }) => {
                     focus:ring-2 focus:ring-purple-800 text-sky-400"
                     placeholder={placeholder}
                     type={type}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
         </form>
