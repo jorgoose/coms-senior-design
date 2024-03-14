@@ -7,6 +7,8 @@ This document outlines the contributions and accomplishments of each team member
 ## Frontend
 
 ### Eli:
+- Set up AWS and local env variables
+- Started Docs folder and the Frontend.md documentation file
 
 ### Lali:
 
