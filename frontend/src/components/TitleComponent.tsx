@@ -7,7 +7,12 @@ import BellIcon from "./icons/BellIcon";
 import SearchBar from "@/components/SearchBar";
 import DropdownComp from "@/components/DropdownComp";
 
-const TitleComponent = ({ searchQuery, setSearchQuery }) => {
+interface TitleComponentProps {
+    searchQuery: string;
+    setSearchQuery: string;
+}
+
+const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQuery }) => {
     return (
         <header className="fixed top-0 z-10 w-full lg:h-[60px] border-b border-stone-700 bg-stone-800 flex items-center gap-4">
             <div className="flex px-5">
