@@ -20,7 +20,7 @@ const DropdownComp: React.FC = () => {
     }, []);
 
     return (
-        <div className="relative inline-block text-left" ref={dropdownRef}>
+        <div className="relative inline-block text-left px-8" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="rounded-full border border-stone-700 w-8 h-8 bg-stone-700 flex items-center justify-center"
