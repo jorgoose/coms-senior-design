@@ -1,11 +1,10 @@
 'use client';
 
 interface GameCardProps {
-    className?: string;
     game: Game;
 }
 
-const GameCard: React.FC<GameCardProps> = ({ className = '', game }) => {
+const GameCard: React.FC<GameCardProps> = ({ game }) => {
     return (
         <div className="py-2">
             <div className="w-56 h-44 bg-stone-800 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-1 transition duration-300 ease-in-out relative">
