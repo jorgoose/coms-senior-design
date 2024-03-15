@@ -13,7 +13,7 @@ const DashboardComp: React.FC<{}> = () => {
 
     const [showDashboard, setShowDashboard] = useState(true);
 
-    const [game, setGame] = useState({});
+    const [game, setGame] = useState<Game>();
 
     const [ searchQuery, setSearchQuery ] = useState('');
 
@@ -36,7 +36,7 @@ const DashboardComp: React.FC<{}> = () => {
 
     const handleGameClick = (game: Game) => {
         setGame(game);
-        setShowDashboard(false);
+        game && setShowDashboard(false);
     };
 
     const dashboardLayout = () => (
@@ -50,7 +50,7 @@ const DashboardComp: React.FC<{}> = () => {
     );
 
     const gameViewLayout = () => (
-        <GameViewComp game={game} />
+        game && <GameViewComp game={game} />
     );
 
     return (
