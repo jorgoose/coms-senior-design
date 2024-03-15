@@ -5,8 +5,6 @@ import DeveloperProfileContent from "./DeveloperProfileContent";
 import DiscussionContent from "./DiscussionContent";
 import { useState } from "react";
 
-
-// TODO Fix this type
 interface ButtonBarProps {
     game: Game
 }
