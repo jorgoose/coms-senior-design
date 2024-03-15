@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import DashboardComp from "@/components/pageComps/DashboardComp";
+import IdeaExchangeComp from '@/components/pageComps/IdeaExchangeComp';
 
 export default async function Home() {
     const cookieStore = cookies();
@@ -16,7 +16,7 @@ export default async function Home() {
     return (
         <>
             <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-                <DashboardComp />
+                <IdeaExchangeComp />
             </div>
         </>
     );
