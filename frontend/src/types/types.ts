@@ -29,4 +29,6 @@ type Game = {
     Name: string;
     description: string;
     "Header image": string;
+    "About the game": string;
+    Developers: string;
 }

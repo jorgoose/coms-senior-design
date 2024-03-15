@@ -10,9 +10,10 @@ import DropdownComp from "@/components/header/DropdownComp";
 interface TitleComponentProps {
     searchQuery: string;
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+    showSearchBar: boolean;
 }
 
-const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQuery }) => {
+const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQuery, showSearchBar }) => {
     return (
         <header className="fixed top-0 z-10 w-full lg:h-[60px] border-b border-stone-700 bg-stone-800 flex items-center gap-4">
             <div className="flex px-5">
@@ -27,12 +28,13 @@ const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQ
             </div>
             <div className="flex flex-1 items-center h-14 lg:h-[60px]">
                 <div className="flex-grow ml-14">
-                    <SearchBar 
+                    {showSearchBar && <SearchBar 
                         placeholder="Search games..."
                         type="search"
                         searchQuery={searchQuery}
                         setSearchQuery={setSearchQuery}
-                    />
+                        
+                    />}
                 </div>
                 <DropdownComp />
             </div>

@@ -4,15 +4,13 @@ interface LabelProps {
     className: string;
     htmlFor: string;
     children: React.ReactNode;
-    onClick: () => void;
 }
 
-const Label: React.FC<LabelProps> = ({ className, htmlFor, children, onClick }) => {
+const Label: React.FC<LabelProps> = ({ className, htmlFor, children }) => {
     return (
         <label
             htmlFor={htmlFor}
             className={className}
-            onClick={onClick}
             style={{ cursor: 'pointer' }}
         >
             {children}
