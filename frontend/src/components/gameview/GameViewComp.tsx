@@ -54,8 +54,6 @@ interface GameViewProps {
 
 const GameViewComp: React.FC<GameViewProps> = ({ game }) => {
 
-    console.log(game);
-
     return (
         <>
             <div className="w-full max-w-screen-xl">
