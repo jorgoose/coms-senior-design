@@ -2,7 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import ReleasePredictionsComp from '@/components/ReleasePredictionsComp';
+import ReleasePredictionsComp from '@/components/pageComps/ReleasePredictionsComp';
 
 export default async function Home() {
     const cookieStore = cookies();

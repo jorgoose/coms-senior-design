@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 import GameCard from "@/components/GameCardComp";
 import { getAllGames } from '@/api/games';
-import LayoutComponent from "./header/LayoutComponent";
+import LayoutComponent from "../header/LayoutComponent";
 
 const DashboardComp: React.FC<{}> = () => {
 

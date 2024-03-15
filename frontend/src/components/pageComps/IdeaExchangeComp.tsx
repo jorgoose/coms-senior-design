@@ -1,6 +1,6 @@
 'use client';
 
-import LayoutComponent from "./header/LayoutComponent";
+import LayoutComponent from "../header/LayoutComponent";
 
 const IdeaExchangeComp: React.FC<{}> = () => {
 
