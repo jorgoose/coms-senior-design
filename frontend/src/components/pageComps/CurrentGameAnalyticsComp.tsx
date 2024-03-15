@@ -2,17 +2,17 @@
 
 import LayoutComponent from "../header/LayoutComponent";
 
-const DraftGameComp: React.FC<{}> = () => {
+const CurrentGameAnalyticsComp: React.FC<{}> = () => {
 
     return (
         <>
-            <LayoutComponent searchQuery={''} setSearchQuery={() => {}} showSearchBar={false}>
+            <LayoutComponent searchQuery={''} setSearchQuery={() => {}} showSearchBar={true}>
                     <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
-                        <h3> Draft Game Idea </h3>
+                        <h3>Current Game Analytics</h3>
                     </main>
             </LayoutComponent>
         </>
     );
 };
 
-export default DraftGameComp;
+export default CurrentGameAnalyticsComp;
