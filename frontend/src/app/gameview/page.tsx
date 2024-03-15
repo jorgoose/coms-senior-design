@@ -87,22 +87,7 @@ export default async function Gameview() {
                     <DropdownComp />
                 </header>
                 <div className="overflow-auto">
-                    <div className="w-full max-w-screen-xl">
-                        <Image
-                            className="rounded-lg w-full"
-                            src="https://cdn.akamai.steamstatic.com/steam/apps/80/header.jpg?t=1602535977"
-                            alt="Example Image"
-                            width={500}
-                            height={500}
-                        />
-                    </div>
-                    <div className="m-4">
-                        <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text mb-6">
-                            Counter-Strike: Condition Zero
-                        </p>
-                        <ButtonBar 
-                         data={dummyData}/>
-                    </div>
+                    
                 </div>
             </div>
         </div>
