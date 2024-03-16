@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = process.env.NEXT_PUBLIC_EC2_SERVER
+const baseURL = process.env.NEXT_PUBLIC_API_GATEWAY_ENDPOINT
 
 /*
     Example usage:
