@@ -25,7 +25,7 @@ const SideBarComp: React.FC = () => {
                             <LineChartIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
                                 <Label className="text-sky-500" htmlFor="publisher-details">
-                                    <a href="/dashboard/currentGameAnalytics">Current Game Analytics</a>
+                                    <a href="/dashboard/viewGameAnalytics">View Game Analytics</a>
                                 </Label>
                             </div>
                         </div>

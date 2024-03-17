@@ -7,16 +7,18 @@ interface SearchInputProps {
     type: string;
     searchQuery: string;
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+    classNameSize?: string;
 }
 
-const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type, searchQuery, setSearchQuery }) => {
+const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type, searchQuery, setSearchQuery, classNameSize }) => {
     return (
         <form>
             <div className="relative">
                 <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4" />
                 <input
-                    className="w-full bg-stone-700 shadow-none appearance-none rounded-lg pl-8 h-9 md:w-2/3 lg:w-1/3 focus:outline-none 
-                    focus:ring-2 focus:ring-purple-800 text-sky-400"
+                    className={`'w-full ${classNameSize} max-w-xl bg-stone-700 shadow-none appearance-none rounded-lg pl-8 h-9 focus:outline-none 
+                    focus:ring-2 focus:ring-purple-800 text-sky-400'`}
+                    // max-w-xl border border-gray-300 shadow-sm p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                     placeholder={placeholder}
                     type={type}
                     value={searchQuery}

@@ -11,9 +11,10 @@ interface TitleComponentProps {
     searchQuery: string;
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
     showSearchBar: boolean;
+    title?: string;
 }
 
-const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQuery, showSearchBar }) => {
+const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQuery, showSearchBar, title }) => {
     return (
         <header className="fixed top-0 z-10 w-full lg:h-[60px] border-b border-stone-700 bg-stone-800 flex items-center gap-4">
             <div className="flex px-5">
@@ -33,8 +34,11 @@ const TitleComponent: React.FC<TitleComponentProps> = ({ searchQuery, setSearchQ
                         type="search"
                         searchQuery={searchQuery}
                         setSearchQuery={setSearchQuery}
-                        
+                        classNameSize="md:w-2/3 lg:w-1/3"
                     />}
+                    {!showSearchBar && <h1 
+                        className="gradient-text font-bold text-2xl">{title}</h1>
+                    }
                 </div>
                 <DropdownComp />
             </div>
