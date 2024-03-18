@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useFormState } from 'react-dom'
-import { signIn } from '@/app/actions';
+import { signIn } from '@/api/auth';
 import SubmitButton from '@/components/SubmitButton';
 
 const initialState = {

@@ -12,11 +12,13 @@ export default async function CreateGameConcept() {
     if (error || !data?.user) {
       redirect('/login');
     }
+    const currUser = data.user;
 
     return (
       <>
         <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-            <CreateGameConceptComp />
+            <CreateGameConceptComp
+              user={currUser}/>
         </div>
       </>
     );
