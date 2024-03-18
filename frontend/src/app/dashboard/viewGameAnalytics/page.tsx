@@ -2,8 +2,7 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import GamingRoundupComp from '@/components/pageComps/GamingRoundupComp';
-import CurrentGameAnalyticsComp from '@/components/pageComps/CurrentGameAnalyticsComp';
+import ViewGameAnalyticsComp from '@/components/pageComps/ViewGameAnalyticsComp';
 
 export default async function Home() {
     const cookieStore = cookies();
@@ -17,7 +16,7 @@ export default async function Home() {
     return (
         <>
             <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-                <CurrentGameAnalyticsComp />
+                <ViewGameAnalyticsComp />
             </div>
         </>
     );

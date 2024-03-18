@@ -6,15 +6,17 @@ interface LayoutComponentProps {
     searchQuery: string;
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
     showSearchBar: boolean;
+    title?: string;
 }
 
-const LayoutComponent: React.FC<LayoutComponentProps> = ({ children, searchQuery, setSearchQuery, showSearchBar }) => {
+const LayoutComponent: React.FC<LayoutComponentProps> = ({ children, searchQuery, setSearchQuery, showSearchBar, title }) => {
     return (
         <div className="flex flex-col min-h-screen bg-gradient-to-r from-stone-500 text-stone-200">
             <TitleComponent
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
                 showSearchBar={showSearchBar}
+                title={title}
             />
             <div className="flex flex-grow">
                 <SideBarComp />
