@@ -1,7 +1,6 @@
 'use client';
 import LayoutComponent from '../header/LayoutComponent';
 const DeveloperProfileComp: React.FC = () => {
-    // This is where you'll add the content of the profile later.
     return (
         <LayoutComponent searchQuery={''} setSearchQuery={() => {}} showSearchBar={true}>
         <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
