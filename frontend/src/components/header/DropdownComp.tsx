@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react';
+import Link from 'next/link'; // Import Link from Next.js
 
 const DropdownComp: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -41,9 +42,11 @@ const DropdownComp: React.FC = () => {
             {isOpen && (
                 <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-stone-800 text-stone-400">
                     <div className="rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
-                            My Account
-                        </a>
+                        <Link href="/profile"> {/* Link to profile page */}
+                            <a className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
+                                My Account
+                            </a>
+                        </Link>
                         <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
                             Settings
                         </a>
