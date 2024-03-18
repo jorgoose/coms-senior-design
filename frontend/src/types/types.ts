@@ -25,10 +25,12 @@ type LoginUser = {
 }
 
 type Game = {
-    AppID: number
-    Name: string
-    description: string
-    "Header image": string
+    AppID: number;
+    Name: string;
+    description: string;
+    "Header image": string;
+    "About the game": string;
+    Developers: string;
 }
 
 type GameConcept = {

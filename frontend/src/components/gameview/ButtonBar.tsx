@@ -5,19 +5,15 @@ import DeveloperProfileContent from "./DeveloperProfileContent";
 import DiscussionContent from "./DiscussionContent";
 import { useState } from "react";
 
-
-// TODO Fix this type
 interface ButtonBarProps {
-    data: any
+    game: Game
 }
 
-const ButtonBar: React.FC<ButtonBarProps> = ({data}) => {
+const ButtonBar: React.FC<ButtonBarProps> = ({ game }) => {
     const [selectedView, setSelectedView] = useState('overview');
 
-    const parsed = data[0];
-
-    const desc = parsed["About the game"];
-    const dev = parsed.Developers;
+    const desc = game["About the game"];
+    const dev = game.Developers;
 
     const renderContent = (): JSX.Element => {
         switch (selectedView) {
