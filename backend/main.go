@@ -32,13 +32,13 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-        AllowOrigins:     []string{"*"}, 
-        AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
-        AllowHeaders:     []string{"Origin", "Content-Type"},
-        ExposeHeaders:    []string{"Content-Length"},
-        AllowCredentials: true,
-    }))
-	
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
+
 	resourceManager := utils.ResourceManager{}
 	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
@@ -248,6 +248,72 @@ func main() {
 		if insertResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint retrieves all data for all games from the Game Concepts table
+	r.GET("/get-all-game-concepts", func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("GameConcepts").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint sends a game to the TestGameEndpoints table
+	// using a JSON body, pinned in #backend in the Discord server
+	// note, the JSON body is subject to change once steam data is available.
+	r.POST("/send-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var game GameConcepts
+
+		// Parse JSON data from the request body |
+		if err := c.BindJSON(&game); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database | works
+		insertResult := supabase.DB.From("GameConcept").Insert(map[string]interface{}{
+			"title":        game.title,
+			"developer_id": game.developer_id,
+			"discription":  game.description,
+			"genre":        game.genre,
+			"tags":         game.tags,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint deletes a game in the GameConcept table
+	// using query string parameters instead of URL parameters
+	r.DELETE("/delete-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("GameConcept").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
 			})
 			return
 		}

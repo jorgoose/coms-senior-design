@@ -41,3 +41,11 @@ type GameBody struct {
 	Screenshots                string
 	Movies                     string
 }
+
+type GameConcepts struct {
+	title        string
+	developer_id string
+	description  string
+	genre        []string
+	tags         []string
+}
