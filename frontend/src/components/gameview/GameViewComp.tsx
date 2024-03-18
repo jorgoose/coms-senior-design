@@ -56,19 +56,22 @@ const GameViewComp: React.FC<GameViewProps> = ({ game }) => {
 
     return (
         <>
-            <div className="w-full max-w-screen-xl">
+            <div className="w-full max-w-screen-xl px-5">
                 <Image
-                    className="rounded-lg w-full"
+                    className="rounded-lg"
                     src={game["Header image"]} 
                     alt={`Cover for ${game.Name}`} 
                     width={500}
                     height={500}
+                    objectFit="contain"
                 />
             </div>
-            <div className="m-4">
-                <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text mb-6">
-                    {game?.Name}
-                </p>
+            <div className="px-5">
+                <div className="p-4 bg-stone-800 w-fit rounded-xl">
+                    <p className="text-4xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text ">
+                        {game?.Name}
+                    </p>
+                </div>
                 <ButtonBar 
                     game={game}/>
             </div>

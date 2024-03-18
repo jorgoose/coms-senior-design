@@ -66,15 +66,6 @@ const ViewGameAnalyticsComp: React.FC<{}> = () => {
     const noGameSelected = () => {
         return (
             <>
-                <div className="px-4">
-                    <SearchBar 
-                        placeholder="Search games..."
-                        type="search"
-                        searchQuery={searchQuery}
-                        setSearchQuery={setSearchQuery}
-                        classNameSize="max-w-xl"
-                    />
-                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                     {selectedGame ? GameAnalyticsDisplay(selectedGame) :
                         filteredGames.map((game) => (
@@ -132,7 +123,7 @@ const ViewGameAnalyticsComp: React.FC<{}> = () => {
 
     return (
         <>
-            <LayoutComponent searchQuery={''} setSearchQuery={() => {}} showSearchBar={false} title={"Select a Game to View Analytics"}>
+            <LayoutComponent searchQuery={searchQuery} setSearchQuery={setSearchQuery} showSearchBar={true}>
                     <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
                         {!selectedGame && noGameSelected()}
                         {(selectedGame && !comparisonGame) && oneGameSelected()}

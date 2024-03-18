@@ -18,7 +18,6 @@ const SearchBar: React.FC<SearchInputProps> = ({ placeholder, type, searchQuery,
                 <input
                     className={`'w-full ${classNameSize} max-w-xl bg-stone-700 shadow-none appearance-none rounded-lg pl-8 h-9 focus:outline-none 
                     focus:ring-2 focus:ring-purple-800 text-sky-400'`}
-                    // max-w-xl border border-gray-300 shadow-sm p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
                     placeholder={placeholder}
                     type={type}
                     value={searchQuery}

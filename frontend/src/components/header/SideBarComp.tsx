@@ -20,7 +20,7 @@ const SideBarComp: React.FC = () => {
                             </Label>
                         </div>
                     </div>
-                    <div className="px-5">
+                    {/* <div className="px-5">
                         <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
                             <LineChartIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
@@ -29,7 +29,7 @@ const SideBarComp: React.FC = () => {
                                 </Label>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="px-5">
                         <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
                             <CalendarIcon className="w-6 h-5" />
