@@ -55,7 +55,7 @@ const SideBarComp: React.FC = () => {
                             <LightbulbIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
                                 <Label className="text-sky-500" htmlFor="publisher-details">
-                                    <a>Draft Game Idea</a>
+                                    <a href="/dashboard/createGameConcept">Draft Game Idea</a>
                                 </Label>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import SubmitButton from '@/components/SubmitButton';
-import { signUp } from '@/app/actions';
+import { signUp } from '@/api/auth';
 import { useFormState } from 'react-dom';
 
 const initialState = {
