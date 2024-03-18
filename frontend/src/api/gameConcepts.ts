@@ -12,7 +12,7 @@ export async function postGameConcept(prevState: any, formData: FormData) {
         developer_id: formData.get('developer_id') as string,
     };
 
-    const res = await axios.post(`${baseURL}/TODO`, concept);
+    const res = await axios.post(`${baseURL}/send-game-concept`, concept);
     if (res.status != 200) {
         return {
             message: res.statusText,
