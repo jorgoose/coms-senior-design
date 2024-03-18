@@ -321,6 +321,31 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint updates a game in the GameConcepts table
+	// using query string parameters instead of URL parameters
+	r.PUT("/update-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		// Get the ID from the URL parameter
+		id := c.Query("id")
+		collum := c.Query("collum")
+		value := c.Query("value")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
+			collum: value, // Update
+		}).Eq("id", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	r.GET("/shutdown", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "shutting down",
