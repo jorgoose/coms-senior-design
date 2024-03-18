@@ -1,4 +1,3 @@
-
 type User = {
   id: string | undefined,
   aud: string | undefined,
