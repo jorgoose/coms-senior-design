@@ -31,4 +31,8 @@ type Game = {
     "Header image": string;
     "About the game": string;
     Developers: string;
+    "Release date": string;
+    Price: string;
+    Positive: string;
+    Negative: string;
 }
