@@ -185,6 +185,39 @@ func main() {
 
 		c.JSON(http.StatusOK, res)
 	})
+	
+	// create an endpoint called send-user-data that uploads username,
+	// email, and account type to our supabase table named Users
+	r.POST("/send-user-data", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var user UserBody
+
+		// Parse JSON data from the request body |
+		if err := c.BindJSON(&user); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database | works
+		insertResult := supabase.DB.From("Users").Insert(map[string]interface{}{
+			"username":     user.Username,
+			"email":        user.Email,
+			"account_type": user.Account_type,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 
 	// This endpoint sends a game to the TestGameEndpoints table
 	// using a JSON body, pinned in #backend in the Discord server

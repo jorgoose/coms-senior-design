@@ -1,5 +1,13 @@
 package main
 
+type userBody struct {
+	username			string
+	email				string
+	password			string
+	account_type		string
+}
+
+
 type GameBody struct {
 	AppID                      int
 	Name                       string
