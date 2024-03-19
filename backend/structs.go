@@ -4,6 +4,12 @@ import (
 	"github.com/google/uuid"
 )
 
+type FavoriteGame struct {
+	AppID 					int
+	UserID 					string
+}
+
+
 type GameBody struct {
 	AppID                      int
 	Name                       string
