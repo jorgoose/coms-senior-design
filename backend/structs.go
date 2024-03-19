@@ -43,9 +43,8 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	title        string
-	developer_id string
-	description  string
-	genre        []string
-	tags         []string
+	Title       string
+	Description string
+	Genre       []string
+	Tags        []string
 }

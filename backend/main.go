@@ -275,6 +275,8 @@ func main() {
 	r.POST("/send-game-concept", func(c *gin.Context) {
 		var res []map[string]interface{}
 
+		dev_id := c.Query("developer_id")
+
 		var game GameConcepts
 
 		// Parse JSON data from the request body |
@@ -285,13 +287,14 @@ func main() {
 			return
 		}
 
+
 		// Insert the parsed JSON data into the Supabase database | works
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-			"title":        game.title,
-			"developer_id": game.developer_id,
-			"discription":  game.description,
-			"genre":        game.genre,
-			"tags":         game.tags,
+			"title":        game.Title,
+			"developer_id": dev_id,
+			"description":  game.Description,
+			"genre":        game.Genre,
+			"tags":         game.Tags,
 		}).Execute(&res)
 
 		if insertResult != nil {
