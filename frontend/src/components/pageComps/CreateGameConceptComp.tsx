@@ -4,6 +4,9 @@ import { postGameConcept } from "@/api/gameConcepts";
 import LayoutComponent from "../header/LayoutComponent";
 import SubmitButton from "../SubmitButton";
 import { useFormState } from "react-dom";
+import TagList from "../gameConceptComps/TagList";
+
+const tags: string[] = ['shooter', 'first-person-shooter', 'action', 'adventure'];
 
 interface CreateGameConceptProps {
     user: User;
@@ -15,6 +18,10 @@ const initialState = {
 
 const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
     const [state, formAction] = useFormState(postGameConcept, initialState);
+    
+    const handleTagSelection = (selectedTags: string[]) => {
+        console.log('Selected tags:', selectedTags);
+    };
 
     return (
         <>
@@ -35,6 +42,9 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                             </p>
                             <SubmitButton use='Submit' />
                         </form>
+                        <div>
+                            <TagList tags={tags} onTagClick={handleTagSelection} />
+                        </div>
                     </main>
             </LayoutComponent>
         </>
