@@ -349,7 +349,7 @@ func main() {
 	// Gets all games concepts that fit the given query
 	// TODO : need to add more filters when nessessary
 	// Ex. http://localhost:8080/Filter-Game-concept/?Genres=Free to Play,Action&...
-	r.GET("/Filter-Game-concept", func(c *gin.Context) {
+	r.GET("/filter-Game-concept", func(c *gin.Context) {
 		var res []map[string]interface{}
 
 		Genres := c.Query("Genre")
@@ -360,7 +360,7 @@ func main() {
 		Tags_array := strings.Split(Tags, ",")
 
 		//Get all games
-		body := supabase.DB.From("TestGameEndpoints").Select()
+		body := supabase.DB.From("GameConcepts").Select()
 
 		// Add Filters
 		body.Cs("genre", Genres_array)
