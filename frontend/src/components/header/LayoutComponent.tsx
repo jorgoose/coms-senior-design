@@ -6,7 +6,6 @@ interface LayoutComponentProps {
     searchQuery: string;
     setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
     showSearchBar: boolean;
-    title?: string;
 }
 
 const LayoutComponent: React.FC<LayoutComponentProps> = ({ children, searchQuery, setSearchQuery, showSearchBar }) => {
