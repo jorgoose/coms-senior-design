@@ -2,7 +2,6 @@ import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
-import GamingRoundupComp from '@/components/pageComps/GamingRoundupComp';
 import CurrentGameAnalyticsComp from '@/components/pageComps/CurrentGameAnalyticsComp';
 
 export default async function Home() {

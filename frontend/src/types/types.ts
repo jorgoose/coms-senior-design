@@ -1,11 +1,29 @@
 type User = {
-    id?: number
-    username: string
-    email: string
-    password: string
-    account_type: number
-    created_at?: Date
-    last_login?: Date
+  id: string | undefined,
+  aud: string | undefined,
+  role?: string | undefined,
+  email?: string | undefined,
+  email_confirmed_at?: string | undefined,
+  phone?: string | undefined,
+  confirmed_at?: string | undefined,
+  last_sign_in_at?: string | undefined,
+  app_metadata: {},
+  user_metadata: {},
+  identities?: UserIdentity[] | undefined,
+  created_at: string | undefined,
+  updated_at?: string | undefined,
+}
+
+type UserIdentity = {
+    identity_id: string | undefined,
+    id: string | undefined,
+    user_id: string | undefined,
+    identity_data?: { [key: string]: any; } | undefined,
+    provider: string | undefined,
+    last_sign_in_at?: string | undefined,
+    created_at?: string | undefined,
+    updated_at?: string | undefined,
+    email?: string | undefined,
 }
 
 type SignUpUser = {
@@ -31,4 +49,12 @@ type Game = {
     "Header image": string;
     "About the game": string;
     Developers: string;
+}
+
+type GameConcept = {
+    title: string
+    developer_id: string
+    description: string
+    genre: string
+    tags: string
 }
