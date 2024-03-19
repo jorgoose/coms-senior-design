@@ -111,7 +111,7 @@ func main() {
 	// Gets all games that fit the given query
 	// TODO : need to add more filters when nessessary
 	// Ex. http://localhost:8080/Filter-Game/?Genres=Free to Play,Action&Languages='English'&Year=2007
-	r.GET("/Filter-Game", func(c *gin.Context) {
+	r.GET("/filter-Game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
 		Genres := c.Query("Genres")
@@ -125,9 +125,15 @@ func main() {
 		body := supabase.DB.From("TestGameEndpoints").Select()
 
 		// Add Filters
-		body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
-		body.Cs("Genres", Genres_array)
-		body.Cs("Supported languages", Languages_array)
+		if len(Year) > 0 {
+			body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
+		}
+		if len(Genres_array) > 0 {
+			body.Cs("Genres", Genres_array)
+		}
+		if len(Languages_array) > 0 {
+			body.Cs("Supported languages", Languages_array)
+		}
 
 		// Execute Filter
 		err := body.Execute(&res)
@@ -287,7 +293,6 @@ func main() {
 			return
 		}
 
-
 		// Insert the parsed JSON data into the Supabase database | works
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
 			"title":        game.Title,
@@ -351,7 +356,7 @@ func main() {
 
 	// Gets all games concepts that fit the given query
 	// TODO : need to add more filters when nessessary
-	// Ex. http://localhost:8080/Filter-Game-concept/?Genres=Free to Play,Action&...
+	// Ex. http://localhost:8080/filter-game-concept/?Genre=Free to Play,Action&...
 	r.GET("/filter-game-concept", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -366,9 +371,15 @@ func main() {
 		body := supabase.DB.From("GameConcepts").Select()
 
 		// Add Filters
-		body.Cs("genre", Genres_array)
-		body.Cs("tags", Tags_array)
-		body.Eq("title", title)
+		if len(Genres_array) > 0 {
+			body.Cs("genre", Genres_array)
+		}
+		if len(Tags_array) > 0 {
+			body.Cs("tags", Tags_array)
+		}
+		if len(title) > 0 {
+			body.Eq("title", title)
+		}
 
 		// Execute Filter
 		err := body.Execute(&res)
