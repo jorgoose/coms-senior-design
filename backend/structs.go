@@ -1,9 +1,8 @@
 package main
 
-type FavoriteGame struct {
-	AppID 					int
-	UserID 					string
-}
+import (
+	"github.com/google/uuid"
+)
 
 type GameBody struct {
 	AppID                      int
@@ -45,4 +44,12 @@ type GameBody struct {
 	Tags                       string
 	Screenshots                string
 	Movies                     string
+}
+
+type GameConcepts struct {
+	Title        string
+	Developer_id uuid.UUID
+	Description  string
+	Genre        []string
+	Tags         []string
 }

@@ -32,13 +32,13 @@ func main() {
 	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
-        AllowOrigins:     []string{"*"}, 
-        AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
-        AllowHeaders:     []string{"Origin", "Content-Type"},
-        ExposeHeaders:    []string{"Content-Length"},
-        AllowCredentials: true,
-    }))
-	
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
+		AllowHeaders:     []string{"Origin", "Content-Type"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+	}))
+
 	resourceManager := utils.ResourceManager{}
 	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
 	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
@@ -160,7 +160,7 @@ func main() {
 	// Gets all games that fit the given query
 	// TODO : need to add more filters when nessessary
 	// Ex. http://localhost:8080/Filter-Game/?Genres=Free to Play,Action&Languages='English'&Year=2007
-	r.GET("/Filter-Game", func(c *gin.Context) {
+	r.GET("/filter-Game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
 		Genres := c.Query("Genres")
@@ -174,9 +174,15 @@ func main() {
 		body := supabase.DB.From("TestGameEndpoints").Select()
 
 		// Add Filters
-		body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
-		body.Cs("Genres", Genres_array)
-		body.Cs("Supported languages", Languages_array)
+		if len(Year) > 0 {
+			body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
+		}
+		if len(Genres_array) > 0 {
+			body.Cs("Genres", Genres_array)
+		}
+		if len(Languages_array) > 0 {
+			body.Cs("Supported languages", Languages_array)
+		}
 
 		// Execute Filter
 		err := body.Execute(&res)
@@ -297,6 +303,137 @@ func main() {
 		if insertResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint retrieves all data for all games from the Game Concepts table
+	r.GET("/get-all-game-concepts", func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("GameConcepts").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint sends a game to the TestGameEndpoints table
+	// using a JSON body, pinned in #backend in the Discord server
+	// note, the JSON body is subject to change once steam data is available.
+	r.POST("/send-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var game GameConcepts
+
+		// Parse JSON data from the request body |
+		if err := c.BindJSON(&game); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database | works
+		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
+			"title":        game.Title,
+			"developer_id": game.Developer_id,
+			"description":  game.Description,
+			"genre":        game.Genre,
+			"tags":         game.Tags,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint deletes a game in the GameConcept table
+	// using query string parameters instead of URL parameters
+	r.DELETE("/delete-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("GameConcepts").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint updates a game in the GameConcepts table
+	// using query string parameters instead of URL parameters
+	r.PUT("/update-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		// Get the ID from the URL parameter
+		id := c.Query("id")
+		collum := c.Query("collum")
+		value := c.Query("value")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("GameConcepts").Update(map[string]interface{}{
+			collum: value, // Update
+		}).Eq("id", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// Gets all games concepts that fit the given query
+	// TODO : need to add more filters when nessessary
+	// Ex. http://localhost:8080/filter-game-concept/?Genre=Free to Play,Action&...
+	r.GET("/filter-game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		Genres := c.Query("Genre")
+		Tags := c.Query("tags")
+		title := c.Query("title")
+
+		Genres_array := strings.Split(Genres, ",")
+		Tags_array := strings.Split(Tags, ",")
+
+		//Get all games
+		body := supabase.DB.From("GameConcepts").Select()
+
+		// Add Filters
+		if len(Genres_array) > 0 {
+			body.Cs("genre", Genres_array)
+		}
+		if len(Tags_array) > 0 {
+			body.Cs("tags", Tags_array)
+		}
+		if len(title) > 0 {
+			body.Eq("title", title)
+		}
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
 			})
 			return
 		}
