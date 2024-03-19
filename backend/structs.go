@@ -53,3 +53,8 @@ type GameConcepts struct {
 	Genre        []string
 	Tags         []string
 }
+
+type FavoriteGame struct {
+	AppID  int
+	UserID string
+}
