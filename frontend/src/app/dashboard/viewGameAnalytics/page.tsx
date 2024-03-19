@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
 import ViewGameAnalyticsComp from '@/components/pageComps/ViewGameAnalyticsComp';
+import CurrentGameAnalyticsComp from '@/components/pageComps/CurrentGameAnalyticsComp';
 
 export default async function Home() {
     const cookieStore = cookies();
