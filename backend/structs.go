@@ -1,5 +1,9 @@
 package main
 
+import (
+	"github.com/google/uuid"
+)
+
 type GameBody struct {
 	AppID                      int
 	Name                       string
@@ -43,8 +47,9 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	Title       string
-	Description string
-	Genre       []string
-	Tags        []string
+	Title        string
+	Developer_id uuid.UUID
+	Description  string
+	Genre        []string
+	Tags         []string
 }
