@@ -1,5 +1,10 @@
 package main
 
+type FavoriteGame struct {
+	AppID 					int
+	UserID 					string
+}
+
 type GameBody struct {
 	AppID                      int
 	Name                       string

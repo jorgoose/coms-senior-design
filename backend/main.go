@@ -69,6 +69,55 @@ func main() {
 		c.JSON(http.StatusOK, res)
 	})
 
+	// This endpoint retrieves all data for all favorite games from the FavoriteGames table
+	// with a query param called UserID
+	// localhost:8080/get-favorite-games?UserID=3df99dfd-4b2a-40e7-8369-bd50e27cd92b
+	r.GET("/get-favorite-games", func(c *gin.Context) {
+		var res []map[string]interface{}
+		userID := c.Query("UserID")
+		//err := supabase.DB.From("FavoriteGames").Select("*").Execute(&res)
+		err := supabase.DB.From("FavoriteGames").Select("*").Eq("UserID", userID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// post endpoint that takes in a GameID and UserID to store in a table called
+	// Favorite Games. 
+	r.POST("/favorite-game", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var favorite FavoriteGame
+
+		// Parse JSON data from the request body
+		if err := c.BindJSON(&favorite); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database
+		insertResult := supabase.DB.From("FavoriteGames").Insert(map[string]interface{}{
+			"AppID": favorite.AppID,
+			"UserID": favorite.UserID,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
 	// This endpoint selects all elements where its collum == equal
 	// using query string parameters instead of URL parameters
 	// lhttp://localhost:8080/request?sele=AppID&collum=Name&equal=Portal%202
