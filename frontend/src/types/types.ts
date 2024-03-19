@@ -49,6 +49,11 @@ type Game = {
     "Header image": string;
     "About the game": string;
     Developers: string;
+    "Release date": string;
+    Price: string;
+    Positive: number;
+    Negative: number;
+    Recommendations: number;
 }
 
 type GameConcept = {
