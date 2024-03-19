@@ -51,8 +51,9 @@ type Game = {
     Developers: string;
     "Release date": string;
     Price: string;
-    Positive: string;
-    Negative: string;
+    Positive: number;
+    Negative: number;
+    Recommendations: number;
 }
 
 type GameConcept = {
