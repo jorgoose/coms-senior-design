@@ -286,7 +286,7 @@ func main() {
 		}
 
 		// Insert the parsed JSON data into the Supabase database | works
-		insertResult := supabase.DB.From("GameConcept").Insert(map[string]interface{}{
+		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
 			"title":        game.title,
 			"developer_id": game.developer_id,
 			"discription":  game.description,
@@ -310,7 +310,7 @@ func main() {
 		var res []map[string]interface{}
 		id := c.Query("id")
 
-		err := supabase.DB.From("GameConcept").Delete().Eq("id", id).Execute(&res)
+		err := supabase.DB.From("GameConcepts").Delete().Eq("id", id).Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
@@ -332,13 +332,47 @@ func main() {
 		value := c.Query("value")
 
 		// Update the specified record in the Supabase database
-		updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
+		updateResult := supabase.DB.From("GameConcepts").Update(map[string]interface{}{
 			collum: value, // Update
 		}).Eq("id", id).Execute(&res)
 
 		if updateResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// Gets all games concepts that fit the given query
+	// TODO : need to add more filters when nessessary
+	// Ex. http://localhost:8080/Filter-Game-concept/?Genres=Free to Play,Action&...
+	r.GET("/Filter-Game-concept", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		Genres := c.Query("Genre")
+		Tags := c.Query("tags")
+		title := c.Query("title")
+
+		Genres_array := strings.Split(Genres, ",")
+		Tags_array := strings.Split(Tags, ",")
+
+		//Get all games
+		body := supabase.DB.From("TestGameEndpoints").Select()
+
+		// Add Filters
+		body.Cs("genre", Genres_array)
+		body.Cs("tags", Tags_array)
+		body.Eq("title", title)
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
 			})
 			return
 		}
