@@ -27,3 +27,11 @@ export async function getGame(appId: number) {
     }
     return data;
 }
+
+export async function getFavoriteGame(UserID: string) {
+    const data = await axios.get(`${baseURL}/get-favorite-games?UserID=${UserID}`);
+    if(!data) {
+        throw "Error in favorite game";
+    }
+    return data;
+}

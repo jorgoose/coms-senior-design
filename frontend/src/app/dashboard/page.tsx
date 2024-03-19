@@ -16,9 +16,8 @@ export default async function Home() {
     return (
         <>
             <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-                <DashboardComp />
+                <DashboardComp UserID={data.user.id} />
             </div>
         </>
     );
 }
-  
