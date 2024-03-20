@@ -67,6 +67,7 @@ func main() {
 	r.PUT("/update-game-concept", updateGameConcept(supabase))
 	r.GET("/filter-game-concept", filterGameConcept(supabase))
 	r.GET("/get-all-comments", getAllComments(supabase))
+	r.GET("/get-all-reviews", getAllReviews(supabase))
 	r.POST("/send-comment", sendComments(supabase))
 	r.DELETE("/delete-comment", deleteComments(supabase))
 	r.POST("/send-review", sendReview(supabase))
@@ -657,7 +658,6 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			}
 		}
 
-
 		c.JSON(http.StatusOK, res)
 	}
 }
@@ -668,6 +668,21 @@ func deleteComments(supabase *supa.Client) gin.HandlerFunc {
 		id := c.Query("id")
 
 		err := supabase.DB.From("Comments").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getAllReviews(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("Reviews").Select("*").Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
