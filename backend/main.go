@@ -88,7 +88,7 @@ func main() {
 	})
 
 	// post endpoint that takes in a GameID and UserID to store in a table called
-	// Favorite Games. 
+	// Favorite Games.
 	r.POST("/favorite-game", func(c *gin.Context) {
 		var res []map[string]interface{}
 
@@ -104,7 +104,7 @@ func main() {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("FavoriteGames").Insert(map[string]interface{}{
-			"AppID": favorite.AppID,
+			"AppID":  favorite.AppID,
 			"UserID": favorite.UserID,
 		}).Execute(&res)
 
@@ -431,6 +431,79 @@ func main() {
 		// Execute Filter
 		err := body.Execute(&res)
 
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint retrieves all data for all games from the Comments table
+	r.GET("/get-all-comments", func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("Comments").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint sends a game to the Comments table
+	// using a JSON body, pinned in #backend in the Discord server
+	// note, the JSON body is subject to change once steam data is available.
+	r.POST("/send-comment", func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var comment Comment
+
+		// Parse JSON data from the request body |
+		if err := c.BindJSON(&comment); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		if comment.AppID == 0 && len(comment.ConceptID) <= 0 {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "comment must belong to game",
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database | works
+		insertResult := supabase.DB.From("Comment").Insert(map[string]interface{}{
+			"Game":        comment.AppID,
+			"GameConcept": comment.ConceptID,
+			"user":        comment.UserID,
+			"Parent_id":   comment.ParentID,
+			"comment":     comment.Comment,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	})
+
+	// This endpoint deletes a game in the comment table
+	// using query string parameters instead of URL parameters
+	r.DELETE("/delete-comment", func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("Comments").Delete().Eq("id", id).Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
