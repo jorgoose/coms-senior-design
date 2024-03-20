@@ -68,6 +68,7 @@ func main() {
 	r.GET("/get-all-comments", getAllComments(supabase))
 	r.POST("/send-comment", sendComments(supabase))
 	r.DELETE("/delete-comment", deleteComments(supabase))
+	r.POST("/send-review", sendReview(supabase))
 	r.GET("/shutdown", shutdown)
 	r.GET("/ping", ping)
 
@@ -616,7 +617,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		if comment.AppID == 0 && len(comment.ParentID) <= 0 {
+		if comment.AppID == 0 {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "comment must belong to game",
 			})
@@ -651,6 +652,46 @@ func deleteComments(supabase *supa.Client) gin.HandlerFunc {
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func sendReview(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var review Review
+
+		// Parse JSON data from the request body |
+		if err := c.BindJSON(&review); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		if len(review.ConceptID) == 0 && len(review.UserID) <= 0 {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "comment must belong to game and user",
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database | works
+		insertResult := supabase.DB.From("Comment").Insert(map[string]interface{}{
+			"ConceptID": review.ConceptID,
+			"user":      review.UserID,
+			"comment":   review.Comment,
+			"vote":      0,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
 			})
 			return
 		}
