@@ -34,7 +34,7 @@ func main() {
 	if err := godotenv.Load(".env"); err != nil {
 		fmt.Println("Error loading .env file")
 	}
-	
+
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "OPTIONS", "PUT", "DELETE"},
@@ -76,7 +76,7 @@ func main() {
 
 func getUser(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		id := Query("id")
+		id := c.Query("id")
 		var res []map[string]interface{}
 		err := supabase.DB.From("Users").Select("*").Eq("id", id).Execute(&res)
 		if err != nil {
