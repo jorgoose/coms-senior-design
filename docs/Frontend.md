@@ -10,9 +10,9 @@
      - [UseFormState](#useformstate)
      - [UseFormStatus](#useformstatus)
 4. [Components](#components)
-5. [Supabase Auth](#supabase-auth)
+5. [Api](#api)
+6. [Supabase Auth](#supabase-auth)
    - [Route Protection](#route-protection)
-6. [HTTP Requests](#http-requests)
 
 ---
 
@@ -230,7 +230,7 @@ which allows us to use the `Button` component in the file like so:
 
 ## API
 
-API requests to data sources outside the frontend, mainly the backend server, will use Axios. Axios gives us a way to make HTTP requests to the backend server and handle the responses.
+To make Api requests to the backend, we have decided to use axios as it provides clean and compact api calls. Documentation for how to use the written calls will be mainly contained in the files under the /api folder. It should also be noted that any future api calls should be placed in the proper file under the folder. For example, a call to grab a single user's data should be placed in the /api/users.ts file.
 
 ## Supabase Auth
 

@@ -11,6 +11,7 @@ const Label: React.FC<LabelProps> = ({ className, htmlFor, children }) => {
         <label
             htmlFor={htmlFor}
             className={className}
+            style={{ cursor: 'pointer' }}
         >
             {children}
         </label>

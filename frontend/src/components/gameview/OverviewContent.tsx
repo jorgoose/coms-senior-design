@@ -4,7 +4,7 @@ interface OverviewContentProps {
 
 const OverviewContent: React.FC<OverviewContentProps> = ({description}) => {
     return (
-        <div className="mt-6">
+        <div className="mt-6 py-1 px-5 bg-stone-800 rounded-lg">
             <p className="my-4 text-3xl bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">Game Description</p>
             <p className="my-4 bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">{description}</p>
         </div>
