@@ -616,7 +616,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		if comment.AppID == 0 && len(comment.ConceptID) <= 0 && len(comment.ParentID) <= 0 {
+		if comment.AppID == 0 && len(comment.ParentID) <= 0 {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "comment must belong to game",
 			})
@@ -625,11 +625,10 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 
 		// Insert the parsed JSON data into the Supabase database | works
 		insertResult := supabase.DB.From("Comment").Insert(map[string]interface{}{
-			"Game":        comment.AppID,
-			"GameConcept": comment.ConceptID,
-			"user":        comment.UserID,
-			"Parent_id":   comment.ParentID,
-			"comment":     comment.Comment,
+			"Game":      comment.AppID,
+			"user":      comment.UserID,
+			"Parent_id": comment.ParentID,
+			"comment":   comment.Comment,
 		}).Execute(&res)
 
 		if insertResult != nil {
