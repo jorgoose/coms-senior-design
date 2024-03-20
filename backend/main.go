@@ -69,6 +69,8 @@ func main() {
 	r.POST("/send-comment", sendComments(supabase))
 	r.DELETE("/delete-comment", deleteComments(supabase))
 	r.POST("/send-review", sendReview(supabase))
+	r.GET("/get-vote", getVote(supabase))
+	r.PUT("/update-vote", updateVote(supabase))
 	r.GET("/shutdown", shutdown)
 	r.GET("/ping", ping)
 
@@ -692,6 +694,47 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 		if insertResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getVote(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		id := c.Query("id")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("Reviews").Select("vote").Eq("id", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func updateVote(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		id := c.Query("id")
+		vote := c.Query("vote")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("Reviews").Update(map[string]interface{}{"vote": vote}).Eq("id", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
 			})
 			return
 		}
