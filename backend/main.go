@@ -11,6 +11,7 @@ import (
 	// External dependencies
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
 
@@ -66,6 +67,14 @@ func main() {
 	r.DELETE("/delete-game-concept", deleteGameConcept(supabase))
 	r.PUT("/update-game-concept", updateGameConcept(supabase))
 	r.GET("/filter-game-concept", filterGameConcept(supabase))
+	r.GET("/get-all-comments", getAllComments(supabase))
+	r.GET("/get-all-reviews", getAllReviews(supabase))
+	r.POST("/send-comment", sendComments(supabase))
+	r.DELETE("/delete-comment", deleteComments(supabase))
+	r.POST("/send-review", sendReview(supabase))
+	r.DELETE("/delete-review", deleteReview(supabase))
+	r.GET("/get-vote", getVote(supabase))
+	r.PUT("/update-vote", updateVote(supabase))
 	r.GET("/shutdown", shutdown)
 	r.GET("/ping", ping)
 
@@ -573,7 +582,6 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		Genres_array := strings.Split(Genres, ",")
 		Tags_array := strings.Split(Tags, ",")
 
-		//Get all games
 		body := supabase.DB.From("GameConcepts").Select()
 
 		// Add Filters
@@ -587,12 +595,205 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 			body.Eq("title", title)
 		}
 
-		// Execute Filter
 		err := body.Execute(&res)
 
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getAllComments(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("Comments").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func sendComments(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var comment Comment
+
+		if err := c.BindJSON(&comment); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		if comment.AppID == 0 {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "comment must belong to game",
+			})
+			return
+		}
+
+		if comment.ParentID == uuid.Nil {
+			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
+				"Game":    comment.AppID,
+				"user":    comment.UserID,
+				"comment": comment.Comment,
+			}).Execute(&res)
+			if insertResult != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"error": insertResult.Error(),
+				})
+				return
+			}
+		} else {
+			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
+				"Game":      comment.AppID,
+				"user":      comment.UserID,
+				"Parent_id": comment.ParentID,
+				"comment":   comment.Comment,
+			}).Execute(&res)
+			if insertResult != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"error": insertResult.Error(),
+				})
+				return
+			}
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func deleteComments(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("Comments").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getAllReviews(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("Reviews").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func sendReview(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var review Review
+
+		if err := c.BindJSON(&review); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		if review.ConceptID == uuid.Nil || review.UserID == uuid.Nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": "comment must belong to game and user",
+			})
+			return
+		}
+
+		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
+			"ConceptID": review.ConceptID,
+			"user":      review.UserID,
+			"comment":   review.Comment,
+			"vote":      0,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func deleteReview(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("Reviews").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getVote(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		id := c.Query("id")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("Reviews").Select("vote").Eq("id", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func updateVote(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		id := c.Query("id")
+		vote := c.Query("vote")
+
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("Reviews").Update(map[string]interface{}{"vote": vote}).Eq("id", id).Execute(&res)
+
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
 			})
 			return
 		}
