@@ -549,7 +549,7 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
 
-		Genres := c.Query("Genre")
+		Genres := c.Query("genre")
 		Tags := c.Query("tags")
 		title := c.Query("title")
 
@@ -561,7 +561,7 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 
 		// Add Filters
 		if len(Genres_array) > 0 {
-			body.Cs("Genre", Genres_array)
+			body.Cs("genre", Genres_array)
 		}
 		if len(Tags_array) > 0 {
 			body.Cs("tags", Tags_array)
