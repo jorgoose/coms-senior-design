@@ -1,6 +1,127 @@
 info:
   contact: {}
 paths:
+  /delete-game:
+    delete:
+      description: Deletes a game
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete game
+  /delete-game-concept:
+    delete:
+      description: Deletes a game concept
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete game concept
+  /favorite-game:
+    post:
+      description: Favorite a game
+      parameters:
+      - description: AppID
+        in: body
+        name: AppID
+        required: true
+        schema:
+          type: integer
+      - description: UserID
+        in: body
+        name: UserID
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Favorite a game
+  /filter-game:
+    get:
+      description: Filters games (currently by Genre, Tags, and Title)
+      parameters:
+      - description: Genre
+        in: query
+        name: Genre
+        type: string
+      - description: tags
+        in: query
+        name: tags
+        type: string
+      - description: title
+        in: query
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Filter games
+  /get-all-game-concepts:
+    get:
+      description: Get all game concepts
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get all game concepts
+  /get-all-games:
+    get:
+      description: Get all games
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get all games
+  /get-favorite-games:
+    get:
+      description: Get favorite games by UserID
+      parameters:
+      - description: UserID
+        in: query
+        name: UserID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get favorite games
   /ping:
     get:
       description: Check if the server is up and running
@@ -12,4 +133,401 @@ paths:
           schema:
             type: string
       summary: Ping the server
+  /request:
+    get:
+      description: select all of one value that matches a column
+      parameters:
+      - description: sele
+        in: query
+        name: sele
+        required: true
+        type: string
+      - description: collum
+        in: query
+        name: collum
+        required: true
+        type: string
+      - description: equal
+        in: query
+        name: equal
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: request
+  /request-game:
+    get:
+      description: request a game by AppID
+      parameters:
+      - description: AppID
+        in: query
+        name: AppID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: request a game
+  /send-game:
+    post:
+      description: Sends a game to the database
+      parameters:
+      - description: AppID
+        in: body
+        name: AppID
+        required: true
+        schema:
+          type: integer
+      - description: Name
+        in: body
+        name: Name
+        required: true
+        schema:
+          type: string
+      - description: Release_date
+        in: body
+        name: Release_date
+        required: true
+        schema:
+          type: string
+      - description: Estimated_owners
+        in: body
+        name: Estimated_owners
+        required: true
+        schema:
+          type: string
+      - description: Peak_CCU
+        in: body
+        name: Peak_CCU
+        required: true
+        schema:
+          type: integer
+      - description: Required_age
+        in: body
+        name: Required_age
+        required: true
+        schema:
+          type: integer
+      - description: Price
+        in: body
+        name: Price
+        required: true
+        schema:
+          type: number
+      - description: DLC_count
+        in: body
+        name: DLC_count
+        required: true
+        schema:
+          type: integer
+      - description: About_the_game
+        in: body
+        name: About_the_game
+        required: true
+        schema:
+          type: string
+      - description: Supported_languages
+        in: body
+        name: Supported_languages
+        required: true
+        schema:
+          type: string
+      - description: Full_audio_languages
+        in: body
+        name: Full_audio_languages
+        required: true
+        schema:
+          type: string
+      - description: Reviews
+        in: body
+        name: Reviews
+        required: true
+        schema:
+          type: string
+      - description: Header_image
+        in: body
+        name: Header_image
+        required: true
+        schema:
+          type: string
+      - description: Website
+        in: body
+        name: Website
+        required: true
+        schema:
+          type: string
+      - description: Support_url
+        in: body
+        name: Support_url
+        required: true
+        schema:
+          type: string
+      - description: Support_email
+        in: body
+        name: Support_email
+        required: true
+        schema:
+          type: string
+      - description: Windows
+        in: body
+        name: Windows
+        required: true
+        schema:
+          type: boolean
+      - description: Mac
+        in: body
+        name: Mac
+        required: true
+        schema:
+          type: boolean
+      - description: Linux
+        in: body
+        name: Linux
+        required: true
+        schema:
+          type: boolean
+      - description: Metacritic_score
+        in: body
+        name: Metacritic_score
+        required: true
+        schema:
+          type: integer
+      - description: Metacritic_url
+        in: body
+        name: Metacritic_url
+        required: true
+        schema:
+          type: string
+      - description: User_score
+        in: body
+        name: User_score
+        required: true
+        schema:
+          type: integer
+      - description: Positive
+        in: body
+        name: Positive
+        required: true
+        schema:
+          type: integer
+      - description: Negative
+        in: body
+        name: Negative
+        required: true
+        schema:
+          type: integer
+      - description: Score_rank
+        in: body
+        name: Score_rank
+        required: true
+        schema:
+          type: string
+      - description: Achievements
+        in: body
+        name: Achievements
+        required: true
+        schema:
+          type: integer
+      - description: Recommendations
+        in: body
+        name: Recommendations
+        required: true
+        schema:
+          type: integer
+      - description: Notes
+        in: body
+        name: Notes
+        required: true
+        schema:
+          type: string
+      - description: Average_playtime_forever
+        in: body
+        name: Average_playtime_forever
+        required: true
+        schema:
+          type: integer
+      - description: Average_playtime_two_weeks
+        in: body
+        name: Average_playtime_two_weeks
+        required: true
+        schema:
+          type: integer
+      - description: Median_playtime_forever
+        in: body
+        name: Median_playtime_forever
+        required: true
+        schema:
+          type: integer
+      - description: Median_playtime_two_weeks
+        in: body
+        name: Median_playtime_two_weeks
+        required: true
+        schema:
+          type: integer
+      - description: Developers
+        in: body
+        name: Developers
+        required: true
+        schema:
+          type: string
+      - description: Publishers
+        in: body
+        name: Publishers
+        required: true
+        schema:
+          type: string
+      - description: Categories
+        in: body
+        name: Categories
+        required: true
+        schema:
+          type: string
+      - description: Genres
+        in: body
+        name: Genres
+        required: true
+        schema:
+          type: string
+      - description: Tags
+        in: body
+        name: Tags
+        required: true
+        schema:
+          type: string
+      - description: Screenshots
+        in: body
+        name: Screenshots
+        required: true
+        schema:
+          type: string
+      - description: Movies
+        in: body
+        name: Movies
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Send game
+  /send-game-concept:
+    post:
+      description: Sends a game concept to the database
+      parameters:
+      - description: title
+        in: body
+        name: title
+        required: true
+        schema:
+          type: string
+      - description: developer_id
+        in: body
+        name: developer_id
+        required: true
+        schema:
+          type: string
+      - description: description
+        in: body
+        name: description
+        required: true
+        schema:
+          type: string
+      - description: genre
+        in: body
+        name: genre
+        required: true
+        schema:
+          type: string
+      - description: tags
+        in: body
+        name: tags
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Send game concept
+  /shutdown:
+    get:
+      description: Shutdown the server
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Shutdown the server
+  /update-game:
+    put:
+      description: Updates a game after creation
+      parameters:
+      - description: AppID
+        in: query
+        name: AppID
+        required: true
+        type: string
+      - description: collum
+        in: query
+        name: collum
+        required: true
+        type: string
+      - description: value
+        in: query
+        name: value
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update game
+  /update-game-concept:
+    put:
+      description: Updates a game concept after creation
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: collum
+        in: query
+        name: collum
+        required: true
+        type: string
+      - description: value
+        in: query
+        name: value
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update game concept
 swagger: "2.0"
