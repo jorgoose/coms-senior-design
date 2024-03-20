@@ -22,12 +22,22 @@ import (
 )
 
 // To start the server: "go run .". This will start the server on port 8080 by default, with a shutdown endpoint at /shutdown.
+var resourceManager = utils.ResourceManager{}
+var supabaseKey = resourceManager.GetProperty("SUPABASE_KEY")
+var supabaseUrl = resourceManager.GetProperty("SUPABASE_URL")
+var supabase = supa.CreateClient(supabaseUrl, supabaseKey)
+var r = gin.Default()
+
+var srv = &http.Server{
+	Addr:    ":8080",
+	Handler: r,
+}
 
 func main() {
-	resourceManager := utils.ResourceManager{}
-	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
-	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
-	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
+	// resourceManager := utils.ResourceManager{}
+	// supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
+	// supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
+	// supabase := supa.CreateClient(supabaseUrl, supabaseKey)
 	r := gin.Default()
 
 	srv := &http.Server{
