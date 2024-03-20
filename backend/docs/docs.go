@@ -15,6 +15,32 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/delete-comment": {
+            "delete": {
+                "description": "Deletes a comment",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/delete-game": {
             "delete": {
                 "description": "Deletes a game",
@@ -48,6 +74,32 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "summary": "Delete game concept",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/delete-review": {
+            "delete": {
+                "description": "Deletes a review",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete review",
                 "parameters": [
                     {
                         "type": "string",
@@ -141,6 +193,23 @@ const docTemplate = `{
                 }
             }
         },
+        "/get-all-comments": {
+            "get": {
+                "description": "Get all comments",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all comments",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/get-all-game-concepts": {
             "get": {
                 "description": "Get all game concepts",
@@ -175,6 +244,49 @@ const docTemplate = `{
                 }
             }
         },
+        "/get-all-replies": {
+            "get": {
+                "description": "Get all replies",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all replies",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/get-all-reviews": {
+            "get": {
+                "description": "Get all reviews",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all reviews",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/get-favorite-games": {
             "get": {
                 "description": "Get favorite games by UserID",
@@ -187,6 +299,58 @@ const docTemplate = `{
                         "type": "string",
                         "description": "UserID",
                         "name": "UserID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/get-user": {
+            "get": {
+                "description": "Get user by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/get-vote": {
+            "get": {
+                "description": "Get vote by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get vote",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
                         "in": "query",
                         "required": true
                     }
@@ -272,6 +436,52 @@ const docTemplate = `{
                         "name": "AppID",
                         "in": "query",
                         "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/send-comment": {
+            "post": {
+                "description": "Sends a comment to the database",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Send comment",
+                "parameters": [
+                    {
+                        "description": "AppID",
+                        "name": "AppID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "description": "UserID",
+                        "name": "UserID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Comment",
+                        "name": "Comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -718,6 +928,52 @@ const docTemplate = `{
                 }
             }
         },
+        "/send-review": {
+            "post": {
+                "description": "Sends a review to the database",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Send review",
+                "parameters": [
+                    {
+                        "description": "ConceptID",
+                        "name": "ConceptID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "UserID",
+                        "name": "UserID",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "description": "Comment",
+                        "name": "Comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/shutdown": {
             "get": {
                 "description": "Shutdown the server",
@@ -725,6 +981,39 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "summary": "Shutdown the server",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/unfavorite-game": {
+            "delete": {
+                "description": "Unfavorite a game",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Unfavorite a game",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "AppID",
+                        "name": "AppID",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "UserID",
+                        "name": "UserID",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -801,6 +1090,39 @@ const docTemplate = `{
                         "type": "string",
                         "description": "value",
                         "name": "value",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/update-vote": {
+            "put": {
+                "description": "Update vote by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update vote",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "vote",
+                        "name": "vote",
                         "in": "query",
                         "required": true
                     }
