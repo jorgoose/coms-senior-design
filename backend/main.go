@@ -471,7 +471,7 @@ func main() {
 			return
 		}
 
-		if comment.AppID == 0 && len(comment.ConceptID) <= 0 {
+		if comment.AppID == 0 && len(comment.ConceptID) <= 0 && len(comment.ParentID) <= 0 {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "comment must belong to game",
 			})
