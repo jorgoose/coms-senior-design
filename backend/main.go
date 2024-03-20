@@ -78,7 +78,7 @@ func main() {
 // @Produce json
 // @Success 200 {object} string
 // @Router /get-all-games [get]
-func getAllGames(c *gin.Context, supabase *supa.Client) {
+func getAllGames(c *gin.Context) {
 	var res []map[string]interface{}
 	err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
 	if err != nil {
