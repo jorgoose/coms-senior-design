@@ -198,9 +198,12 @@ func unfavoriteGame(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
 
-		id := c.Query("id")
-
-		err := supabase.DB.From("FavoriteGames").Delete().Eq("id", id).Execute(&res)
+		AppID := c.Query("AppID")
+		UserID := c.Query("UserID")
+		
+		// const { data, error } = await supabase .from('businesses') .select(*, chain ( * )) .eq('owner_id', 2) .or('chain.owner_id.eq.2');
+		err := supabase.DB.From("FavoriteGames").Delete().Eq("AppID", AppID).Eq("UserID", UserID).Execute(&res)
+		//err := supabase.DB.From("FavoriteGames").Delete().Eq("id", id).and("").Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
