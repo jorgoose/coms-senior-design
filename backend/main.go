@@ -185,7 +185,7 @@ func main() {
 
 		c.JSON(http.StatusOK, res)
 	})
-	
+
 	// create an endpoint called send-user-data that uploads username,
 	// email, and account type to our supabase table named Users
 	r.POST("/send-user-data", func(c *gin.Context) {
@@ -203,9 +203,9 @@ func main() {
 
 		// Insert the parsed JSON data into the Supabase database | works
 		insertResult := supabase.DB.From("Users").Insert(map[string]interface{}{
-			"username":     user.Username,
-			"email":        user.Email,
-			"account_type": user.Account_type,
+			"username":     user.username,
+			"email":        user.email,
+			"account_type": user.account_type,
 		}).Execute(&res)
 
 		if insertResult != nil {

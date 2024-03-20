@@ -7,7 +7,6 @@ type userBody struct {
 	account_type		string
 }
 
-
 type GameBody struct {
 	AppID                      int
 	Name                       string
