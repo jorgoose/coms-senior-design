@@ -565,7 +565,6 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		Genres_array := strings.Split(Genres, ",")
 		Tags_array := strings.Split(Tags, ",")
 
-		//Get all games
 		body := supabase.DB.From("GameConcepts").Select()
 
 		// Add Filters
@@ -579,7 +578,6 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 			body.Eq("title", title)
 		}
 
-		// Execute Filter
 		err := body.Execute(&res)
 
 		if err != nil {
@@ -614,7 +612,6 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 
 		var comment Comment
 
-		// Parse JSON data from the request body |
 		if err := c.BindJSON(&comment); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
@@ -630,7 +627,6 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 		}
 
 		if comment.ParentID == uuid.Nil {
-			// Insert the parsed JSON data into the Supabase database | works
 			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
 				"Game":    comment.AppID,
 				"user":    comment.UserID,
@@ -643,7 +639,6 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 				return
 			}
 		} else {
-			// Insert the parsed JSON data into the Supabase database | works
 			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
 				"Game":      comment.AppID,
 				"user":      comment.UserID,
@@ -700,7 +695,6 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 
 		var review Review
 
-		// Parse JSON data from the request body |
 		if err := c.BindJSON(&review); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
 				"error": err.Error(),
@@ -708,14 +702,13 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		if len(review.ConceptID) == 0 && len(review.UserID) <= 0 {
+		if review.ConceptID == uuid.Nil || review.UserID == uuid.Nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": "comment must belong to game and user",
 			})
 			return
 		}
 
-		// Insert the parsed JSON data into the Supabase database | works
 		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
 			"ConceptID": review.ConceptID,
 			"user":      review.UserID,
