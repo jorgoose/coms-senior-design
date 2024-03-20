@@ -1,5 +1,6 @@
 'use client';
 
+import { setFavoriteGame } from "@/api/games";
 import { useState } from "react";
 
 interface GameCardProps {
@@ -10,12 +11,21 @@ interface GameCardProps {
 }
 
 const GameCard: React.FC<GameCardProps> = ({ game, onClick, isFavorite, UserID }) => {
-    console.log(isFavorite);
     const [isFavorited, setIsFavorited] = useState(isFavorite);
 
     const toggleFavorite = () => {
         setIsFavorited(!isFavorited);
 
+        console.log("WOWOW");
+
+        if(isFavorited === false) {  
+            console.log("GOt here");      
+            const favGame: FavoriteGame = {
+                UserID: UserID,
+                AppID: game.AppID
+            }
+            setFavoriteGame(favGame);
+        }
     };
 
     return (

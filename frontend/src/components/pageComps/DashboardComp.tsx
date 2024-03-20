@@ -47,17 +47,6 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
                 console.error('Error fetching games:', error);
             }
         }
-        async function getFavoriteGames(userId: string) {
-            try {
-                const response1 = await getFavoriteGame(userId);
-                console.log(response1.data);
-                setFavoriteGames(response1.data);
-            } catch(error1) {
-                console.error('Bad Response', error1);
-            }
-        }
-
-        //  getFavoriteGames(UserID);
          (UserID) && fetchGames(UserID);
     }, []);
 
@@ -74,7 +63,13 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {filteredGames.map((game) => (
                     <div key={game.AppID}>
-                        <GameCard key={game.AppID} game={game} onClick={handleGameClick} isFavorite={isGameFavorite(game.AppID)}/>
+                        <GameCard 
+                            key={game.AppID}   
+                            game={game} 
+                            onClick={handleGameClick} 
+                            isFavorite={isGameFavorite(game.AppID)}
+                            UserID={UserID}
+                        />
                     </div>
                 ))}
             </div>

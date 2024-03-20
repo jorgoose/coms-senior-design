@@ -35,3 +35,17 @@ export async function getFavoriteGame(UserID: string) {
     }
     return data;
 }
+
+export async function setFavoriteGame(game: FavoriteGame) {
+    const favoriteGame: FavoriteGame = {
+        UserID: game.UserID,
+        AppID: game.AppID
+    };
+
+    const res = await axios.post(`${baseURL}/favorite-game`, favoriteGame);
+    if (res.status != 200) {
+        return {
+            message: res.statusText,
+        };
+    }
+}
