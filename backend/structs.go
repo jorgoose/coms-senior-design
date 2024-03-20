@@ -66,3 +66,11 @@ type Comment struct {
 	ParentID  uuid.UUID // if its replying to another comment (null if not)
 	Comment   string    // Actual comment
 }
+
+type Review struct {
+	AppID     int       // if commenting on steam game (null if not)
+	ConceptID uuid.UUID // if commenting on user game (null if not)
+	UserID    uuid.UUID // who is commenting
+	ParentID  uuid.UUID // if its replying to another comment (null if not)
+	Comment   string    // Actual comment
+}
