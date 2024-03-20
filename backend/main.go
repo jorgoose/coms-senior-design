@@ -11,6 +11,7 @@ import (
 	// External dependencies
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
 
@@ -627,20 +628,35 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		// Insert the parsed JSON data into the Supabase database | works
-		insertResult := supabase.DB.From("Comment").Insert(map[string]interface{}{
-			"Game":      comment.AppID,
-			"user":      comment.UserID,
-			"Parent_id": comment.ParentID,
-			"comment":   comment.Comment,
-		}).Execute(&res)
-
-		if insertResult != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": insertResult.Error(),
-			})
-			return
+		if comment.ParentID == uuid.Nil {
+			// Insert the parsed JSON data into the Supabase database | works
+			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
+				"Game":    comment.AppID,
+				"user":    comment.UserID,
+				"comment": comment.Comment,
+			}).Execute(&res)
+			if insertResult != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"error": insertResult.Error(),
+				})
+				return
+			}
+		} else {
+			// Insert the parsed JSON data into the Supabase database | works
+			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
+				"Game":      comment.AppID,
+				"user":      comment.UserID,
+				"Parent_id": comment.ParentID,
+				"comment":   comment.Comment,
+			}).Execute(&res)
+			if insertResult != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{
+					"error": insertResult.Error(),
+				})
+				return
+			}
 		}
+
 
 		c.JSON(http.StatusOK, res)
 	}
@@ -685,7 +701,7 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 		}
 
 		// Insert the parsed JSON data into the Supabase database | works
-		insertResult := supabase.DB.From("Comment").Insert(map[string]interface{}{
+		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
 			"ConceptID": review.ConceptID,
 			"user":      review.UserID,
 			"comment":   review.Comment,
