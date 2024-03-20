@@ -1,5 +1,3 @@
-// components/TagList.tsx
-
 import { useState } from 'react';
 
 interface TagListProps {
@@ -29,6 +27,7 @@ const TagList: React.FC<TagListProps> = ({ tags, onTagClick }) => {
       {tags.map((tag) => (
         <button
           key={tag}
+          type="button"
           className={`rounded-lg px-4 py-2 m-2 ${selectedTags.includes(tag) ? 'bg-blue-500 text-white border border-blue-500' : 'text-blue-500 border border-blue-500'}`}
           onClick={() => handleTagClick(tag)}
         >

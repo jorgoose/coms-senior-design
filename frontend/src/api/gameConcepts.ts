@@ -7,7 +7,7 @@ export async function postGameConcept(prevState: any, formData: FormData) {
     const concept: GameConcept = {
         title: formData.get('title') as string,
         description: formData.get('description') as string,
-        genre: formData.get('genre') as string,
+        genre: formData.get('genres') as string,
         tags: formData.get('tags') as string,
         developer_id: formData.get('developer_id') as string,
     };
