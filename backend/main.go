@@ -69,6 +69,7 @@ func main() {
 	r.POST("/send-comment", sendComments(supabase))
 	r.DELETE("/delete-comment", deleteComments(supabase))
 	r.POST("/send-review", sendReview(supabase))
+	r.DELETE("/delete-review", deleteReview(supabase))
 	r.GET("/get-vote", getVote(supabase))
 	r.PUT("/update-vote", updateVote(supabase))
 	r.GET("/shutdown", shutdown)
@@ -694,6 +695,23 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 		if insertResult != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func deleteReview(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("Reviews").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
 			})
 			return
 		}
