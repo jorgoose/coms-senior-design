@@ -52,6 +52,7 @@ func main() {
 	// Swagger documentation endpoint
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	r.GET("/get-user", getUser(supabase))
 	r.GET("/get-all-games", getAllGames(supabase))
 	r.GET("/get-favorite-games", getFavoriteGames(supabase))
 	r.POST("/favorite-game", favoriteGame(supabase))
@@ -79,6 +80,22 @@ func main() {
 
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(err) // failure/timeout starting the server
+	}
+}
+
+func getUser(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Query("id")
+		var res []map[string]interface{}
+		err := supabase.DB.From("Users").Select("*").Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
 }
 
