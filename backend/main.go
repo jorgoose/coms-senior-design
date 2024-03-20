@@ -34,21 +34,12 @@ var srv = &http.Server{
 }
 
 func main() {
-	// resourceManager := utils.ResourceManager{}
-	// supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
-	// supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
-	// supabase := supa.CreateClient(supabaseUrl, supabaseKey)
-	r := gin.Default()
-
-	srv := &http.Server{
-		Addr:    ":8080",
-		Handler: r,
-	}
-
 	// Load .env file
 	if err := godotenv.Load(".env"); err != nil {
 		fmt.Println("Error loading .env file")
 	}
+
+	r := gin.Default()
 
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
@@ -58,23 +49,33 @@ func main() {
 		AllowCredentials: true,
 	}))
 
+	resourceManager := utils.ResourceManager{}
+	supabaseKey := resourceManager.GetProperty("SUPABASE_KEY")
+	supabaseUrl := resourceManager.GetProperty("SUPABASE_URL")
+	supabase := supa.CreateClient(supabaseUrl, supabaseKey)
+
+	srv := &http.Server{
+		Addr:    ":8080",
+		Handler: r,
+	}
+
 	// Swagger documentation endpoint
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	r.GET("/get-all-games", getAllGames)
-	r.GET("/get-favorite-games", getFavoriteGames)
-	r.POST("/favorite-game", favoriteGame)
-	r.GET("/request", request)
-	r.GET("/request-game", requestGame)
-	r.GET("/filter-game", filterGame)
-	r.PUT("/update-game", updateGame)
-	r.DELETE("/delete-game", deleteGame)
-	r.POST("/send-game", sendGame)
-	r.GET("/get-all-game-concepts", getAllGameConcepts)
-	r.POST("/send-game-concept", sendGameConcept)
-	r.DELETE("/delete-game-concept", deleteGameConcept)
-	r.PUT("/update-game-concept", updateGameConcept)
-	r.GET("/filter-game-concept", filterGameConcept)
+	r.GET("/get-all-games", getAllGames(supabase))
+	r.GET("/get-favorite-games", getFavoriteGames(supabase))
+	r.POST("/favorite-game", favoriteGame(supabase))
+	r.GET("/request", request(supabase))
+	r.GET("/request-game", requestGame(supabase))
+	r.GET("/filter-game", filterGame(supabase))
+	r.PUT("/update-game", updateGame(supabase))
+	r.DELETE("/delete-game", deleteGame(supabase))
+	r.POST("/send-game", sendGame(supabase))
+	r.GET("/get-all-game-concepts", getAllGameConcepts(supabase))
+	r.POST("/send-game-concept", sendGameConcept(supabase))
+	r.DELETE("/delete-game-concept", deleteGameConcept(supabase))
+	r.PUT("/update-game-concept", updateGameConcept(supabase))
+	r.GET("/filter-game-concept", filterGameConcept(supabase))
 	r.GET("/shutdown", shutdown)
 	r.GET("/ping", ping)
 
@@ -88,17 +89,19 @@ func main() {
 // @Produce json
 // @Success 200 {object} string
 // @Router /get-all-games [get]
-func getAllGames(c *gin.Context) {
-	var res []map[string]interface{}
-	err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+func getAllGames(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
 
 // @Summary Get favorite games
@@ -107,18 +110,20 @@ func getAllGames(c *gin.Context) {
 // @Param UserID query string true "UserID"
 // @Success 200 {object} string
 // @Router /get-favorite-games [get]
-func getFavoriteGames(c *gin.Context) {
-	var res []map[string]interface{}
-	userID := c.Query("UserID")
-	err := supabase.DB.From("FavoriteGames").Select("*").Eq("UserID", userID).Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+func getFavoriteGames(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		userID := c.Query("UserID")
+		err := supabase.DB.From("FavoriteGames").Select("*").Eq("UserID", userID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
 
 // @Summary Favorite a game
@@ -128,33 +133,35 @@ func getFavoriteGames(c *gin.Context) {
 // @Param UserID body string true "UserID"
 // @Success 200 {object} string
 // @Router /favorite-game [post]
-func favoriteGame(c *gin.Context) {
-	var res []map[string]interface{}
+func favoriteGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	var favorite FavoriteGame
+		var favorite FavoriteGame
 
-	// Parse JSON data from the request body
-	if err := c.BindJSON(&favorite); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
+		// Parse JSON data from the request body
+		if err := c.BindJSON(&favorite); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database
+		insertResult := supabase.DB.From("FavoriteGames").Insert(map[string]interface{}{
+			"AppID":  favorite.AppID,
+			"UserID": favorite.UserID,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	// Insert the parsed JSON data into the Supabase database
-	insertResult := supabase.DB.From("FavoriteGames").Insert(map[string]interface{}{
-		"AppID":  favorite.AppID,
-		"UserID": favorite.UserID,
-	}).Execute(&res)
-
-	if insertResult != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": insertResult.Error(),
-		})
-		return
-	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary request
@@ -165,21 +172,23 @@ func favoriteGame(c *gin.Context) {
 // @Param equal query string true "equal"
 // @Success 200 {object} string
 // @Router /request [get]
-func request(c *gin.Context) {
-	sele := c.Query("sele")
-	collum := c.Query("collum")
-	equal := c.Query("equal")
+func request(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		sele := c.Query("sele")
+		collum := c.Query("collum")
+		equal := c.Query("equal")
 
-	var res []map[string]interface{}
-	err := supabase.DB.From("TestGameEndpoints").Select(sele).Eq(collum, equal).Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select(sele).Eq(collum, equal).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary request a game
@@ -188,18 +197,20 @@ func request(c *gin.Context) {
 // @Param AppID query string true "AppID"
 // @Success 200 {object} string
 // @Router /request-game [get]
-func requestGame(c *gin.Context) {
-	appID := c.Query("AppID")
-	var res []map[string]interface{}
-	err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", appID).Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+func requestGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		appID := c.Query("AppID")
+		var res []map[string]interface{}
+		err := supabase.DB.From("TestGameEndpoints").Select().Eq("AppID", appID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
 
 // @Summary Filter games
@@ -210,41 +221,43 @@ func requestGame(c *gin.Context) {
 // @Param Year query string false "Year"
 // @Success 200 {object} string
 // @Router /filter-game [get]
-func filterGame(c *gin.Context) {
-	var res []map[string]interface{}
+func filterGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	Genres := c.Query("Genres")
-	Languages := c.Query("Languages")
-	Year := c.Query("Year")
+		Genres := c.Query("Genres")
+		Languages := c.Query("Languages")
+		Year := c.Query("Year")
 
-	Genres_array := strings.Split(Genres, ",")
-	Languages_array := strings.Split(Languages, ",")
+		Genres_array := strings.Split(Genres, ",")
+		Languages_array := strings.Split(Languages, ",")
 
-	//Get all games
-	body := supabase.DB.From("TestGameEndpoints").Select()
+		//Get all games
+		body := supabase.DB.From("TestGameEndpoints").Select()
 
-	// Add Filters
-	if len(Year) > 0 {
-		body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
+		// Add Filters
+		if len(Year) > 0 {
+			body.Gte("Release date", (Year+"-01-"+"01")).Lte("Release date", (Year + "-12-" + "31"))
+		}
+		if len(Genres_array) > 0 {
+			body.Cs("Genres", Genres_array)
+		}
+		if len(Languages_array) > 0 {
+			body.Cs("Supported languages", Languages_array)
+		}
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-	if len(Genres_array) > 0 {
-		body.Cs("Genres", Genres_array)
-	}
-	if len(Languages_array) > 0 {
-		body.Cs("Supported languages", Languages_array)
-	}
-
-	// Execute Filter
-	err := body.Execute(&res)
-
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Update game
@@ -255,27 +268,29 @@ func filterGame(c *gin.Context) {
 // @Param value query string true "value"
 // @Success 200 {object} string
 // @Router /update-game [put]
-func updateGame(c *gin.Context) {
-	var res []map[string]interface{}
+func updateGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	// Get the ID from the URL parameter
-	id := c.Query("AppID")
-	collum := c.Query("collum")
-	value := c.Query("value")
+		// Get the ID from the URL parameter
+		id := c.Query("AppID")
+		collum := c.Query("collum")
+		value := c.Query("value")
 
-	// Update the specified record in the Supabase database
-	updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
-		collum: value, // Update
-	}).Eq("AppID", id).Execute(&res)
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("TestGameEndpoints").Update(map[string]interface{}{
+			collum: value, // Update
+		}).Eq("AppID", id).Execute(&res)
 
-	if updateResult != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": updateResult.Error(),
-		})
-		return
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Delete game
@@ -284,19 +299,21 @@ func updateGame(c *gin.Context) {
 // @Param id query string true "id"
 // @Success 200 {object} string
 // @Router /delete-game [delete]
-func deleteGame(c *gin.Context) {
-	var res []map[string]interface{}
-	id := c.Query("id")
+func deleteGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
 
-	err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
+		err := supabase.DB.From("TestGameEndpoints").Delete().Eq("AppID", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Send game
@@ -343,70 +360,72 @@ func deleteGame(c *gin.Context) {
 // @Param Movies body string true "Movies"
 // @Success 200 {object} string
 // @Router /send-game [post]
-func sendGame(c *gin.Context) {
-	var res []map[string]interface{}
+func sendGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	var game GameBody
+		var game GameBody
 
-	// Parse JSON data from the request body
-	if err := c.BindJSON(&game); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
+		// Parse JSON data from the request body
+		if err := c.BindJSON(&game); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database
+		insertResult := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
+			"AppID":                      game.AppID,
+			"Name":                       game.Name,
+			"Release_date":               game.Release_date,
+			"Estimated_owners":           game.Estimated_owners,
+			"Peak_CCU":                   game.Peak_CCU,
+			"Required_age":               game.Required_age,
+			"Price":                      game.Price,
+			"DLC_count":                  game.DLC_count,
+			"About_the_game":             game.About_the_game,
+			"Supported_languages":        game.Supported_languages,
+			"Full_audio_languages":       game.Full_audio_languages,
+			"Reviews":                    game.Reviews,
+			"Header_image":               game.Header_image,
+			"Website":                    game.Website,
+			"Support_url":                game.Support_url,
+			"Support_email":              game.Support_email,
+			"Windows":                    game.Windows,
+			"Mac":                        game.Mac,
+			"Linux":                      game.Linux,
+			"Metacritic_score":           game.Metacritic_score,
+			"Metacritic_url":             game.Metacritic_url,
+			"User_score":                 game.User_score,
+			"Positive":                   game.Positive,
+			"Negative":                   game.Negative,
+			"Score_rank":                 game.Score_rank,
+			"Achievements":               game.Achievements,
+			"Recommendations":            game.Recommendations,
+			"Notes":                      game.Notes,
+			"Average_playtime_forever":   game.Average_playtime_forever,
+			"Average_playtime_two_weeks": game.Average_playtime_two_weeks,
+			"Median_playtime_forever":    game.Median_playtime_forever,
+			"Median_playtime_two_weeks":  game.Median_playtime_two_weeks,
+			"Developers":                 game.Developers,
+			"Publishers":                 game.Publishers,
+			"Categories":                 game.Categories,
+			"Genres":                     game.Genres,
+			"Tags":                       game.Tags,
+			"Screenshots":                game.Screenshots,
+			"Movies":                     game.Movies,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	// Insert the parsed JSON data into the Supabase database
-	insertResult := supabase.DB.From("TestGameEndpoints").Insert(map[string]interface{}{
-		"AppID":                      game.AppID,
-		"Name":                       game.Name,
-		"Release_date":               game.Release_date,
-		"Estimated_owners":           game.Estimated_owners,
-		"Peak_CCU":                   game.Peak_CCU,
-		"Required_age":               game.Required_age,
-		"Price":                      game.Price,
-		"DLC_count":                  game.DLC_count,
-		"About_the_game":             game.About_the_game,
-		"Supported_languages":        game.Supported_languages,
-		"Full_audio_languages":       game.Full_audio_languages,
-		"Reviews":                    game.Reviews,
-		"Header_image":               game.Header_image,
-		"Website":                    game.Website,
-		"Support_url":                game.Support_url,
-		"Support_email":              game.Support_email,
-		"Windows":                    game.Windows,
-		"Mac":                        game.Mac,
-		"Linux":                      game.Linux,
-		"Metacritic_score":           game.Metacritic_score,
-		"Metacritic_url":             game.Metacritic_url,
-		"User_score":                 game.User_score,
-		"Positive":                   game.Positive,
-		"Negative":                   game.Negative,
-		"Score_rank":                 game.Score_rank,
-		"Achievements":               game.Achievements,
-		"Recommendations":            game.Recommendations,
-		"Notes":                      game.Notes,
-		"Average_playtime_forever":   game.Average_playtime_forever,
-		"Average_playtime_two_weeks": game.Average_playtime_two_weeks,
-		"Median_playtime_forever":    game.Median_playtime_forever,
-		"Median_playtime_two_weeks":  game.Median_playtime_two_weeks,
-		"Developers":                 game.Developers,
-		"Publishers":                 game.Publishers,
-		"Categories":                 game.Categories,
-		"Genres":                     game.Genres,
-		"Tags":                       game.Tags,
-		"Screenshots":                game.Screenshots,
-		"Movies":                     game.Movies,
-	}).Execute(&res)
-
-	if insertResult != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": insertResult.Error(),
-		})
-		return
-	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Get all game concepts
@@ -414,17 +433,19 @@ func sendGame(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} string
 // @Router /get-all-game-concepts [get]
-func getAllGameConcepts(c *gin.Context) {
-	var res []map[string]interface{}
-	err := supabase.DB.From("GameConcepts").Select("*").Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+func getAllGameConcepts(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("GameConcepts").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
 
-	c.JSON(http.StatusOK, res)
+		c.JSON(http.StatusOK, res)
+	}
 }
 
 // @Summary Send game concept
@@ -437,36 +458,38 @@ func getAllGameConcepts(c *gin.Context) {
 // @Param tags body string true "tags"
 // @Success 200 {object} string
 // @Router /send-game-concept [post]
-func sendGameConcept(c *gin.Context) {
-	var res []map[string]interface{}
+func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	var game GameConcepts
+		var game GameConcepts
 
-	// Parse JSON data from the request body
-	if err := c.BindJSON(&game); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error": err.Error(),
-		})
-		return
+		// Parse JSON data from the request body
+		if err := c.BindJSON(&game); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database
+		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
+			"title":        game.Title,
+			"developer_id": game.Developer_id,
+			"description":  game.Description,
+			"genre":        game.Genre,
+			"tags":         game.Tags,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	// Insert the parsed JSON data into the Supabase database
-	insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-		"title":        game.Title,
-		"developer_id": game.Developer_id,
-		"description":  game.Description,
-		"genre":        game.Genre,
-		"tags":         game.Tags,
-	}).Execute(&res)
-
-	if insertResult != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": insertResult.Error(),
-		})
-		return
-	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Delete game concept
@@ -475,19 +498,21 @@ func sendGameConcept(c *gin.Context) {
 // @Param id query string true "id"
 // @Success 200 {object} string
 // @Router /delete-game-concept [delete]
-func deleteGameConcept(c *gin.Context) {
-	var res []map[string]interface{}
-	id := c.Query("id")
+func deleteGameConcept(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
 
-	err := supabase.DB.From("GameConcepts").Delete().Eq("id", id).Execute(&res)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
+		err := supabase.DB.From("GameConcepts").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Update game concept
@@ -498,27 +523,29 @@ func deleteGameConcept(c *gin.Context) {
 // @Param value query string true "value"
 // @Success 200 {object} string
 // @Router /update-game-concept [put]
-func updateGameConcept(c *gin.Context) {
-	var res []map[string]interface{}
+func updateGameConcept(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	// Get the ID from the URL parameter
-	id := c.Query("id")
-	collum := c.Query("collum")
-	value := c.Query("value")
+		// Get the ID from the URL parameter
+		id := c.Query("id")
+		collum := c.Query("collum")
+		value := c.Query("value")
 
-	// Update the specified record in the Supabase database
-	updateResult := supabase.DB.From("GameConcepts").Update(map[string]interface{}{
-		collum: value, // Update
-	}).Eq("id", id).Execute(&res)
+		// Update the specified record in the Supabase database
+		updateResult := supabase.DB.From("GameConcepts").Update(map[string]interface{}{
+			collum: value, // Update
+		}).Eq("id", id).Execute(&res)
 
-	if updateResult != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": updateResult.Error(),
-		})
-		return
+		if updateResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": updateResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Filter games
@@ -529,41 +556,43 @@ func updateGameConcept(c *gin.Context) {
 // @Param title query string false "title"
 // @Success 200 {object} string
 // @Router /filter-game [get]
-func filterGameConcept(c *gin.Context) {
-	var res []map[string]interface{}
+func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
 
-	Genres := c.Query("Genre")
-	Tags := c.Query("tags")
-	title := c.Query("title")
+		Genres := c.Query("Genre")
+		Tags := c.Query("tags")
+		title := c.Query("title")
 
-	Genres_array := strings.Split(Genres, ",")
-	Tags_array := strings.Split(Tags, ",")
+		Genres_array := strings.Split(Genres, ",")
+		Tags_array := strings.Split(Tags, ",")
 
-	//Get all games
-	body := supabase.DB.From("GameConcepts").Select()
+		//Get all games
+		body := supabase.DB.From("GameConcepts").Select()
 
-	// Add Filters
-	if len(Genres_array) > 0 {
-		body.Cs("Genre", Genres_array)
+		// Add Filters
+		if len(Genres_array) > 0 {
+			body.Cs("Genre", Genres_array)
+		}
+		if len(Tags_array) > 0 {
+			body.Cs("tags", Tags_array)
+		}
+		if len(title) > 0 {
+			body.Eq("title", title)
+		}
+
+		// Execute Filter
+		err := body.Execute(&res)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
-	if len(Tags_array) > 0 {
-		body.Cs("tags", Tags_array)
-	}
-	if len(title) > 0 {
-		body.Eq("title", title)
-	}
-
-	// Execute Filter
-	err := body.Execute(&res)
-
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
-
-	c.JSON(http.StatusOK, res)
 }
 
 // @Summary Shutdown the server
