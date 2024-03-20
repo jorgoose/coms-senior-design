@@ -7,8 +7,24 @@ import { useFormState } from "react-dom";
 import TagList from "../gameConceptComps/TagList";
 import { useState } from "react";
 
-const tags: string[] = ['shooter', 'first-person-shooter', 'action', 'adventure'];
-const genres: string[] = ['rpg', 'shooter', 'roguelite', 'action']
+const tags: string[] = [
+                            'puzzle', 'dating sim', '3d fighter', 'arcade',
+                            'design & illustration', 'grand strategy', 'action-adventure',
+                            'walking simulator', 'space sim', 'shooter', 'card game',
+                            'farming sim', 'platformer', 'life sim', 'mmorpg', 'visual novel',
+                            'utilities', 'esports', 'sandbox', 'rts', 'colony sim', 'point & click',
+                            'board game', 'battle royale', 'action rpg', 'strategy rpg', 'word game',
+                            'rogue-like', 'web publishing', 'audio production', 'tabletop', 'tower defense',
+                            'auto battler', 'turn-based strategy', 'city builder', 'video production',
+                            'action roguelike', 'beat\'em up', 'god game', 'interactive fiction', '2d fighter',
+                            '4x', 'party-based rpg', 'automobile sim', 'moba', 'education', 'rhythm',
+                            'photo editing', 'jrpg', 'animation & modeling', 'trivia'
+                        ];
+const genres: string[] = [
+                            'indie', 'simulation', 'sports', 'action',
+                            'rpg', 'racing', 'casual', 'strategy',
+                            'software', 'adventure', 'action-adventure'
+                        ]
 
 interface CreateGameConceptProps {
     user: User;
@@ -49,9 +65,11 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                     }}>
                         <input className="rounded-md w-1/2 text-black" name="title" placeholder="Title" required />
                         <input className="rounded-md w-1/2 text-black" name="description" placeholder="Description" required />
+                        <p>Genres</p>
                         <div>
                             <TagList tags={genres} onTagClick={handleGenreSelection} />
                         </div>
+                        <p>Tags</p>
                         <div>
                             <TagList tags={tags} onTagClick={handleTagSelection} />
                         </div>
