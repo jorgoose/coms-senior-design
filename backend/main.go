@@ -52,11 +52,17 @@ func main() {
 	// Swagger documentation endpoint
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	// Users table
 	r.GET("/get-user", getUser(supabase))
+
+	// TestGameEndpoints table
 	r.GET("/get-all-games", getAllGames(supabase))
 	r.GET("/get-favorite-games", getFavoriteGames(supabase))
+
+	// FavoriteGames table
 	r.POST("/favorite-game", favoriteGame(supabase))
 	r.DELETE("/unfavorite-game", unfavoriteGame(supabase))
+
 	r.GET("/request", request(supabase))
 	r.GET("/request-game", requestGame(supabase))
 	r.GET("/filter-game", filterGame(supabase))
