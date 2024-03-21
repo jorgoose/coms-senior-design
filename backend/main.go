@@ -56,6 +56,7 @@ func main() {
 	r.GET("/get-all-games", getAllGames(supabase))
 	r.GET("/get-favorite-games", getFavoriteGames(supabase))
 	r.POST("/favorite-game", favoriteGame(supabase))
+	r.DELETE("/unfavorite-game", unfavoriteGame(supabase))
 	r.GET("/request", request(supabase))
 	r.GET("/request-game", requestGame(supabase))
 	r.GET("/filter-game", filterGame(supabase))
@@ -84,6 +85,12 @@ func main() {
 	}
 }
 
+// @Summary Get user
+// @Description Get user by ID
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /get-user [get]
 func getUser(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Query("id")
@@ -180,6 +187,33 @@ func favoriteGame(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Unfavorite a game
+// @Description Unfavorite a game
+// @Produce json
+// @Param AppID query string true "AppID"
+// @Param UserID query string true "UserID"
+// @Success 200 {object} string
+// @Router /unfavorite-game [delete]
+func unfavoriteGame(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		AppID := c.Query("AppID")
+		UserID := c.Query("UserID")
+		
+		// const { data, error } = await supabase .from('businesses') .select(*, chain ( * )) .eq('owner_id', 2) .or('chain.owner_id.eq.2');
+		err := supabase.DB.From("FavoriteGames").Delete().Eq("AppID", AppID).Eq("UserID", UserID).Execute(&res)
+		//err := supabase.DB.From("FavoriteGames").Delete().Eq("id", id).and("").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
 // @Summary request
 // @Description select all of one value that matches a column
 // @Produce json
@@ -609,6 +643,11 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Get all comments
+// @Description Get all comments
+// @Produce json
+// @Success 200 {object} string
+// @Router /get-all-comments [get]
 func getAllComments(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -624,6 +663,14 @@ func getAllComments(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Send comment
+// @Description Sends a comment to the database
+// @Produce json
+// @Param AppID body int true "AppID"
+// @Param UserID body string true "UserID"
+// @Param Comment body string true "Comment"
+// @Success 200 {object} string
+// @Router /send-comment [post]
 func sendComments(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -675,6 +722,12 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Delete comment
+// @Description Deletes a comment
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /delete-comment [delete]
 func deleteComments(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -692,6 +745,12 @@ func deleteComments(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Get all replies
+// @Description Get all replies
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /get-all-replies [get]
 func getAllReplies(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -710,6 +769,11 @@ func getAllReplies(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Get all reviews
+// @Description Get all reviews
+// @Produce json
+// @Success 200 {object} string
+// @Router /get-all-reviews [get]
 func getAllReviews(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -725,6 +789,14 @@ func getAllReviews(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Send review
+// @Description Sends a review to the database
+// @Produce json
+// @Param ConceptID body string true "ConceptID"
+// @Param UserID body string true "UserID"
+// @Param Comment body string true "Comment"
+// @Success 200 {object} string
+// @Router /send-review [post]
 func sendReview(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -763,6 +835,12 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Delete review
+// @Description Deletes a review
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /delete-review [delete]
 func deleteReview(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -780,6 +858,12 @@ func deleteReview(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Get vote
+// @Description Get vote by ID
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /get-vote [get]
 func getVote(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
@@ -800,6 +884,13 @@ func getVote(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Update vote
+// @Description Update vote by ID
+// @Produce json
+// @Param id query string true "id"
+// @Param vote query string true "vote"
+// @Success 200 {object} string
+// @Router /update-vote [put]
 func updateVote(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var res []map[string]interface{}
