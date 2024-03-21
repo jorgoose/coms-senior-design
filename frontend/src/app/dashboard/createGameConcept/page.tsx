@@ -1,26 +1,25 @@
-import Link from "next/link";
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { createClient } from '@/utils/supabase/server'
+import CreateGameConceptComp from '@/components/pageComps/CreateGameConceptComp';
 
-export default async function Home() {
+export default async function CreateGameConcept() {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
   const { data, error } = await supabase.auth.getUser();
-
-  // IMPORTANT:
-  // THIS IS JUST A LANDING PAGE TO EITHER REDIRECT TO LOGIN OR DASHBOARD
-
   if (error || !data?.user) {
     redirect('/login');
-  } else {
-    redirect('/dashboard');
   }
+  const currUser = data.user;
 
   return (
     <>
+      <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
+        <CreateGameConceptComp
+          user={currUser}/>
+      </div>
     </>
   );
 }

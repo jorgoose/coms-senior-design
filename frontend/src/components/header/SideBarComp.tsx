@@ -22,16 +22,6 @@ const SideBarComp: React.FC = () => {
                     </div>
                     <div className="px-5">
                         <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
-                            <LineChartIcon className="w-6 h-5" />
-                            <div className="hover:bg-stone-700 rounded-md">
-                                <Label className="text-sky-500" htmlFor="publisher-details">
-                                    <a href="/dashboard/currentGameAnalytics">Current Game Analytics</a>
-                                </Label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-5">
-                        <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
                             <CalendarIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
                                 <Label className="text-sky-500" htmlFor="steam-count">
@@ -55,7 +45,7 @@ const SideBarComp: React.FC = () => {
                             <LightbulbIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
                                 <Label className="text-sky-500" htmlFor="publisher-details">
-                                    <a>Draft Game Idea</a>
+                                    <a href="/dashboard/createGameConcept">Draft Game Idea</a>
                                 </Label>
                             </div>
                         </div>
