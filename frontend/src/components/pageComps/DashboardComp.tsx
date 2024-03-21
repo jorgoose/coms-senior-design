@@ -27,9 +27,6 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
         game?.Name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    const maxCall = 2;
-    let callCount = 0;
-
     useEffect(() => {
         async function fetchGames(userId: string) {
             try {
