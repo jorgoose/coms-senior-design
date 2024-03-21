@@ -1,6 +1,23 @@
 info:
   contact: {}
 paths:
+  /delete-comment:
+    delete:
+      description: Deletes a comment
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete comment
   /delete-game:
     delete:
       description: Deletes a game
@@ -35,6 +52,23 @@ paths:
           schema:
             type: string
       summary: Delete game concept
+  /delete-review:
+    delete:
+      description: Deletes a review
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete review
   /favorite-game:
     post:
       description: Favorite a game
@@ -83,6 +117,17 @@ paths:
           schema:
             type: string
       summary: Filter games
+  /get-all-comments:
+    get:
+      description: Get all comments
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get all comments
   /get-all-game-concepts:
     get:
       description: Get all game concepts
@@ -105,6 +150,34 @@ paths:
           schema:
             type: string
       summary: Get all games
+  /get-all-replies:
+    get:
+      description: Get all replies
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get all replies
+  /get-all-reviews:
+    get:
+      description: Get all reviews
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get all reviews
   /get-favorite-games:
     get:
       description: Get favorite games by UserID
@@ -122,6 +195,40 @@ paths:
           schema:
             type: string
       summary: Get favorite games
+  /get-user:
+    get:
+      description: Get user by ID
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get user
+  /get-vote:
+    get:
+      description: Get vote by ID
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get vote
   /ping:
     get:
       description: Check if the server is up and running
@@ -177,6 +284,36 @@ paths:
           schema:
             type: string
       summary: request a game
+  /send-comment:
+    post:
+      description: Sends a comment to the database
+      parameters:
+      - description: AppID
+        in: body
+        name: AppID
+        required: true
+        schema:
+          type: integer
+      - description: UserID
+        in: body
+        name: UserID
+        required: true
+        schema:
+          type: string
+      - description: Comment
+        in: body
+        name: Comment
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Send comment
   /send-game:
     post:
       description: Sends a game to the database
@@ -465,6 +602,36 @@ paths:
           schema:
             type: string
       summary: Send game concept
+  /send-review:
+    post:
+      description: Sends a review to the database
+      parameters:
+      - description: ConceptID
+        in: body
+        name: ConceptID
+        required: true
+        schema:
+          type: string
+      - description: UserID
+        in: body
+        name: UserID
+        required: true
+        schema:
+          type: string
+      - description: Comment
+        in: body
+        name: Comment
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Send review
   /shutdown:
     get:
       description: Shutdown the server
@@ -476,6 +643,28 @@ paths:
           schema:
             type: string
       summary: Shutdown the server
+  /unfavorite-game:
+    delete:
+      description: Unfavorite a game
+      parameters:
+      - description: AppID
+        in: query
+        name: AppID
+        required: true
+        type: string
+      - description: UserID
+        in: query
+        name: UserID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Unfavorite a game
   /update-game:
     put:
       description: Updates a game after creation
@@ -530,4 +719,26 @@ paths:
           schema:
             type: string
       summary: Update game concept
+  /update-vote:
+    put:
+      description: Update vote by ID
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: vote
+        in: query
+        name: vote
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update vote
 swagger: "2.0"
