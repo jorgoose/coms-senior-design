@@ -58,7 +58,7 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                 <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
                     <form action={async (formData: FormData) => {
                         if (user.id) {
-                            formData.append("developer_id", user.id);
+                            formData.append("UserID", user.id);
                             formData.append("tags", selectedTags);
                             formData.append("genres", selectedGenres);
                         }
