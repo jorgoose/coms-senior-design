@@ -48,7 +48,7 @@ type GameBody struct {
 
 type GameConcepts struct {
 	Title        string
-	Developer_id uuid.UUID
+	Developer_id string
 	Description  string
 	Genre        []string
 	Tags         []string
