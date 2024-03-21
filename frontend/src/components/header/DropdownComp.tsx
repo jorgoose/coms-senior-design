@@ -1,7 +1,8 @@
 'use client'
-
 import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link'; // Import Link from Next.js
+import Link from 'next/link'; 
+import Image from 'next/image';
+import profilePic from '../../components/profile/profile.jpg'; // Import profile picture
 
 const DropdownComp: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -24,36 +25,36 @@ const DropdownComp: React.FC = () => {
         <div className="relative inline-block text-left px-8" ref={dropdownRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="rounded-full border border-stone-700 w-8 h-8 bg-stone-700 flex items-center justify-center"
+                className="rounded-full border border-gray-400 w-8 h-8 bg-gray-200 flex items-center justify-center"
                 aria-haspopup="true"
                 aria-expanded={isOpen ? 'true' : 'false'}
             >
-                <img
-                    alt="Avatar"
-                    className="rounded-full w-8 h-8"
-                    src="/placeholder.svg"
-                    style={{
-                        aspectRatio: '1 / 1',
-                        objectFit: 'cover',                        
-                    }}
-                />
-                <span className="sr-only">Toggle user menu</span>
+               {/* Profile picture */}
+               <div className="w-8 h-8 relative rounded-full overflow-hidden">
+                   <Image
+                       alt="Avatar"
+                       src={profilePic} // Use the profile picture imported
+                       layout="fill"
+                       objectFit="cover"
+                   />
+               </div>
+               <span className="sr-only">Toggle user menu</span>
             </button>
             {isOpen && (
-                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-stone-800 text-stone-400">
+                <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-gray-200 text-gray-800">
                     <div className="rounded-lg" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <Link href="/profile"> {/* Link to profile page */}
-                            <a className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
+                            <a className="block px-4 py-2 text-sm hover:bg-gray-300" role="menuitem">
                                 My Account
                             </a>
                         </Link>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-300" role="menuitem">
                             Settings
                         </a>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-300" role="menuitem">
                             Support
                         </a>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-stone-700 text-sky-500" role="menuitem">
+                        <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-300" role="menuitem">
                             Logout
                         </a>
                     </div>

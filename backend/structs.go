@@ -1,5 +1,9 @@
 package main
 
+import (
+	"github.com/google/uuid"
+)
+
 type GameBody struct {
 	AppID                      int
 	Name                       string
@@ -40,4 +44,30 @@ type GameBody struct {
 	Tags                       string
 	Screenshots                string
 	Movies                     string
+}
+
+type GameConcepts struct {
+	Title        string
+	UserID		 string
+	Description  string
+	Genre        []string
+	Tags         []string
+}
+
+type FavoriteGame struct {
+	AppID  int
+	UserID string
+}
+
+type Comment struct {
+	AppID    int       // commenting on steam game
+	UserID   uuid.UUID // who is commenting
+	ParentID uuid.UUID // if its replying to another comment (null if not)
+	Comment  string    // Actual comment
+}
+
+type Review struct {
+	ConceptID uuid.UUID // commenting on user game
+	UserID    uuid.UUID // who is commenting
+	Comment   string    // Actual comment
 }

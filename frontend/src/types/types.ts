@@ -63,3 +63,9 @@ type GameConcept = {
     Genre: string[];
     Tags: string[];
 }
+
+type FavoriteGame = {
+    id?: string;
+    AppID?: number;
+    UserID?: string;
+}
