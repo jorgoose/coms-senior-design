@@ -27,3 +27,39 @@ export async function getGame(appId: number) {
     }
     return data;
 }
+
+export async function getFavoriteGame(UserID: string) {
+    const data = await axios.get(`${baseURL}/get-favorite-games?UserID=${UserID}`);
+    if(!data) {
+        throw "Error in favorite game";
+    }
+    return data;
+}
+
+export async function setFavoriteGame(game: FavoriteGame) {
+    const favoriteGame: FavoriteGame = {
+        UserID: game.UserID,
+        AppID: game.AppID
+    };
+
+    const res = await axios.post(`${baseURL}/favorite-game`, favoriteGame);
+    if (res.status != 200) {
+        return {
+            message: res.statusText,
+        };
+    }
+}
+
+export async function unFavoriteGame(game: FavoriteGame) {
+    const favoriteGame: FavoriteGame = {
+        UserID: game.UserID,
+        AppID: game.AppID
+    };
+
+    const res = await axios.delete(`${baseURL}/unfavorite-game?UserID=${game.UserID}&AppID=${game.AppID}`);
+    if (res.status != 200) {
+        return {
+            message: res.statusText,
+        };
+    }
+}

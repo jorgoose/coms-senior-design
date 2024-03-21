@@ -49,3 +49,14 @@ The second code snippet is the actual handler, which will reside OUTSIDE of main
 ### What is AWS EC2?
 
 Amazon Elastic Compute Cloud (EC2) is a web service provided by Amazon Web Services (AWS) that offers resizable compute capacity in the cloud. It allows users to rent virtual machines (referred to as instances) on which they can run their applications. EC2 instances provide a wide range of compute capabilities, from small and cost-effective instances suitable for low-traffic websites or development environments to powerful instances optimized for high-performance computing or data-intensive workloads.
+
+## Connection with Frontend
+
+### API Calls to EC2
+
+Amplify errors if API calls are made with HTTP and our EC2 backend only accept API calls made with HTTP requests. This required us to setup an API Gateway named 'frontend_backend_connection'. This allows us to use an HTTPS URL to make our API calls on the frontend and then the API Gateway will then perform an HTTP call for us to our EC2 backend. Within routes I configured a path /{proxy+} this allows us to pass any path after the base URL and the API Gateway will recognize that path as a valid ping from the frontend. Then within integrations I added an integration to ping our EC2 instance with the same proxy that the frontend called the API gateway with initially. This ping will be done with an HTTP request.
+
+Frontend URL to trigger API Gateway: Refer to Deploy/Stages/prod page
+Backend URL that API Gateway calls: Refer to Develop/Integrations page
+
+Within deploy there is a stages tab. I created a stage prod, and that is why we have to add it to the end of our URL. This could help us expand later on by creating a dev stage and allow for development environments for the backend. 
