@@ -49,3 +49,17 @@ export async function setFavoriteGame(game: FavoriteGame) {
         };
     }
 }
+
+export async function unFavoriteGame(game: FavoriteGame) {
+    const favoriteGame: FavoriteGame = {
+        UserID: game.UserID,
+        AppID: game.AppID
+    };
+
+    const res = await axios.delete(`${baseURL}/unfavorite-game?UserID=${game.UserID}&AppID=${game.AppID}`);
+    if (res.status != 200) {
+        return {
+            message: res.statusText,
+        };
+    }
+}
