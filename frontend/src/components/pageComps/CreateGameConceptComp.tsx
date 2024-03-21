@@ -7,6 +7,12 @@ import { useFormState } from "react-dom";
 import TagList from "../gameConceptComps/TagList";
 import { useState } from "react";
 
+const genres: string[] = [
+    'indie', 'simulation', 'sports', 'action',
+    'rpg', 'racing', 'casual', 'strategy',
+    'software', 'adventure', 'action-adventure'
+];
+
 const tags: string[] = [
                             'puzzle', 'dating sim', '3d fighter', 'arcade',
                             'design & illustration', 'grand strategy', 'action-adventure',
@@ -19,13 +25,7 @@ const tags: string[] = [
                             'action roguelike', 'beat\'em up', 'god game', 'interactive fiction', '2d fighter',
                             '4x', 'party-based rpg', 'automobile sim', 'moba', 'education', 'rhythm',
                             'photo editing', 'jrpg', 'animation & modeling', 'trivia'
-                        ];
-
-const genres: string[] = [
-                            'indie', 'simulation', 'sports', 'action',
-                            'rpg', 'racing', 'casual', 'strategy',
-                            'software', 'adventure', 'action-adventure'
-                        ];
+];
 
 interface CreateGameConceptProps {
     user: User;
