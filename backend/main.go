@@ -525,7 +525,7 @@ func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
 			"title":        game.Title,
-			"developer_id": game.Developer_id,
+			"UserID": 		game.UserID,
 			"description":  game.Description,
 			"genre":        game.Genre,
 			"tags":         game.Tags,
