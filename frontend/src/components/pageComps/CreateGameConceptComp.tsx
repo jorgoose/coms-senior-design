@@ -63,14 +63,14 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                         }
                         formAction(formData);
                     }}>
-                        <input className="rounded-md w-1/2 text-black" name="title" placeholder="Title" required />
-                        <input className="rounded-md w-1/2 text-black" name="description" placeholder="Description" required />
-                        <p>Genres</p>
-                        <div>
+                        <input className="rounded-md w-1/2 m-2 text-white bg-slate-600" name="title" placeholder="Title" required />
+                        <input className="rounded-md w-1/2 m-2 text-white bg-slate-600" name="description" placeholder="Description" required />
+                        <p className="text-blue-500">Genres</p>
+                        <div className="m-2">
                             <TagList tags={genres} onTagClick={handleGenreSelection} />
                         </div>
-                        <p>Tags</p>
-                        <div>
+                        <p className="text-blue-500">Tags</p>
+                        <div className="m-2">
                             <TagList tags={tags} onTagClick={handleTagSelection} />
                         </div>
                         <p aria-live="polite">

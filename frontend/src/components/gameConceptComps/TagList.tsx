@@ -28,7 +28,7 @@ const TagList: React.FC<TagListProps> = ({ tags, onTagClick }) => {
         <button
           key={tag}
           type="button"
-          className={`rounded-lg px-4 py-2 m-2 ${selectedTags.includes(tag) ? 'bg-blue-500 text-white border border-blue-500' : 'text-blue-500 border border-blue-500'}`}
+          className={`rounded-lg px-4 py-2 m-2 hover:shadow-2xl transform hover:-translate-y-1 ${selectedTags.includes(tag) ? 'bg-blue-500 text-white border border-blue-500' : 'text-blue-500 border border-blue-500'}`}
           onClick={() => handleTagClick(tag)}
         >
           {tag}
