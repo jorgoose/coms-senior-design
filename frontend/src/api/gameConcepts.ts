@@ -19,3 +19,11 @@ export async function postGameConcept(prevState: any, formData: FormData) {
         };
     }
 }
+
+export async function getAllGameConcepts() {
+    const res = await axios.get(`${baseURL}/get-all-game-concepts`);
+    if (!res) {
+        throw "Error in Getting All Game Concepts";
+    }
+    return res;
+}
