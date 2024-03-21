@@ -5,6 +5,7 @@ import (
 	"backend/utils"
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 
@@ -79,6 +80,7 @@ func main() {
 	r.DELETE("/delete-review", deleteReview(supabase))
 	r.GET("/get-vote", getVote(supabase))
 	r.PUT("/update-vote", updateVote(supabase))
+	r.GET("/get-news", getNews())
 	r.GET("/shutdown", shutdown)
 	r.GET("/ping", ping)
 
@@ -698,7 +700,6 @@ func getReply(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
-
 // @Summary Send comment
 // @Description Sends a comment to the database
 // @Produce json
@@ -947,6 +948,35 @@ func updateVote(supabase *supa.Client) gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getNews() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		id := c.Query("id")
+
+		resp, err := http.Get("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/" + "?appid=" + id)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		defer resp.Body.Close()
+		body, err2 := io.ReadAll(resp.Body)
+
+		if err2 != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err2.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, string(body))
+		resp.Body.Close()
 	}
 }
 
