@@ -72,6 +72,8 @@ func main() {
 	r.GET("/get-all-replies", getAllReplies(supabase))
 	r.GET("/get-all-reviews", getAllReviews(supabase))
 	r.POST("/send-comment", sendComments(supabase))
+	r.GET("/get-comments", getComments(supabase))
+	r.GET("/get-reply", getReply(supabase))
 	r.DELETE("/delete-comment", deleteComments(supabase))
 	r.POST("/send-review", sendReview(supabase))
 	r.DELETE("/delete-review", deleteReview(supabase))
@@ -200,7 +202,7 @@ func unfavoriteGame(supabase *supa.Client) gin.HandlerFunc {
 
 		AppID := c.Query("AppID")
 		UserID := c.Query("UserID")
-		
+
 		// const { data, error } = await supabase .from('businesses') .select(*, chain ( * )) .eq('owner_id', 2) .or('chain.owner_id.eq.2');
 		err := supabase.DB.From("FavoriteGames").Delete().Eq("AppID", AppID).Eq("UserID", UserID).Execute(&res)
 		//err := supabase.DB.From("FavoriteGames").Delete().Eq("id", id).and("").Execute(&res)
@@ -214,6 +216,7 @@ func unfavoriteGame(supabase *supa.Client) gin.HandlerFunc {
 		c.JSON(http.StatusOK, res)
 	}
 }
+
 // @Summary request
 // @Description select all of one value that matches a column
 // @Produce json
@@ -524,11 +527,11 @@ func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-			"title":        game.Title,
-			"UserID": 		game.UserID,
-			"description":  game.Description,
-			"genre":        game.Genre,
-			"tags":         game.Tags,
+			"title":       game.Title,
+			"UserID":      game.UserID,
+			"description": game.Description,
+			"genre":       game.Genre,
+			"tags":        game.Tags,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -663,6 +666,39 @@ func getAllComments(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+func getComments(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		game := c.Query("id")
+		err := supabase.DB.From("Comments").Select("*").Eq("Game", game).Eq("reply", "0").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getReply(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		comment := c.Query("id")
+		err := supabase.DB.From("Comments").Select("*").Eq("Parent_id", comment).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+
 // @Summary Send comment
 // @Description Sends a comment to the database
 // @Produce json
@@ -695,6 +731,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
 				"Game":    comment.AppID,
 				"user":    comment.UserID,
+				"reply":   0,
 				"comment": comment.Comment,
 			}).Execute(&res)
 			if insertResult != nil {
@@ -708,6 +745,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 				"Game":      comment.AppID,
 				"user":      comment.UserID,
 				"Parent_id": comment.ParentID,
+				"reply":     1,
 				"comment":   comment.Comment,
 			}).Execute(&res)
 			if insertResult != nil {
