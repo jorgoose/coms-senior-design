@@ -20,11 +20,12 @@ const tags: string[] = [
                             '4x', 'party-based rpg', 'automobile sim', 'moba', 'education', 'rhythm',
                             'photo editing', 'jrpg', 'animation & modeling', 'trivia'
                         ];
+
 const genres: string[] = [
                             'indie', 'simulation', 'sports', 'action',
                             'rpg', 'racing', 'casual', 'strategy',
                             'software', 'adventure', 'action-adventure'
-                        ]
+                        ];
 
 interface CreateGameConceptProps {
     user: User;
