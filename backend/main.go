@@ -4,6 +4,7 @@ import (
 	// Stdlib imports
 	"backend/utils"
 	"context"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -954,6 +955,8 @@ func updateVote(supabase *supa.Client) gin.HandlerFunc {
 func getNews() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
+		var news News
+
 		id := c.Query("id")
 
 		resp, err := http.Get("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/" + "?appid=" + id)
@@ -975,7 +978,9 @@ func getNews() gin.HandlerFunc {
 			return
 		}
 
-		c.JSON(http.StatusOK, string(body))
+		json.Unmarshal(body, &news)
+
+		c.JSON(http.StatusOK, news.Appnews.Newsitems)
 		resp.Body.Close()
 	}
 }
