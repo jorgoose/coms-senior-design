@@ -77,7 +77,6 @@ type News struct {
 		Appid     int `json:"appid"`
 		Newsitems []struct {
 			Title    string `json:"title"`
-			Url      string `json:"url"`
 			Author   string `json:"author"`
 			Contents string `json:"contents"`
 		}
