@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import GameCard from "../GameCardComp";
 
 interface DeveloperProfileContentProps {
-    game: Game
+    game: Game,
+    devGameClick: any
 }
 
-const DeveloperProfileContent: React.FC<DeveloperProfileContentProps> = ({ game }) => {
+const DeveloperProfileContent: React.FC<DeveloperProfileContentProps> = ({ game, devGameClick }) => {
 
     const [otherGames, setOtherGames] = useState<Game[]>([]);
 
@@ -33,6 +34,8 @@ const DeveloperProfileContent: React.FC<DeveloperProfileContentProps> = ({ game 
         fetchGamesByDeveloper(devArgs);
     }, []);
 
+
+
     return (
         <>
             <div className="p-4 bg-stone-800 rounded-xl max-w-fit">
@@ -48,7 +51,7 @@ const DeveloperProfileContent: React.FC<DeveloperProfileContentProps> = ({ game 
                                 <GameCard 
                                     key={devGame.AppID}   
                                     game={devGame} 
-                                    onClick={()=> {}} 
+                                    onClick={() => devGameClick(devGame)} 
                                     showFavorite={false}
                                 />
                             </div>
