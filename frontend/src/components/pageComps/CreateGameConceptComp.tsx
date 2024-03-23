@@ -64,7 +64,7 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                             formData.append("genres", selectedGenres);
                         }
                         formAction(formData);
-                        redirect('/dashboard');
+                        redirect('/dashboard/personalConcepts');
                     }}>
                         <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="title" placeholder="Title" required />
                         <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="description" placeholder="Description" required />
