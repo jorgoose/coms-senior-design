@@ -69,3 +69,10 @@ type FavoriteGame = {
     AppID?: number;
     UserID?: string;
 }
+
+type gameByDeveloperArgs = {
+    id?: string;
+    select: string;
+    column: string;
+    equal: string;
+}

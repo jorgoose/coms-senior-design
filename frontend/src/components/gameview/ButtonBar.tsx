@@ -7,14 +7,14 @@ import { useState } from "react";
 import AnalyticsComp from "./AnalyticsComp";
 
 interface ButtonBarProps {
-    game: Game
+    game: Game,
+    devGameClick?: any
 }
 
-const ButtonBar: React.FC<ButtonBarProps> = ({ game }) => {
+const ButtonBar: React.FC<ButtonBarProps> = ({ game, devGameClick }) => {
     const [selectedView, setSelectedView] = useState('overview');
 
     const desc = game["About the game"];
-    const dev = game.Developers;
 
     const renderContent = (): JSX.Element => {
         switch (selectedView) {
@@ -26,7 +26,9 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ game }) => {
                         game={game} />;
             case 'developerProfile':
                 return <DeveloperProfileContent
-                        developer={dev} />;
+                            game={game} 
+                            devGameClick={devGameClick}
+                        />;
             case 'discussion':
                 return <DiscussionContent />;
             default:

@@ -50,9 +50,10 @@ const dummyData = [
 
 interface GameViewProps {
     game: Game;
+    devGameClick: any
 }
 
-const GameViewComp: React.FC<GameViewProps> = ({ game }) => {
+const GameViewComp: React.FC<GameViewProps> = ({ game, devGameClick }) => {
 
     return (
         <>
@@ -73,7 +74,9 @@ const GameViewComp: React.FC<GameViewProps> = ({ game }) => {
                     </p>
                 </div>
                 <ButtonBar 
-                    game={game}/>
+                    game={game}
+                    devGameClick={devGameClick}
+                />
             </div>
         </>
     );
