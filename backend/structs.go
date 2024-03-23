@@ -47,11 +47,11 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	Title        string
-	UserID		 string
-	Description  string
-	Genre        []string
-	Tags         []string
+	Title       string
+	UserID      string
+	Description string
+	Genre       []string
+	Tags        []string
 }
 
 type FavoriteGame struct {
@@ -70,4 +70,16 @@ type Review struct {
 	ConceptID uuid.UUID // commenting on user game
 	UserID    uuid.UUID // who is commenting
 	Comment   string    // Actual comment
+}
+
+type News struct {
+	Appnews struct {
+		Appid     int `json:"appid"`
+		Newsitems []struct {
+			Title    string `json:"title"`
+			Author   string `json:"author"`
+			Contents string `json:"contents"`
+		}
+		Count int `json:"count"`
+	}
 }

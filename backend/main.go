@@ -4,7 +4,9 @@ import (
 	// Stdlib imports
 	"backend/utils"
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"strings"
 
@@ -72,11 +74,14 @@ func main() {
 	r.GET("/get-all-replies", getAllReplies(supabase))
 	r.GET("/get-all-reviews", getAllReviews(supabase))
 	r.POST("/send-comment", sendComments(supabase))
+	r.GET("/get-comments", getComments(supabase))
+	r.GET("/get-reply", getReply(supabase))
 	r.DELETE("/delete-comment", deleteComments(supabase))
 	r.POST("/send-review", sendReview(supabase))
 	r.DELETE("/delete-review", deleteReview(supabase))
 	r.GET("/get-vote", getVote(supabase))
 	r.PUT("/update-vote", updateVote(supabase))
+	r.GET("/get-news", getNews())
 	r.GET("/shutdown", shutdown)
 	r.GET("/ping", ping)
 
@@ -668,6 +673,38 @@ func getAllComments(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+func getComments(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		game := c.Query("id")
+		err := supabase.DB.From("Comments").Select("*").Eq("Game", game).Eq("reply", "0").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getReply(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		comment := c.Query("id")
+		err := supabase.DB.From("Comments").Select("*").Eq("Parent_id", comment).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
 // @Summary Send comment
 // @Description Sends a comment to the database
 // @Produce json
@@ -700,6 +737,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
 				"Game":    comment.AppID,
 				"user":    comment.UserID,
+				"reply":   0,
 				"comment": comment.Comment,
 			}).Execute(&res)
 			if insertResult != nil {
@@ -713,6 +751,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 				"Game":      comment.AppID,
 				"user":      comment.UserID,
 				"Parent_id": comment.ParentID,
+				"reply":     1,
 				"comment":   comment.Comment,
 			}).Execute(&res)
 			if insertResult != nil {
@@ -914,6 +953,39 @@ func updateVote(supabase *supa.Client) gin.HandlerFunc {
 		}
 
 		c.JSON(http.StatusOK, res)
+	}
+}
+
+func getNews() gin.HandlerFunc {
+	return func(c *gin.Context) {
+
+		var news News
+
+		id := c.Query("id")
+
+		resp, err := http.Get("https://api.steampowered.com/ISteamNews/GetNewsForApp/v2/" + "?appid=" + id)
+
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		defer resp.Body.Close()
+		body, err2 := io.ReadAll(resp.Body)
+
+		if err2 != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err2.Error(),
+			})
+			return
+		}
+
+		json.Unmarshal(body, &news)
+
+		c.JSON(http.StatusOK, news.Appnews.Newsitems)
+		resp.Body.Close()
 	}
 }
 
