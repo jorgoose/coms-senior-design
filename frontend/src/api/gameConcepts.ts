@@ -35,3 +35,11 @@ export async function getAllGameConcepts() {
     }
     return res;
 }
+
+export async function getFilteredConcepts(UserID: string) {
+    const res = await axios.get(`${baseURL}/filter-game-concept?UserID=${UserID}`)
+    if (!res) {
+        throw "Error in Filtering Game Concepts";
+    }
+    return res;
+}
