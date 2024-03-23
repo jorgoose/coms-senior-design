@@ -200,7 +200,7 @@ func unfavoriteGame(supabase *supa.Client) gin.HandlerFunc {
 
 		AppID := c.Query("AppID")
 		UserID := c.Query("UserID")
-		
+
 		// const { data, error } = await supabase .from('businesses') .select(*, chain ( * )) .eq('owner_id', 2) .or('chain.owner_id.eq.2');
 		err := supabase.DB.From("FavoriteGames").Delete().Eq("AppID", AppID).Eq("UserID", UserID).Execute(&res)
 		//err := supabase.DB.From("FavoriteGames").Delete().Eq("id", id).and("").Execute(&res)
@@ -214,6 +214,7 @@ func unfavoriteGame(supabase *supa.Client) gin.HandlerFunc {
 		c.JSON(http.StatusOK, res)
 	}
 }
+
 // @Summary request
 // @Description select all of one value that matches a column
 // @Produce json
@@ -524,11 +525,11 @@ func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-			"title":        game.Title,
-			"UserID": 		game.UserID,
-			"description":  game.Description,
-			"genre":        game.Genre,
-			"tags":         game.Tags,
+			"title":       game.Title,
+			"UserID":      game.UserID,
+			"description": game.Description,
+			"genre":       game.Genre,
+			"tags":        game.Tags,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -613,6 +614,7 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		Genres := c.Query("genre")
 		Tags := c.Query("tags")
 		title := c.Query("title")
+		UserID := c.Query("UserID")
 
 		Genres_array := strings.Split(Genres, ",")
 		Tags_array := strings.Split(Tags, ",")
@@ -628,6 +630,9 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		}
 		if len(title) > 0 {
 			body.Eq("title", title)
+		}
+		if len(UserID) > 0 {
+			body.Eq("UserID", UserID)
 		}
 
 		err := body.Execute(&res)

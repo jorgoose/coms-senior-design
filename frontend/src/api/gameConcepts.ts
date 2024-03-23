@@ -20,8 +20,6 @@ export async function postGameConcept(prevState: any, formData: FormData) {
         Tags: data.tags.split(','),
     }
 
-    console.log(concept);
-
     const res = await axios.post(`${baseURL}/send-game-concept`, concept);
     if (res.status != 200) {
         return {

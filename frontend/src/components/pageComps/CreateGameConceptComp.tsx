@@ -6,6 +6,7 @@ import SubmitButton from "../SubmitButton";
 import { useFormState } from "react-dom";
 import TagList from "../gameConceptComps/TagList";
 import { useState } from "react";
+import { redirect } from 'next/navigation'
 
 const genres: string[] = [
     'indie', 'simulation', 'sports', 'action',
@@ -63,6 +64,7 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                             formData.append("genres", selectedGenres);
                         }
                         formAction(formData);
+                        redirect('/dashboard');
                     }}>
                         <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="title" placeholder="Title" required />
                         <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="description" placeholder="Description" required />
