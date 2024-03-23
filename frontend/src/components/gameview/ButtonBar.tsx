@@ -14,7 +14,6 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ game }) => {
     const [selectedView, setSelectedView] = useState('overview');
 
     const desc = game["About the game"];
-    const dev = game.Developers;
 
     const renderContent = (): JSX.Element => {
         switch (selectedView) {
@@ -26,7 +25,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ game }) => {
                         game={game} />;
             case 'developerProfile':
                 return <DeveloperProfileContent
-                        developer={dev} />;
+                        game={game} />;
             case 'discussion':
                 return <DiscussionContent />;
             default:
