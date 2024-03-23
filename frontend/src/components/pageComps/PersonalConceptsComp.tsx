@@ -22,11 +22,12 @@ const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ user }) => 
                 const res = await getFilteredConcepts(id);
                 console.log(res.data);
                 try {
+                    console.log("Right before: ", res.data);
                     setPersonalUserConcepts(res.data);
                 } catch (setError) {
-                    console.error('Setting error: ', setError)
+                    console.error('Setting error: ', setError);
                 }
-                console.log("Use State: " + personalUserConcepts);
+                console.log("Use State: ", personalUserConcepts);
             } catch (error) {
                 console.error('Error fetching user games:', error);
             }
