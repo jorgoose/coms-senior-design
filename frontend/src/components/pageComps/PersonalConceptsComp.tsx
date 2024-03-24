@@ -5,10 +5,10 @@ import LayoutComponent from "../header/LayoutComponent";
 import { getFilteredConcepts } from "@/api/gameConcepts";
 
 interface PersonalConceptsCompProps {
-    user: User;
+    UserID: string;
 }
 
-const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ user }) => {
+const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [personalUserConcepts, setPersonalUserConcepts] = useState<GameConcept[]>([]);
 
@@ -20,20 +20,16 @@ const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ user }) => 
         async function fetchUserConcepts(id: string) {
             try {
                 const res = await getFilteredConcepts(id);
-                console.log(res.data);
-                try {
-                    console.log("Right before: ", res.data);
-                    setPersonalUserConcepts(res.data);
-                } catch (setError) {
-                    console.error('Setting error: ', setError);
-                }
+                const updateData: GameConcept[] = await res.data;
+                console.log("Right before: ", updateData);
+                setPersonalUserConcepts(updateData);
                 console.log("Use State: ", personalUserConcepts);
             } catch (error) {
                 console.error('Error fetching user games:', error);
             }
         };
 
-        (user.id) && fetchUserConcepts(user.id);
+        (UserID) && fetchUserConcepts(UserID);
     }, []);
 
     return (

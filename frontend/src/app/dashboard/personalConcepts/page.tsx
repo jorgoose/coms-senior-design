@@ -12,12 +12,12 @@ export default async function personalConcepts() {
   if (error || !data?.user) {
     redirect('/login');
   }
-  const currUser = data.user;
+  const UserID = data.user.id;
 
   return (
     <>
       <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-        <PersonalConceptsComp user={currUser}/>
+        <PersonalConceptsComp UserID={UserID}/>
       </div>
     </>
   );
