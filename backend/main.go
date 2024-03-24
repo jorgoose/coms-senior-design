@@ -13,7 +13,6 @@ import (
 	// External dependencies
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 	supa "github.com/nedpals/supabase-go"
 
@@ -818,7 +817,7 @@ func sendComments(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		if comment.ParentID == uuid.Nil {
+		if len(comment.ParentID) == 0 {
 			insertResult := supabase.DB.From("Comments").Insert(map[string]interface{}{
 				"Game":    comment.AppID,
 				"user":    comment.UserID,
