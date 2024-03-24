@@ -11,6 +11,7 @@ interface GameConceptsCompProps {
 const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [gameConcepts, setGameConcepts] = useState<GameConcept[]>([]);
+    const [expandedConceptIndex, setExpandedConceptIndex] = useState<number | null>(null);
 
     const filteredConcepts = gameConcepts.filter((concept) =>
         concept?.title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -30,14 +31,42 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
         (UserID) && fetchGameConcepts(UserID);
     }, []);
 
+    const handleToggleDropdown = (index: number) => {
+        setExpandedConceptIndex(prevIndex => (prevIndex === index ? null : index));
+    };
+
     return (
         <>
             <LayoutComponent searchQuery={searchQuery} setSearchQuery={setSearchQuery} showSearchBar={true}>
                 <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
-                    <p>Game Concepts</p>
+                    <p className="text-sky-500">Game Concepts</p>
                     <div>
                         {filteredConcepts.map((concept, index) => (
-                            <p key={index}>{concept.title}</p>
+                            <div key={index} className="relative w-full">
+                                <div
+                                    className="flex items-center justify-between p-4 bg-slate-700 rounded-md w-full"
+                                    onClick={() => handleToggleDropdown(index)}
+                                >
+                                    <span className="text-sky-500">{concept.title}</span>
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-5 w-5"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M10 12a2 2 0 100-4 2 2 0 000 4z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                </div>
+                                <div className={`p-4 bg-slate-700 rounded-md w-full ${expandedConceptIndex === index ? 'block' : 'hidden'}`}>
+                                    <p className="text-sky-500">{concept.description}</p>
+                                    <p className="text-sky-500">{concept.genre}</p>
+                                    <p className="text-sky-500">{concept.tags}</p>
+                                </div>
+                            </div>
                         ))}
                     </div>
                 </main>
