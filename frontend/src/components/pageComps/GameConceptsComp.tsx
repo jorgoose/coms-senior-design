@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from "react";
 import LayoutComponent from "../header/LayoutComponent";
 
 interface GameConceptsCompProps {

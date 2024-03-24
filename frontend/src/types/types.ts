@@ -76,3 +76,10 @@ type gameByDeveloperArgs = {
     column: string;
     equal: string;
 }
+
+type Review = {
+    UserID: string
+    ConceptID: string
+    comment: string
+    vote: number
+}
