@@ -1064,6 +1064,12 @@ func updateVote(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+// @Summary Get news
+// @Description Get news by ID
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /get-news [get]
 func getNews() gin.HandlerFunc {
 	return func(c *gin.Context) {
 
