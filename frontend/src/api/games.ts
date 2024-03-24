@@ -63,3 +63,11 @@ export async function unFavoriteGame(game: FavoriteGame) {
         };
     }
 }
+
+export async function getGamesByDeveloper(args: gameByDeveloperArgs) {
+    const data = await axios.get(`${baseURL}/request?sele=${args.select}&collum=${args.column}&equal=${args.equal}`);
+    if (!data) {
+        throw "Error in fetching a specific game";
+    }
+    return data;
+}

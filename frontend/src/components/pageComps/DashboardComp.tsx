@@ -9,17 +9,18 @@ import GameViewComp from "../gameview/GameViewComp";
 
 interface DashboardCompProps {
     UserID?: string;
+    presetGame?: Game;
 }
 
-const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
+const DashboardComp: React.FC<DashboardCompProps> = ({UserID, presetGame=null}) => {
 
     const [games, setGames] = useState<Game[]>([]);
 
     const [favoriteGames, setFavoriteGames] = useState<FavoriteGame[]>([]);
 
-    const [showDashboard, setShowDashboard] = useState(true);
+    const [showDashboard, setShowDashboard] = presetGame ? useState(false) : useState(true);
 
-    const [game, setGame] = useState<Game>();
+    const [game, setGame] = presetGame ? useState<Game>(presetGame) : useState<Game>();
 
     const [ searchQuery, setSearchQuery ] = useState('');
 
@@ -56,6 +57,11 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
         return favoriteGames.some(favorite => favorite.AppID === gameId);
     };
 
+    const selectDevGame = (devGame: Game) => {
+        setGame(devGame);
+        game && setShowDashboard(false);
+    }
+
     const dashboardLayout = () => (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {filteredGames.map((game) => (
@@ -73,7 +79,7 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
     );
 
     const gameViewLayout = () => (
-        game && <GameViewComp game={game} />
+        game && <GameViewComp game={game} devGameClick={selectDevGame} />
     );
 
     return (

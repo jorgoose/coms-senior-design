@@ -47,11 +47,11 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	Title        string
-	Developer_id string
-	Description  string
-	Genre        []string
-	Tags         []string
+	title       string
+	UserID      string
+	description string
+	genre       []string
+	tags        []string
 }
 
 type FavoriteGame struct {
@@ -76,4 +76,16 @@ type User struct {
 	UserID		 string
 	Username 	 string
 	Email	 	 string
+}
+
+type News struct {
+	Appnews struct {
+		Appid     int `json:"appid"`
+		Newsitems []struct {
+			Title    string `json:"title"`
+			Author   string `json:"author"`
+			Contents string `json:"contents"`
+		}
+		Count int `json:"count"`
+	}
 }
