@@ -72,6 +72,12 @@ type Review struct {
 	Comment   string    // Actual comment
 }
 
+type User struct {
+	UserID		 string
+	Username 	 string
+	Email	 	 string
+}
+
 type News struct {
 	Appnews struct {
 		Appid     int `json:"appid"`
