@@ -530,11 +530,11 @@ func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-			"title":       game.Title,
+			"title":       game.title,
 			"UserID":      game.UserID,
-			"description": game.Description,
-			"genre":       game.Genre,
-			"tags":        game.Tags,
+			"description": game.description,
+			"genre":       game.genre,
+			"tags":        game.tags,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -619,6 +619,7 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		Genres := c.Query("genre")
 		Tags := c.Query("tags")
 		title := c.Query("title")
+		UserID := c.Query("UserID")
 
 		Genres_array := strings.Split(Genres, ",")
 		Tags_array := strings.Split(Tags, ",")
@@ -634,6 +635,9 @@ func filterGameConcept(supabase *supa.Client) gin.HandlerFunc {
 		}
 		if len(title) > 0 {
 			body.Eq("title", title)
+		}
+		if len(UserID) > 0 {
+			body.Eq("UserID", UserID)
 		}
 
 		err := body.Execute(&res)

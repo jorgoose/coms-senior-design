@@ -57,11 +57,11 @@ type Game = {
 }
 
 type GameConcept = {
-    title: string
-    developer_id: string
-    description: string
-    genre: string
-    tags: string
+    title?: string;
+    UserID?: string;
+    description?: string;
+    genre?: string[];
+    tags?: string[];
 }
 
 type FavoriteGame = {
