@@ -47,11 +47,11 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	Title       string
+	title       string
 	UserID      string
-	Description string
-	Genre       []string
-	Tags        []string
+	description string
+	genre       []string
+	tags        []string
 }
 
 type FavoriteGame struct {
