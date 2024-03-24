@@ -119,6 +119,32 @@ const docTemplate = `{
                 }
             }
         },
+        "/delete-user": {
+            "delete": {
+                "description": "Deletes a user",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/favorite-game": {
             "post": {
                 "description": "Favorite a game",
@@ -287,6 +313,23 @@ const docTemplate = `{
                 }
             }
         },
+        "/get-all-users": {
+            "get": {
+                "description": "Get all users",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get all users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/get-favorite-games": {
             "get": {
                 "description": "Get favorite games by UserID",
@@ -313,7 +356,33 @@ const docTemplate = `{
                 }
             }
         },
-        "/get-user": {
+        "/get-news": {
+            "get": {
+                "description": "Get news by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get news",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/get-one-user": {
             "get": {
                 "description": "Get user by ID",
                 "produces": [
@@ -1024,6 +1093,46 @@ const docTemplate = `{
                 }
             }
         },
+        "/update-comment": {
+            "put": {
+                "description": "Updates a comment after creation",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "collum",
+                        "name": "collum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "value",
+                        "name": "value",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/update-game": {
             "put": {
                 "description": "Updates a game after creation",
@@ -1076,6 +1185,46 @@ const docTemplate = `{
                         "type": "string",
                         "description": "id",
                         "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "collum",
+                        "name": "collum",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "value",
+                        "name": "value",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/update-user": {
+            "put": {
+                "description": "Updates a user after creation",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "email",
+                        "name": "email",
                         "in": "query",
                         "required": true
                     },
