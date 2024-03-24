@@ -42,9 +42,9 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                     <p className="text-sky-500">Game Concepts</p>
                     <div>
                         {filteredConcepts.map((concept, index) => (
-                            <div key={index} className="relative w-full">
+                            <div key={index} className="relative min-w-full">
                                 <div
-                                    className="flex items-center justify-between p-4 bg-slate-700 rounded-md w-full"
+                                    className="flex items-center justify-between p-4 bg-slate-700 rounded-md min-w-full"
                                     onClick={() => handleToggleDropdown(index)}
                                 >
                                     <span className="text-sky-500">{concept.title}</span>
@@ -61,10 +61,10 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                                         />
                                     </svg>
                                 </div>
-                                <div className={`p-4 bg-slate-700 rounded-md w-full ${expandedConceptIndex === index ? 'block' : 'hidden'}`}>
+                                <div className={`p-4 bg-slate-800 rounded-md min-w-full ${expandedConceptIndex === index ? 'block' : 'hidden'}`}>
                                     <p className="text-sky-500">{concept.description}</p>
-                                    <p className="text-sky-500">{concept.genre}</p>
-                                    <p className="text-sky-500">{concept.tags}</p>
+                                    <p className="text-sky-500">{concept.genre ? concept.genre.join(', ') : ''}</p>
+                                    <p className="text-sky-500">{concept.tags ? concept.tags.join(', '): ''}</p>
                                 </div>
                             </div>
                         ))}

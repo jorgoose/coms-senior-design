@@ -58,7 +58,7 @@ type Game = {
 
 type GameConcept = {
     title?: string;
-    UserID?: string;
+    UserID: string;
     description?: string;
     genre?: string[];
     tags?: string[];
