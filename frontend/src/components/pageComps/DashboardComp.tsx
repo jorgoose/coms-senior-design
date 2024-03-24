@@ -12,15 +12,15 @@ interface DashboardCompProps {
     presetGame?: Game;
 }
 
-const DashboardComp: React.FC<DashboardCompProps> = ({UserID, presetGame=null}) => {
+const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
 
     const [games, setGames] = useState<Game[]>([]);
 
     const [favoriteGames, setFavoriteGames] = useState<FavoriteGame[]>([]);
 
-    const [showDashboard, setShowDashboard] = presetGame ? useState(false) : useState(true);
+    const [showDashboard, setShowDashboard] = useState(true);
 
-    const [game, setGame] = presetGame ? useState<Game>(presetGame) : useState<Game>();
+    const [game, setGame] = useState<Game>();
 
     const [ searchQuery, setSearchQuery ] = useState('');
 
@@ -59,7 +59,7 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID, presetGame=null}) 
 
     const selectDevGame = (devGame: Game) => {
         setGame(devGame);
-        game && setShowDashboard(false);
+        setShowDashboard(false);
     }
 
     const dashboardLayout = () => (
