@@ -73,7 +73,7 @@ type Review struct {
 }
 
 type User struct {
-	ID			 uuid.UUID
+	UserID		 string
 	Username 	 string
 	Email	 	 string
 }

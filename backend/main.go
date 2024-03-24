@@ -57,7 +57,6 @@ func main() {
 	r.GET("/get-all-users", getAllUsers(supabase))
 	r.DELETE("/delete-user", deleteUser(supabase))
 	r.PUT("/update-user", updateUser(supabase))
-	r.POST("/send-user", sendUser(supabase))
 
 	// TestGameEndpoints table
 	r.GET("/get-all-games", getAllGames(supabase))
@@ -170,7 +169,7 @@ func deleteUser(supabase *supa.Client) gin.HandlerFunc {
 // @Summary Update user
 // @Description Updates a user after creation
 // @Produce json
-// @Param id query string true "id"
+// @Param email query string true "email"
 // @Param collum query string true "collum"
 // @Param value query string true "value"
 // @Success 200 {object} string
@@ -192,45 +191,6 @@ func updateUser(supabase *supa.Client) gin.HandlerFunc {
 		c.JSON(http.StatusOK, res)
 	}
 }
-
-// @Summary Send user
-// @Description Sends a user to the database
-// @Produce json
-// @Param id body string true "id"
-// @Param username body string true "username"
-// @Param email body string true "email"
-// @Success 200 {object} string
-// @Router /send-user [post]
-func sendUser(supabase *supa.Client) gin.HandlerFunc {
-	return func(c *gin.Context) {
-		var res []map[string]interface{}
-
-		var user User
-
-		if err := c.BindJSON(&user); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
-			return
-		}
-
-		insertResult := supabase.DB.From("Users").Insert(map[string]interface{}{
-			"id":       user.ID,
-			"username": user.Username,
-			"email":    user.Email,
-		}).Execute(&res)
-
-		if insertResult != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": insertResult.Error(),
-			})
-			return
-		}
-
-		c.JSON(http.StatusOK, res)
-	}
-}
-
 
 // @Summary Get all games
 // @Description Get all games
