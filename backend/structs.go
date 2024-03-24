@@ -67,15 +67,16 @@ type Comment struct {
 }
 
 type Review struct {
-	ConceptID uuid.UUID // commenting on user game
-	UserID    uuid.UUID // who is commenting
-	Comment   string    // Actual comment
+	UserID    string
+	ConceptID string
+	comment   string
+	vote      int
 }
 
 type User struct {
-	UserID		 string
-	Username 	 string
-	Email	 	 string
+	UserID   string
+	Username string
+	Email    string
 }
 
 type News struct {

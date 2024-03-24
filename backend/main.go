@@ -968,18 +968,13 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		if review.ConceptID == uuid.Nil || review.UserID == uuid.Nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": "comment must belong to game and user",
-			})
-			return
-		}
+		review.vote = 0
 
 		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
 			"ConceptID": review.ConceptID,
 			"user":      review.UserID,
-			"comment":   review.Comment,
-			"vote":      0,
+			"comment":   review.comment,
+			"vote":      review.vote,
 		}).Execute(&res)
 
 		if insertResult != nil {
