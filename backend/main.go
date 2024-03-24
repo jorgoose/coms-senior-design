@@ -53,7 +53,8 @@ func main() {
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	// Users table
-	r.GET("/get-user", getUser(supabase))
+	r.GET("/get-one-user", getOneUser(supabase))
+	r.GET("/get-all-users", getAllUsers(supabase))
 	r.DELETE("/delete-user", deleteUser(supabase))
 	r.PUT("/update-user", updateUser(supabase))
 	r.POST("/send-user", sendUser(supabase))
@@ -107,12 +108,32 @@ func main() {
 // @Produce json
 // @Param id query string true "id"
 // @Success 200 {object} string
-// @Router /get-user [get]
-func getUser(supabase *supa.Client) gin.HandlerFunc {
+// @Router /get-one-user [get]
+func getOneUser(supabase *supa.Client) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		id := c.Query("id")
 		var res []map[string]interface{}
 		err := supabase.DB.From("Users").Select("*").Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// @Summary Get all users
+// @Description Get all users
+// @Produce json
+// @Success 200 {object} string
+// @Router /get-all-users [get]
+func getAllUsers(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("Users").Select("*").Execute(&res)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),
