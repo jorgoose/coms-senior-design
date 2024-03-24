@@ -199,7 +199,6 @@ func updateUser(supabase *supa.Client) gin.HandlerFunc {
 // @Param id body string true "id"
 // @Param username body string true "username"
 // @Param email body string true "email"
-// @Param password body string true "password"
 // @Success 200 {object} string
 // @Router /send-user [post]
 func sendUser(supabase *supa.Client) gin.HandlerFunc {
@@ -219,7 +218,6 @@ func sendUser(supabase *supa.Client) gin.HandlerFunc {
 			"id":       user.ID,
 			"username": user.Username,
 			"email":    user.Email,
-			"password": user.Password,
 		}).Execute(&res)
 
 		if insertResult != nil {

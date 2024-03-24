@@ -71,3 +71,9 @@ type Review struct {
 	UserID    uuid.UUID // who is commenting
 	Comment   string    // Actual comment
 }
+
+type User struct {
+	ID			 uuid.UUID
+	Username 	 string
+	Email	 	 string
+}
