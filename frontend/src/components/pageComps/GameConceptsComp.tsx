@@ -75,11 +75,13 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                                         formAction(formData);
                                         redirect('/dashboard/gameConcepts');
                                     }}>
-                                        <input type="text" className="bg-slate-600 m-2 rounded-md" name="comment" placeholder="Leave Review"/>
+                                        <input type="text" className="bg-slate-600 m-2 rounded-md" name="comment" placeholder="Leave Review" onClick={(e) => e.stopPropagation()}/>
                                         <p aria-live="polite">
                                             {state?.message}
                                         </p>
-                                        <SubmitButton use='Submit' />
+                                        <div onClick={(e) => e.stopPropagation()}>
+                                            <SubmitButton use='Submit' />
+                                        </div>
                                     </form>
                                 </div>
                             </div>
