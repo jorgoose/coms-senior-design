@@ -48,7 +48,11 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                 try {
                     const res = await getConceptReviews(currCardIndex);
                     const reviews: Review[] = await res.data;
-                    setConceptReviews(reviews);
+                    if (reviews.length === 0) {
+                        setConceptReviews([{UserID: '', ConceptID: currCardIndex, comment: 'No Reviews Available', vote: 0}])
+                    } else {
+                        setConceptReviews(reviews);
+                    }
                 } catch (error) {
                     console.error('Error fetching reviews:', error);
                 }
@@ -105,11 +109,11 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                                         {conceptReviews.length > 0 ? (
                                             conceptReviews.map((review) => (
                                                 <div key={review.id}>
-                                                    <p>{review.comment}</p>
+                                                    <p className="ml-2">{review.comment}</p>
                                                 </div>
                                             ))
                                         ) : (
-                                            <p>Loading reviews...</p>
+                                            <p className="ml-2">Loading reviews...</p>
                                         )}
                                     </div>
                                 )}
