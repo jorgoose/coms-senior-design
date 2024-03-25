@@ -11,10 +11,10 @@ import (
 	"strings"
 
 	// External dependencies
+	"dario.cat/mergo"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"dario.cat/mergo"
 	supa "github.com/nedpals/supabase-go"
 
 	// Docs
@@ -160,7 +160,6 @@ func getUpcomingGames(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
-
 // @Summary Get all friends
 // @Description Get all friends
 // @Produce json
@@ -192,7 +191,7 @@ func getFriends(supabase *supa.Client) gin.HandlerFunc {
 		var res []map[string]interface{}
 		var res2 []map[string]interface{}
 		userID := c.Query("UserID")
-		err := supabase.DB.From("Friends").Select("*").Eq("user1", userID).Execute(&res) 
+		err := supabase.DB.From("Friends").Select("*").Eq("user1", userID).Execute(&res)
 		err2 := supabase.DB.From("Friends").Select("*").Eq("user2", userID).Execute(&res2)
 
 		if err != nil || err2 != nil {
@@ -201,7 +200,7 @@ func getFriends(supabase *supa.Client) gin.HandlerFunc {
 			})
 			return
 		}
-	
+
 		mergo.Merge(&res, res2)
 
 		c.JSON(http.StatusOK, res)
@@ -1150,7 +1149,7 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 
 		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
 			"ConceptID": review.ConceptID,
-			"user":      review.UserID,
+			"UserID":    review.UserID,
 			"comment":   review.Comment,
 			"vote":      review.Vote,
 		}).Execute(&res)
