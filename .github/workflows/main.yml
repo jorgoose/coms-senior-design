@@ -40,9 +40,6 @@ jobs:
             export GOROOT=/usr/local/go
 
             export PATH=$(go env GOPATH)/bin:$PATH
-            
-            # Generate docs using Swagger
-            swag init
 
             # Combinee the three above lines into a one liner for "go run ."
             nohup go run . > app.log 2>&1 &
