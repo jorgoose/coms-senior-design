@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { FaUser } from 'react-icons/fa';
 import LayoutComponent from '../header/LayoutComponent';
-import { getAllUsers } from '@/api/user';
+import { getAllUsers, getOneUser } from '@/api/user';
 
 const DeveloperProfileComp = () => {
     const [users, setUsers] = useState<any[]>([]);
+
+    const UserID: string = localStorage.getItem('UserID') ?? '';
+    console.log(`UserID: ${UserID}`);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -19,7 +22,17 @@ const DeveloperProfileComp = () => {
             }
         };
 
+        const fetchOneUser = async (UserID: string) => {
+            try {
+                const singleUserData = await getOneUser(UserID);
+                console.log(singleUserData);
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        }
+
         fetchUsers();
+        fetchOneUser(UserID);
     }, []);
 
     return (

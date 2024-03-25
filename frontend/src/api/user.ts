@@ -8,8 +8,8 @@ interface User {
     email: string;
     datejoined: string;
 }
-export async function getOneUser() {
-    const data = await axios.get(`${baseURL}/get-one-user`);
+export async function getOneUser(UserID: string) {
+    const data = await axios.get(`${baseURL}/get-one-user?id=${UserID}`);
     if (!data) {
         throw "Error in fetching all games";
     }

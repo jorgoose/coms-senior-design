@@ -28,6 +28,8 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
         game?.Name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    localStorage.setItem('UserID', UserID ?? '');
+
     useEffect(() => {
         async function fetchGames(userId: string) {
             try {
