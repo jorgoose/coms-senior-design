@@ -1305,6 +1305,6 @@ func shutdown(c *gin.Context) {
 // @Router /ping [get]
 func ping(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "pong",
+		"message": "pong, but more importantly, hello world!",
 	})
 }
