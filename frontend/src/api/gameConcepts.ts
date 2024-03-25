@@ -13,11 +13,11 @@ export async function postGameConcept(prevState: any, formData: FormData) {
     };
 
     const concept: GameConcept = {
-        Title: data.title,
+        title: data.title,
         UserID: data.UserID,
-        Description: data.description,
-        Genres: data.genre.split(','),
-        Tags: data.tags.split(','),
+        description: data.description,
+        genre: data.genre.split(','),
+        tags: data.tags.split(','),
     }
 
     const res = await axios.post(`${baseURL}/send-game-concept`, concept);

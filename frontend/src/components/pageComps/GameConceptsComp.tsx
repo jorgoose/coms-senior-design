@@ -25,7 +25,7 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
     const [conceptReviews, setConceptReviews] = useState<Review[]>([])
 
     const filteredConcepts = gameConcepts.filter((concept) =>
-        concept?.Title?.toLowerCase().includes(searchQuery.toLowerCase())
+        concept?.title?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {
@@ -60,13 +60,13 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                             <div key={index} onClick={() => handleCardClick(concept)} className={`bg-stone-800 rounded-t overflow-auto shadow-lg relative ${concept.id === currCardIndex ? 'w-full h-120 col-span-5' : 'w-56 h-60'}`}>
                                 <div>
                                     <p className="ml-2">Title</p>
-                                    <p className="m-2 mt-0 text-sky-500">{concept.Title ? concept.Title : 'No Title Given'}</p>
+                                    <p className="m-2 mt-0 text-sky-500">{concept.title ? concept.title : 'No Title Given'}</p>
                                     <p className="ml-2">Description</p>
-                                    <p className="m-2 mt-0 text-sky-500">{concept.Description ? concept.Description : 'No Description Given'}</p>
+                                    <p className="m-2 mt-0 text-sky-500">{concept.description ? concept.description : 'No Description Given'}</p>
                                     <p className="ml-2">Genres</p>
-                                    <p className="m-2 mt-0 text-sky-500">{concept.Genres ? concept.Genres.join(', ') : 'No Genres Given'}</p>
+                                    <p className="m-2 mt-0 text-sky-500">{concept.genre ? concept.genre.join(', ') : 'No Genres Given'}</p>
                                     <p className="ml-2">Tags</p>
-                                    <p className="m-2 my-0 text-sky-500">{concept.Tags ? concept.Tags.join(', '): 'No Tags Given'}</p>
+                                    <p className="m-2 my-0 text-sky-500">{concept.tags ? concept.tags.join(', '): 'No Tags Given'}</p>
                                 </div>
                                 <div>
                                     <form action={async (formData: FormData) => {
