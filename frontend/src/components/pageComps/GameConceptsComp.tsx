@@ -7,6 +7,7 @@ import SubmitButton from "../SubmitButton";
 import { redirect } from "next/navigation";
 import { useFormState } from "react-dom";
 import { postReview } from "@/api/reviews";
+import { getConceptReviews } from "@/api/reviews";
 
 interface GameConceptsCompProps {
     UserID: string;
@@ -20,7 +21,8 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
     const [state, formAction] = useFormState(postReview, initialState);
     const [searchQuery, setSearchQuery] = useState('');
     const [gameConcepts, setGameConcepts] = useState<GameConcept[]>([]);
-    const [currCardIndex, setCurrCardIndex] = useState(-1);
+    const [currCardIndex, setCurrCardIndex] = useState('');
+    const [conceptReviews, setConceptReviews] = useState<Review[]>([])
 
     const filteredConcepts = gameConcepts.filter((concept) =>
         concept?.Title?.toLowerCase().includes(searchQuery.toLowerCase())
@@ -40,17 +42,22 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
         (UserID) && fetchGameConcepts(UserID);
     }, []);
 
-    const handleCardClick = (index: number) => {
-        setCurrCardIndex(index === currCardIndex ? -1 : index);
+    const handleCardClick = async (concept: GameConcept) => {
+        if (concept.id) {
+            setCurrCardIndex(concept.id === currCardIndex ? '' : concept.id);
+            const res = await getConceptReviews(concept.id);
+            const reviews: Review[] = await res.data;
+            setConceptReviews(reviews);
+        }
     }
 
     return (
         <>
             <LayoutComponent searchQuery={searchQuery} setSearchQuery={setSearchQuery} showSearchBar={true}>
                 <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
-                    <div className={`grid ${currCardIndex !== -1 ? 'grid-flow-row grid-cols-5 gap-2' : 'grid-flow-row grid-cols-5 gap-4'}`}>
+                    <div className={`grid ${currCardIndex !== '' ? 'grid-flow-row grid-cols-5 gap-2' : 'grid-flow-row grid-cols-5 gap-4'}`}>
                         {filteredConcepts.map((concept, index) => (
-                            <div key={index} onClick={() => handleCardClick(index)} className={`bg-stone-800 rounded-t overflow-auto shadow-lg relative ${index === currCardIndex ? 'w-full h-120 col-span-5' : 'w-56 h-60'}`}>
+                            <div key={index} onClick={() => handleCardClick(concept)} className={`bg-stone-800 rounded-t overflow-auto shadow-lg relative ${concept.id === currCardIndex ? 'w-full h-120 col-span-5' : 'w-56 h-60'}`}>
                                 <div>
                                     <p className="ml-2">Title</p>
                                     <p className="m-2 mt-0 text-sky-500">{concept.Title ? concept.Title : 'No Title Given'}</p>
