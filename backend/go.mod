@@ -6,6 +6,8 @@ toolchain go1.22.0
 
 require github.com/google/uuid v1.6.0
 
+require dario.cat/mergo v1.0.0 // indirect
+
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/PuerkitoBio/purell v1.2.1 // indirect

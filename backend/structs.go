@@ -55,6 +55,11 @@ type FavoriteGame struct {
 	UserID string
 }
 
+type Friend struct {
+	User1 	string
+	User2 	string
+}
+
 type Comment struct {
 	AppID    int    // commenting on steam game
 	UserID   string // who is commenting
