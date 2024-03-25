@@ -14,6 +14,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
+	"dario.cat/mergo"
 	supa "github.com/nedpals/supabase-go"
 
 	// Docs
@@ -199,9 +200,10 @@ func getFriends(supabase *supa.Client) gin.HandlerFunc {
 			})
 			return
 		}
+	
+		mergo.Merge(&res, res2)
 
 		c.JSON(http.StatusOK, res)
-		c.JSON(http.StatusOK, res2)
 	}
 }
 
