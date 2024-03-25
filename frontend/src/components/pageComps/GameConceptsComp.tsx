@@ -3,12 +3,21 @@
 import { useEffect, useState } from "react";
 import LayoutComponent from "../header/LayoutComponent";
 import { getAllGameConcepts } from "@/api/gameConcepts";
+import SubmitButton from "../SubmitButton";
+import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
+import { postReview } from "@/api/reviews";
 
 interface GameConceptsCompProps {
     UserID: string;
 }
 
+const initialState = {
+    message: '',
+}
+
 const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
+    const [state, formAction] = useFormState(postReview, initialState);
     const [searchQuery, setSearchQuery] = useState('');
     const [gameConcepts, setGameConcepts] = useState<GameConcept[]>([]);
 
@@ -47,9 +56,16 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                                     <p className="ml-2">Tags</p>
                                     <p className="m-2 my-0 text-sky-500">{concept.Tags ? concept.Tags.join(', '): 'No Tags Given'}</p>
                                 </div>
-                                <div className="w-56 bg-stone-800 rounded-b shadow-lg relative">
-                                    <input type="text" className="bg-slate-600 m-2 rounded-md" placeholder="Leave Review"/>
-                                    <button className="ml-2">Submit</button>
+                                <div className="w-56 bg-stone-800 rounded-b border-t border-t-indigo-500 shadow-lg relative">
+                                    <form action={async (formData: FormData) => {
+                                        formData.append("UserID", UserID);
+                                        if (concept.id) formData.append("ConceptID", concept.id);
+                                        formAction(formData);
+                                        redirect('/dashboard/gameConcepts');
+                                    }}>
+                                        <input type="text" className="bg-slate-600 m-2 rounded-md" name="comment" placeholder="Leave Review"/>
+                                        <SubmitButton use='Submit' />
+                                    </form>
                                 </div>
                             </div>
                         ))}

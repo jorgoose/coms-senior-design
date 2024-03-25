@@ -57,6 +57,7 @@ type Game = {
 }
 
 type GameConcept = {
+    id?: string;
     Title?: string;
     UserID: string;
     Description?: string;
@@ -78,8 +79,9 @@ type gameByDeveloperArgs = {
 }
 
 type Review = {
-    UserID: string
-    ConceptID: string
-    comment: string
-    vote: number
+    id?: string;
+    UserID: string;
+    ConceptID: string;
+    Comment: string;
+    Vote: number;
 }
