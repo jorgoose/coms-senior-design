@@ -82,6 +82,6 @@ type Review = {
     id?: string;
     UserID: string;
     ConceptID: string;
-    Comment: string;
-    Vote: number;
+    comment: string;
+    vote: number;
 }

@@ -15,8 +15,8 @@ export async function postReview(prevState: any, formData: FormData) {
     const review: Review = {
         UserID: formData.get('UserID') as string,
         ConceptID: formData.get('ConceptID') as string,
-        Comment: formData.get('comment') as string,
-        Vote: 0
+        comment: formData.get('comment') as string,
+        vote: 0
     }
 
     const res = await axios.post(`${baseURL}/send-review`, review);
