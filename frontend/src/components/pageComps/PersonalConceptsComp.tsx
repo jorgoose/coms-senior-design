@@ -13,7 +13,7 @@ const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) =
     const [personalUserConcepts, setPersonalUserConcepts] = useState<GameConcept[]>([]);
 
     const filteredConcepts = personalUserConcepts.filter((concept) =>
-        concept?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+        concept?.Title?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {
@@ -37,7 +37,7 @@ const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) =
                     <p>Personal Game Concepts</p>
                     <div>
                         {filteredConcepts.map((concept, index) => (
-                            <p key={index}>{concept.title}</p>
+                            <p key={index}>{concept.Title}</p>
                         ))}
                     </div>
                 </main>

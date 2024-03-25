@@ -14,7 +14,7 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
     const [expandedConceptIndex, setExpandedConceptIndex] = useState<number | null>(null);
 
     const filteredConcepts = gameConcepts.filter((concept) =>
-        concept?.title?.toLowerCase().includes(searchQuery.toLowerCase())
+        concept?.Title?.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     useEffect(() => {
@@ -42,12 +42,12 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                     <p className="text-sky-500">Game Concepts</p>
                     <div>
                         {filteredConcepts.map((concept, index) => (
-                            <div key={index} className="relative min-w-full">
+                            <div key={index} className="relative">
                                 <div
-                                    className="flex items-center justify-between p-4 bg-slate-700 rounded-md min-w-full"
+                                    className="flex items-center justify-between p-4 bg-slate-700 rounded-md"
                                     onClick={() => handleToggleDropdown(index)}
                                 >
-                                    <span className="text-sky-500">{concept.title}</span>
+                                    <span className="text-sky-500">{concept.Title}</span>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         className="h-5 w-5"
@@ -61,10 +61,10 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                                         />
                                     </svg>
                                 </div>
-                                <div className={`p-4 bg-slate-800 rounded-md min-w-full ${expandedConceptIndex === index ? 'block' : 'hidden'}`}>
-                                    <p className="text-sky-500">{concept.description}</p>
-                                    <p className="text-sky-500">{concept.genre ? concept.genre.join(', ') : ''}</p>
-                                    <p className="text-sky-500">{concept.tags ? concept.tags.join(', '): ''}</p>
+                                <div className={`p-4 bg-slate-800 rounded-md ${expandedConceptIndex === index ? 'block' : 'hidden'}`}>
+                                    <p className="text-sky-500">{concept.Description}</p>
+                                    <p className="text-sky-500">{concept.Genres ? concept.Genres.join(', ') : ''}</p>
+                                    <p className="text-sky-500">{concept.Tags ? concept.Tags.join(', '): ''}</p>
                                 </div>
                             </div>
                         ))}
