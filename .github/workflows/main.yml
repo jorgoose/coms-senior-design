@@ -33,7 +33,7 @@ jobs:
 
             # Navigate to the project directory, pull latest changes
             cd coms-senior-design/backend
-            git pull
+            git pull origin main
 
             # Add Go to PATH and set GOROOT
             export PATH=$PATH:/usr/local/go/bin
@@ -46,3 +46,6 @@ jobs:
 
             # Combinee the three above lines into a one liner for "go run ."
             nohup go run . > app.log 2>&1 &
+
+            # Exit the SSH session
+            exit
