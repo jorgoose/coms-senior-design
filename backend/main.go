@@ -777,11 +777,11 @@ func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-			"title":       game.title,
+			"title":       game.Title,
 			"UserID":      game.UserID,
-			"description": game.description,
-			"genre":       game.genre,
-			"tags":        game.tags,
+			"description": game.Description,
+			"genre":       game.Genre,
+			"tags":        game.Tags,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -1146,13 +1146,13 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		review.vote = 0
+		review.Vote = 0
 
 		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
 			"ConceptID": review.ConceptID,
 			"user":      review.UserID,
-			"comment":   review.comment,
-			"vote":      review.vote,
+			"comment":   review.Comment,
+			"vote":      review.Vote,
 		}).Execute(&res)
 
 		if insertResult != nil {
