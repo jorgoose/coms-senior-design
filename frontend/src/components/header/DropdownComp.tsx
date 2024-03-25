@@ -1,8 +1,5 @@
-'use client'
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link'; 
-import Image from 'next/image';
-import profilePic from '../../components/profile/profile.jpg'; // Import profile picture
 
 const DropdownComp: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -29,15 +26,6 @@ const DropdownComp: React.FC = () => {
                 aria-haspopup="true"
                 aria-expanded={isOpen ? 'true' : 'false'}
             >
-               {/* Profile picture */}
-               <div className="w-8 h-8 relative rounded-full overflow-hidden">
-                   <Image
-                       alt="Avatar"
-                       src={profilePic} // Use the profile picture imported
-                       layout="fill"
-                       objectFit="cover"
-                   />
-               </div>
                <span className="sr-only">Toggle user menu</span>
             </button>
             {isOpen && (
