@@ -39,10 +39,14 @@ const GameConceptsComp: React.FC<GameConceptsCompProps> = ({ UserID }) => {
                         {filteredConcepts.map((concept, index) => (
                             <div key={index} className="relative">
                                 <div className="w-56 h-44 bg-stone-800 rounded-t overflow-auto shadow-lg relative">
-                                    <p className="m-2 text-sky-500">{concept.Title}</p>
-                                    <p className="m-2 text-sky-500">{concept.Description}</p>
-                                    <p className="m-2 text-sky-500">{concept.Genres ? concept.Genres.join(', ') : ''}</p>
-                                    <p className="m-2 text-sky-500">{concept.Tags ? concept.Tags.join(', '): ''}</p>
+                                    <p className="ml-2">Title</p>
+                                    <p className="m-2 mt-0 text-sky-500">{concept.Title}</p>
+                                    <p className="ml-2">Description</p>
+                                    <p className="m-2 mt-0 text-sky-500">{concept.Description}</p>
+                                    <p className="ml-2">Genres</p>
+                                    <p className="m-2 mt-0 text-sky-500">{concept.Genres ? concept.Genres.join(', ') : ''}</p>
+                                    <p className="ml-2">Tags</p>
+                                    <p className="m-2 my-0 text-sky-500">{concept.Tags ? concept.Tags.join(', '): ''}</p>
                                 </div>
                                 <div className="w-56 bg-stone-800 rounded-b shadow-lg relative">
                                     <input type="text" className="bg-slate-600 m-2" placeholder="Leave Review"/>
