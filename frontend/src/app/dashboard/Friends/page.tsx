@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
-import ChatComp from '@/components/friend/ChatComp';
+import Chat from '@/components/friend/ChatComp';
+import FriendsList from '@/components/friend/FriendsListComp'
 
 import { createClient } from '@/utils/supabase/server'
 
@@ -17,7 +18,7 @@ export default async function CreateChat() {
   return (
     <>
       <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-        <ChatComp/>
+      <FriendsList/>
       </div>
     </>
   );
