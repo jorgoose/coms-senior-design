@@ -59,7 +59,7 @@ const DeveloperProfileComp = () => {
                                 <span className="font-semibold">Username:</span> {user.username}
                             </p>
                             <p className="mt-2 max-w-md text-sm text-gray-300">
-                                <span className="font-semibold">Date Joined:</span> {user.created_at}
+                                <span className="font-semibold">Date Joined:</span> {new Date(user.created_at).toLocaleDateString()}
                             </p>
                             {user.bio && (
                                 <div className="mt-2 max-w-md text-sm text-gray-300">
