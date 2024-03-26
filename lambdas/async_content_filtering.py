@@ -29,15 +29,18 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 image_classifier = pipeline("image-classification", model="LukeJacob2023/nsfw-image-detector", device=0)
 
+# Function to fetch game data from Supabase
 async def fetch_data(supabase: Client):
     loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, lambda: supabase.table("game_data").select("*").limit(100).execute())
 
+# Function to fetch an image from a URL as a PIL Image
 async def fetch_image(session: aiohttp.ClientSession, url: str) -> Image.Image:
     async with session.get(url) as response:
         data = await response.read()
         return Image.open(io.BytesIO(data))
 
+# Function to classify a string of text using OpenAI's Moderations API, as either NSFW or not
 async def classify_text(text: str) -> Tuple[bool, float]:
     loop = asyncio.get_running_loop()
     response = await loop.run_in_executor(
@@ -48,11 +51,14 @@ async def classify_text(text: str) -> Tuple[bool, float]:
     nsfw = result == True
     return nsfw, response.results[0].category_scores.sexual
 
+# Function to classify an image using the NSFW image classifier
 async def async_classify_image(session: aiohttp.ClientSession, image_url: str) -> dict:
     image = await fetch_image(session, image_url)
     loop = asyncio.get_running_loop()
     return await loop.run_in_executor(None, image_classifier, image)
 
+# Main function that fetches data from Supabase, processes each game, and prints the results
+# This is done asynchronously to speed up the process significantly
 async def main():
     response = await fetch_data(supabase)
     start_time = time.time()
@@ -87,4 +93,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
