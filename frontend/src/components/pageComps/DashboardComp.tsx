@@ -7,6 +7,7 @@ import { getAllGames, getFavoriteGame } from '@/api/games';
 import LayoutComponent from "../header/LayoutComponent";
 import GameViewComp from "../gameview/GameViewComp";
 
+
 interface DashboardCompProps {
     UserID?: string;
     presetGame?: Game;
