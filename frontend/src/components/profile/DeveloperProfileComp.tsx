@@ -68,7 +68,8 @@ const DeveloperProfileComp = () => {
                             )}
                             {user.account_type && (
                                 <p className="mt-2 max-w-md text-sm text-gray-300">
-                                    <span className="font-semibold">Account Type:</span> {user.account_type}
+                                    <span className="font-semibold">Account Type:</span> 
+                                        {user.account_type == "1" ? "Developer" : "User"}
                                 </p>
                             )}
                         </div>
