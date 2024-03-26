@@ -7,7 +7,7 @@ import dummyProfilePic from '../../components/profile/gamer.jpg';
 import { getFavoriteGame } from '@/api/games';  
 
 const DeveloperProfileComp = () => {
-    const [user, setUser] = useState<any>(null);
+    const [user, setUser] = useState<User>();
     const [favoriteGames, setFavoriteGames] = useState<Game[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -17,7 +17,7 @@ const DeveloperProfileComp = () => {
             try {
                 const userID = localStorage.getItem('UserID') ?? '';
                 const userData = await getOneUser(userID);
-                setUser(userData.data);
+                setUser(userData.data[0]);
                 const favoriteGamesData = await getFavoriteGame(userID);
                 setFavoriteGames(favoriteGamesData.data); 
                 setIsLoading(false);
@@ -30,6 +30,8 @@ const DeveloperProfileComp = () => {
 
         fetchProfileData();
     }, []);
+
+    console.log(user);
 
     return (
         <LayoutComponent searchQuery="" setSearchQuery={() => {}} showSearchBar={true}>
@@ -57,7 +59,7 @@ const DeveloperProfileComp = () => {
                                 <span className="font-semibold">Username:</span> {user.username}
                             </p>
                             <p className="mt-2 max-w-md text-sm text-gray-300">
-                                <span className="font-semibold">Date Joined:</span> {user.datejoined}
+                                <span className="font-semibold">Date Joined:</span> {user.created_at}
                             </p>
                             {user.bio && (
                                 <div className="mt-2 max-w-md text-sm text-gray-300">

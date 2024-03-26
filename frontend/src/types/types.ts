@@ -12,6 +12,7 @@ type User = {
   identities?: UserIdentity[] | undefined,
   created_at: string | undefined,
   updated_at?: string | undefined,
+  username?: string | undefined,
 }
 
 type UserIdentity = {
