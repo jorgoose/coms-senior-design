@@ -37,11 +37,9 @@ const RelatedNewsComp: React.FC<RelatedNewsCompProps> = ({ game }) => {
 
     return (
         <>
-            {/* <div className="p-4 bg-stone-800 rounded-xl my-4"> */}
             {news.map((newsItem, index) => (
                 <NewsCard key={index} {...newsItem} />
             ))}
-        {/* </div> */}
         </>
     );
 }
