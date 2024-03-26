@@ -1,5 +1,8 @@
+'use client'
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link'; 
+import Image from 'next/image';
+import profilePic from '../../components/profile/gamer.jpg'; // Import profile picture
 
 const DropdownComp: React.FC = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -18,6 +21,13 @@ const DropdownComp: React.FC = () => {
         };
     }, []);
 
+    const handleLogout = () => {
+        
+        localStorage.removeItem('accessToken');
+        // Redirect to the login page
+        window.location.href = '/login'; 
+    };
+
     return (
         <div className="relative inline-block text-left px-8" ref={dropdownRef}>
             <button
@@ -26,6 +36,15 @@ const DropdownComp: React.FC = () => {
                 aria-haspopup="true"
                 aria-expanded={isOpen ? 'true' : 'false'}
             >
+               {/* Profile picture */}
+               <div className="w-8 h-8 relative rounded-full overflow-hidden">
+                   <Image
+                       alt="Avatar"
+                       src={profilePic} 
+                       layout="fill"
+                       objectFit="cover"
+                   />
+               </div>
                <span className="sr-only">Toggle user menu</span>
             </button>
             {isOpen && (
@@ -42,9 +61,9 @@ const DropdownComp: React.FC = () => {
                         <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-300" role="menuitem">
                             Support
                         </a>
-                        <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-300" role="menuitem">
+                        <button onClick={handleLogout} className="block px-4 py-2 text-sm hover:bg-gray-300 w-full text-left" role="menuitem">
                             Logout
-                        </a>
+                        </button>
                     </div>
                 </div>
             )}
