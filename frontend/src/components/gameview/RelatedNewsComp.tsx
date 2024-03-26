@@ -1,6 +1,4 @@
-import { getAllGames, getFavoriteGame, getGamesByDeveloper, setFavoriteGame } from "@/api/games";
 import { useEffect, useState } from "react";
-import GameCard from "../GameCardComp";
 import { getNews } from "@/api/misc";
 import NewsCard from "../NewsCardComp";
 
