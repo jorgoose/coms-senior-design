@@ -13,6 +13,9 @@ type User = {
   created_at: string | undefined,
   updated_at?: string | undefined,
   username?: string | undefined,
+  profilePic?: string | undefined,
+  bio?: string | undefined,
+  account_type?: number | undefined,
 }
 
 type UserIdentity = {
