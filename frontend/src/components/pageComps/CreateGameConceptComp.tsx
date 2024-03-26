@@ -66,20 +66,22 @@ const CreateGameConceptComp: React.FC<CreateGameConceptProps> = ({ user }) => {
                         formAction(formData);
                         redirect('/dashboard/personalConcepts');
                     }}>
-                        <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="title" placeholder="Title" required />
-                        <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="description" placeholder="Description" required />
-                        <p className="text-blue-500">Genres</p>
-                        <div className="m-2">
-                            <TagList tags={genres} onTagClick={handleGenreSelection} />
+                        <div className="bg-stone-800 p-3 rounded-md">
+                            <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="title" placeholder="Title" required />
+                            <input className="rounded-md w-1/2 m-2 text-white bg-slate-600 indent-2" name="description" placeholder="Description" required />
+                            <p className="text-blue-500">Genres</p>
+                            <div className="m-2">
+                                <TagList tags={genres} onTagClick={handleGenreSelection} />
+                            </div>
+                            <p className="text-blue-500">Tags</p>
+                            <div className="m-2">
+                                <TagList tags={tags} onTagClick={handleTagSelection} />
+                            </div>
+                            <p aria-live="polite">
+                                {state?.message}
+                            </p>
+                            <SubmitButton use='Submit' />
                         </div>
-                        <p className="text-blue-500">Tags</p>
-                        <div className="m-2">
-                            <TagList tags={tags} onTagClick={handleTagSelection} />
-                        </div>
-                        <p aria-live="polite">
-                            {state?.message}
-                        </p>
-                        <SubmitButton use='Submit' />
                     </form>
                 </main>
             </LayoutComponent>
