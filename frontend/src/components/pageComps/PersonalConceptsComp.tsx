@@ -34,11 +34,18 @@ const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) =
         <>
             <LayoutComponent searchQuery={searchQuery} setSearchQuery={setSearchQuery} showSearchBar={true}>
                 <main className="flex flex-col md:gap-8 pr-5 pt-[50px] lg:pt-[60px] overflow-auto">
-                    <p>Personal Game Concepts</p>
                     <div>
-                        {filteredConcepts.map((concept, index) => (
-                            <p key={index}>{concept.title}</p>
-                        ))}
+                        <p>Personal Game Concepts</p>
+                        <div>
+                            {filteredConcepts.map((concept, index) => (
+                                <div key={index} className="bg-stone-800 p-3 m-1 rounded-md">
+                                    <p className="text-sky-500">Title: {concept.title}</p>
+                                    <p className="text-sky-500">Description: {concept.description}</p>
+                                    <p className="text-sky-500">Genres: {concept.genre?.join(', ')}</p>
+                                    <p className="text-sky-500">Tags: {concept.tags?.join(', ')}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </main>
             </LayoutComponent>
