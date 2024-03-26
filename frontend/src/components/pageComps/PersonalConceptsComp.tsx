@@ -21,9 +21,7 @@ const PersonalConceptsComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) =
             try {
                 const res = await getFilteredConcepts(id);
                 const updateData: GameConcept[] = await res.data;
-                console.log("Right before: ", updateData);
                 setPersonalUserConcepts(updateData);
-                console.log("Use State: ", personalUserConcepts);
             } catch (error) {
                 console.error('Error fetching user games:', error);
             }

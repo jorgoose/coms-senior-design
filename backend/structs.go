@@ -56,8 +56,8 @@ type FavoriteGame struct {
 }
 
 type Friend struct {
-	User1 	string
-	User2 	string
+	User1 string
+	User2 string
 }
 
 type Comment struct {
@@ -70,8 +70,8 @@ type Comment struct {
 type Review struct {
 	UserID    string `json:"UserID"`
 	ConceptID string `json:"ConceptID"`
-	Comment   string `json:"Comment"`
-	Vote      int    `json:"Vote"`
+	Comment   string `json:"comment"`
+	Vote      int    `json:"vote"`
 }
 
 type User struct {
