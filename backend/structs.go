@@ -1,9 +1,5 @@
 package main
 
-import (
-	"github.com/google/uuid"
-)
-
 type GameBody struct {
 	AppID                      int
 	Name                       string
@@ -47,11 +43,11 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	Title       string
-	UserID      string
-	Description string
-	Genre       []string
-	Tags        []string
+	Title       string   `json:"title"`
+	UserID      string   `json:"UserID"`
+	Description string   `json:"description"`
+	Genre       []string `json:"genre"`
+	Tags        []string `json:"tags"`
 }
 
 type FavoriteGame struct {
@@ -59,17 +55,29 @@ type FavoriteGame struct {
 	UserID string
 }
 
+type Friend struct {
+	User1 string
+	User2 string
+}
+
 type Comment struct {
-	AppID    int       // commenting on steam game
-	UserID   uuid.UUID // who is commenting
-	ParentID uuid.UUID // if its replying to another comment (null if not)
-	Comment  string    // Actual comment
+	AppID    int    // commenting on steam game
+	UserID   string // who is commenting
+	ParentID string // if its replying to another comment (null if not)
+	Comment  string // Actual comment
 }
 
 type Review struct {
-	ConceptID uuid.UUID // commenting on user game
-	UserID    uuid.UUID // who is commenting
-	Comment   string    // Actual comment
+	UserID    string `json:"UserID"`
+	ConceptID string `json:"ConceptID"`
+	Comment   string `json:"comment"`
+	Vote      int    `json:"vote"`
+}
+
+type User struct {
+	UserID   string
+	Username string
+	Email    string
 }
 
 type News struct {

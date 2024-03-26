@@ -69,6 +69,23 @@ paths:
           schema:
             type: string
       summary: Delete review
+  /delete-user:
+    delete:
+      description: Deletes a user
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Delete user
   /favorite-game:
     post:
       description: Favorite a game
@@ -178,6 +195,17 @@ paths:
           schema:
             type: string
       summary: Get all reviews
+  /get-all-users:
+    get:
+      description: Get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get all users
   /get-favorite-games:
     get:
       description: Get favorite games by UserID
@@ -195,7 +223,24 @@ paths:
           schema:
             type: string
       summary: Get favorite games
-  /get-user:
+  /get-news:
+    get:
+      description: Get news by ID
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get news
+  /get-one-user:
     get:
       description: Get user by ID
       parameters:
@@ -665,6 +710,33 @@ paths:
           schema:
             type: string
       summary: Unfavorite a game
+  /update-comment:
+    put:
+      description: Updates a comment after creation
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: collum
+        in: query
+        name: collum
+        required: true
+        type: string
+      - description: value
+        in: query
+        name: value
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update comment
   /update-game:
     put:
       description: Updates a game after creation
@@ -719,6 +791,33 @@ paths:
           schema:
             type: string
       summary: Update game concept
+  /update-user:
+    put:
+      description: Updates a user after creation
+      parameters:
+      - description: email
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: collum
+        in: query
+        name: collum
+        required: true
+        type: string
+      - description: value
+        in: query
+        name: value
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update user
   /update-vote:
     put:
       description: Update vote by ID

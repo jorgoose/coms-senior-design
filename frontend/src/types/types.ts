@@ -57,11 +57,12 @@ type Game = {
 }
 
 type GameConcept = {
-    title: string
-    developer_id: string
-    description: string
-    genre: string
-    tags: string
+    id?: string;
+    title?: string;
+    UserID: string;
+    description?: string;
+    genre?: string[];
+    tags?: string[];
 }
 
 type FavoriteGame = {
@@ -75,4 +76,12 @@ type gameByDeveloperArgs = {
     select: string;
     column: string;
     equal: string;
+}
+
+type Review = {
+    id?: string;
+    UserID: string;
+    ConceptID: string;
+    comment: string;
+    vote: number;
 }
