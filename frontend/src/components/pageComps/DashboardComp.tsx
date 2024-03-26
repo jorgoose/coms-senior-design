@@ -7,6 +7,7 @@ import { getAllGames, getFavoriteGame } from '@/api/games';
 import LayoutComponent from "../header/LayoutComponent";
 import GameViewComp from "../gameview/GameViewComp";
 
+
 interface DashboardCompProps {
     UserID?: string;
     presetGame?: Game;
@@ -27,6 +28,12 @@ const DashboardComp: React.FC<DashboardCompProps> = ({UserID}) => {
     const filteredGames = games.filter((game) =>
         game?.Name?.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            localStorage.setItem('UserID', UserID ?? '');
+        }
+    });
 
     useEffect(() => {
         async function fetchGames(userId: string) {
