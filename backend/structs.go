@@ -43,16 +43,21 @@ type GameBody struct {
 }
 
 type GameConcepts struct {
-	title       string
-	UserID      string
-	description string
-	genre       []string
-	tags        []string
+	Title       string   `json:"title"`
+	UserID      string   `json:"UserID"`
+	Description string   `json:"description"`
+	Genre       []string `json:"genre"`
+	Tags        []string `json:"tags"`
 }
 
 type FavoriteGame struct {
 	AppID  int
 	UserID string
+}
+
+type Friend struct {
+	User1 string
+	User2 string
 }
 
 type Comment struct {
@@ -63,10 +68,10 @@ type Comment struct {
 }
 
 type Review struct {
-	UserID    string
-	ConceptID string
-	comment   string
-	vote      int
+	UserID    string `json:"UserID"`
+	ConceptID string `json:"ConceptID"`
+	Comment   string `json:"comment"`
+	Vote      int    `json:"vote"`
 }
 
 type User struct {

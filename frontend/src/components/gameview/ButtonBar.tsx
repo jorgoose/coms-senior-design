@@ -5,6 +5,7 @@ import DeveloperProfileContent from "./DeveloperProfileContent";
 import DiscussionContent from "./DiscussionContent";
 import { useState } from "react";
 import AnalyticsComp from "./AnalyticsComp";
+import RelatedNewsComp from "./RelatedNewsComp";
 
 interface ButtonBarProps {
     game: Game,
@@ -29,6 +30,10 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ game, devGameClick }) => {
                             game={game} 
                             devGameClick={devGameClick}
                         />;
+            case 'relatedNews':
+                return <RelatedNewsComp
+                            game={game} 
+                        />;
             case 'discussion':
                 return <DiscussionContent />;
             default:
@@ -48,6 +53,9 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ game, devGameClick }) => {
                 </button>
                 <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'developerProfile' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('developerProfile')}>
                     Developer Profile
+                </button>
+                <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'relatedNews' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('relatedNews')}>
+                    Related News
                 </button>
                 <button className={`px-2 text-center rounded-lg shadow-2xl ${selectedView === 'discussion' ? 'bg-gradient-to-r from-blue-400 to-purple-500' : 'text-stone-400 bg-stone-700'}`} onClick={() => setSelectedView('discussion')}>
                     Discussion

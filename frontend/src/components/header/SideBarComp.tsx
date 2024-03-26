@@ -3,9 +3,8 @@ import HomeIcon from '../icons/HomeIcon';
 import CalendarIcon from '../icons/CalendarIcon';
 import ClipboardIcon from '../icons/ClipboardIcon';
 import LightbulbIcon from '../icons/LightBulbIcon';
-import TextIcon from '../icons/TextIcon';
-import NewspaperIcon from '../icons/NewspaperIcon';
 import PencilIcon from "../icons/PencilIcon";
+import GameControllerIcon from "../icons/GameControllerIcon";
 
 const SideBarComp: React.FC = () => {
     return (
@@ -52,30 +51,20 @@ const SideBarComp: React.FC = () => {
                     </div>
                     <div className="px-5">
                         <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
-                            <TextIcon className="w-6 h-5" />
-                            <div className="hover:bg-stone-700 rounded-md">
-                                <Label className="text-sky-500" htmlFor="twitch-viewership">
-                                    <a href="/dashboard/ideaExchange">Idea Exchange</a>
-                                </Label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-5">
-                        <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
-                            <NewspaperIcon className="w-6 h-5" />
-                            <div className="hover:bg-stone-700 rounded-md">
-                                <Label className="text-sky-500" htmlFor="twitch-viewership">
-                                    <a href="/dashboard/gamingRoundup">Gaming Industry Roundup</a>
-                                </Label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-5">
-                        <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
                             <PencilIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
                                 <Label className="text-sky-500" htmlFor="twitch-viewership">
                                     <a href="/dashboard/personalConcepts">Created Concepts</a>
+                                </Label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="px-5">
+                        <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
+                            <GameControllerIcon className="w-6 h-5" />
+                            <div className="hover:bg-stone-700 rounded-md">
+                                <Label className="text-sky-500" htmlFor="twitch-viewership">
+                                    <a href="/dashboard/gameConcepts">Game Concepts</a>
                                 </Label>
                             </div>
                         </div>

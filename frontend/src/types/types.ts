@@ -58,8 +58,9 @@ type Game = {
 }
 
 type GameConcept = {
+    id?: string;
     title?: string;
-    UserID?: string;
+    UserID: string;
     description?: string;
     genre?: string[];
     tags?: string[];
@@ -76,4 +77,12 @@ type gameByDeveloperArgs = {
     select: string;
     column: string;
     equal: string;
+}
+
+type Review = {
+    id?: string;
+    UserID: string;
+    ConceptID: string;
+    comment: string;
+    vote: number;
 }

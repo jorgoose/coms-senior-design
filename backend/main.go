@@ -11,6 +11,7 @@ import (
 	"strings"
 
 	// External dependencies
+	"dario.cat/mergo"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -59,6 +60,16 @@ func main() {
 	r.DELETE("/delete-user", deleteUser(supabase))
 	r.PUT("/update-user", updateUser(supabase))
 
+	// Friends table
+	r.GET("/get-all-friends", getAllFriends(supabase))
+	r.GET("/get-friends", getFriends(supabase))
+	r.POST("/send-friend", sendFriend(supabase))
+	r.DELETE("/delete-friend", deleteFriend(supabase))
+
+	// UpcomingGames table
+	r.GET("/get-all-upcoming-games", getAllUpcomingGames(supabase))
+	r.GET("/get-upcoming-games", getUpcomingGames(supabase))
+
 	// TestGameEndpoints table
 	r.GET("/get-all-games", getAllGames(supabase))
 	r.GET("/get-favorite-games", getFavoriteGames(supabase))
@@ -91,6 +102,7 @@ func main() {
 
 	// Reviews table
 	r.GET("/get-all-reviews", getAllReviews(supabase))
+	r.GET("/get-reviews", getReviews(supabase))
 	r.POST("/send-review", sendReview(supabase))
 	r.DELETE("/delete-review", deleteReview(supabase))
 	r.GET("/get-vote", getVote(supabase))
@@ -103,6 +115,156 @@ func main() {
 
 	if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 		panic(err) // failure/timeout starting the server
+	}
+}
+
+// @Summary Get all upcoming games
+// @Description Get all upcoming games
+// @Produce json
+// @Success 200 {object} string
+// @Router /get-all-upcoming-games [get]
+func getAllUpcomingGames(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("upcoming_game_data").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// @Summary Get upcoming games
+// @Description Get upcoming games by AppID
+// @Produce json
+// @Param AppID query string true "AppID"
+// @Success 200 {object} string
+// @Router /get-upcoming-games [get]
+func getUpcomingGames(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		AppID := c.Query("AppID")
+		err := supabase.DB.From("upcoming_game_data").Select("*").Eq("steam_appid", AppID).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// @Summary Get all friends
+// @Description Get all friends
+// @Produce json
+// @Success 200 {object} string
+// @Router /get-all-friends [get]
+func getAllFriends(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		err := supabase.DB.From("Friends").Select("*").Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// @Summary Get friends
+// @Description Get friends by UserID
+// @Produce json
+// @Param UserID query string true "UserID"
+// @Success 200 {object} string
+// @Router /get-friends [get]
+func getFriends(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		var res2 []map[string]interface{}
+		userID := c.Query("UserID")
+		err := supabase.DB.From("Friends").Select("*").Eq("user1", userID).Execute(&res)
+		err2 := supabase.DB.From("Friends").Select("*").Eq("user2", userID).Execute(&res2)
+
+		if err != nil || err2 != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		mergo.Merge(&res, res2)
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// @Summary Send friend
+// @Description Sends a friend to the database
+// @Produce json
+// @Param user1 body string true "user1"
+// @Param user2 body string true "user2"
+// @Success 200 {object} string
+// @Router /send-friend [post]
+func sendFriend(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+
+		var friend Friend
+
+		// Parse JSON data from the request body
+		if err := c.BindJSON(&friend); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		// Insert the parsed JSON data into the Supabase database
+		insertResult := supabase.DB.From("Friends").Insert(map[string]interface{}{
+			"user1": friend.User1,
+			"user2": friend.User2,
+		}).Execute(&res)
+
+		if insertResult != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": insertResult.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
+// @Summary Delete friend
+// @Description Deletes a friend
+// @Produce json
+// @Param id query string true "id"
+// @Success 200 {object} string
+// @Router /delete-friend [delete]
+func deleteFriend(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		id := c.Query("id")
+
+		err := supabase.DB.From("Friends").Delete().Eq("id", id).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
 	}
 }
 
@@ -614,11 +776,11 @@ func sendGameConcept(supabase *supa.Client) gin.HandlerFunc {
 
 		// Insert the parsed JSON data into the Supabase database
 		insertResult := supabase.DB.From("GameConcepts").Insert(map[string]interface{}{
-			"title":       game.title,
+			"title":       game.Title,
 			"UserID":      game.UserID,
-			"description": game.description,
-			"genre":       game.genre,
-			"tags":        game.tags,
+			"description": game.Description,
+			"genre":       game.Genre,
+			"tags":        game.Tags,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -926,6 +1088,22 @@ func getAllReplies(supabase *supa.Client) gin.HandlerFunc {
 	}
 }
 
+func getReviews(supabase *supa.Client) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var res []map[string]interface{}
+		game := c.Query("id")
+		err := supabase.DB.From("Reviews").Select("*").Eq("ConceptID", game).Execute(&res)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"error": err.Error(),
+			})
+			return
+		}
+
+		c.JSON(http.StatusOK, res)
+	}
+}
+
 // @Summary Get all reviews
 // @Description Get all reviews
 // @Produce json
@@ -967,13 +1145,13 @@ func sendReview(supabase *supa.Client) gin.HandlerFunc {
 			return
 		}
 
-		review.vote = 0
+		review.Vote = 0
 
 		insertResult := supabase.DB.From("Reviews").Insert(map[string]interface{}{
 			"ConceptID": review.ConceptID,
-			"user":      review.UserID,
-			"comment":   review.comment,
-			"vote":      review.vote,
+			"UserID":    review.UserID,
+			"comment":   review.Comment,
+			"vote":      review.Vote,
 		}).Execute(&res)
 
 		if insertResult != nil {
@@ -1126,6 +1304,6 @@ func shutdown(c *gin.Context) {
 // @Router /ping [get]
 func ping(c *gin.Context) {
 	c.JSON(200, gin.H{
-		"message": "pong",
+		"message": "pong, but more importantly, hello world!",
 	})
 }
