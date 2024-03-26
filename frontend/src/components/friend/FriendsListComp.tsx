@@ -4,11 +4,11 @@ import LayoutComponent from "../header/LayoutComponent";
 import FriendComp from "../friend/FriendComp"
 import { getFriends } from '../../api/friends'
 
-interface PersonalConceptsCompProps {
+interface User {
     UserID: string;
 }
 
-const FriendListComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) => {
+const FriendListComp: React.FC<User> = ({ UserID }) => {
 
     const [personalFriends, setPersonalFriends] = useState<Friends[]>([]);
 
@@ -31,8 +31,9 @@ const FriendListComp: React.FC<PersonalConceptsCompProps> = ({ UserID }) => {
         <LayoutComponent searchQuery={''} setSearchQuery={() => {}} showSearchBar={true}>
                 <div className="fixed top-[60px] lg:top-[60px] w-[200px] h-screen overflow-auto py-4 bg-stone-800 border-r border-stone-700 space-y-4 ps-8">
                 {personalFriends.map((Friend, index) => (
-                            <p key={index}>{Friend.user1}</p>
-                        ))}
+                    
+                    <FriendComp id = {Friend.id} user1 = {Friend.user1} user2 = {Friend.user2}></FriendComp>
+                 ))}
                 </div>
         </LayoutComponent>
     </>
