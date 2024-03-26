@@ -26,13 +26,13 @@ const FriendListComp: React.FC<User> = ({ UserID }) => {
     }, []);
 
 
+
     return (
     <>
         <LayoutComponent searchQuery={''} setSearchQuery={() => {}} showSearchBar={true}>
                 <div className="fixed top-[60px] lg:top-[60px] w-[200px] h-screen overflow-auto py-4 bg-stone-800 border-r border-stone-700 space-y-4 ps-8">
                 {personalFriends.map((Friend, index) => (
-                    
-                    <FriendComp id = {Friend.id} user1 = {Friend.user1} user2 = {Friend.user2}></FriendComp>
+                    <FriendComp UserID = {UserID} id = {Friend.id} user1 = {Friend.user1} user2 = {Friend.user2}></FriendComp>
                  ))}
                 </div>
         </LayoutComponent>

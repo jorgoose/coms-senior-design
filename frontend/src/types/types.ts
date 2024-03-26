@@ -79,6 +79,7 @@ type gameByDeveloperArgs = {
 
 type Friends = {
     id : string
+    UserID: string
     user1 : string
     user2 : string
 }
