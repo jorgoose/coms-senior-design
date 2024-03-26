@@ -18,7 +18,7 @@ export default async function CreateChat() {
   return (
     <>
       <div className="flex min-h-screen w-full bg-gradient-to-r from-stone-500 text-stone-200">
-      <FriendsList/>
+        <FriendsList/>
       </div>
     </>
   );
