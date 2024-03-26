@@ -63,16 +63,6 @@ const SideBarComp: React.FC = () => {
                     </div>
                     <div className="px-5">
                         <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
-                            <NewspaperIcon className="w-6 h-5" />
-                            <div className="hover:bg-stone-700 rounded-md">
-                                <Label className="text-sky-500" htmlFor="twitch-viewership">
-                                    <a href="/dashboard/gamingRoundup">Gaming Industry Roundup</a>
-                                </Label>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="px-5">
-                        <div className="flex items-center space-x-1 py-1 hover:bg-stone-700 rounded" style={{ cursor: 'pointer' }}>
                             <PencilIcon className="w-6 h-5" />
                             <div className="hover:bg-stone-700 rounded-md">
                                 <Label className="text-sky-500" htmlFor="twitch-viewership">
