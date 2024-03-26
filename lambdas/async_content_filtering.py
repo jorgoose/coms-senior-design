@@ -1,20 +1,19 @@
 import time
-import os
-
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
-
-import asyncio
 import io
 from typing import Tuple
 
-from PIL import Image
-import aiohttp
+import os
+# Set environment variable "TF_ENABLE_ONEDNN_OPTS=0" for the image classifier to avoid floating point errors
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"
+
 from dotenv import load_dotenv
+from PIL import Image
+import asyncio
+import aiohttp
+import torch
 from openai import OpenAI
 from supabase import Client, create_client
 from transformers import pipeline
-
-# Set environment variable "TF_ENABLE_ONEDNN_OPTS=0" for the image classifier to work
 
 load_dotenv()
 
@@ -23,11 +22,9 @@ key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 openai: OpenAI = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
-import torch
+device = 0 if torch.cuda.is_available() else -1
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-image_classifier = pipeline("image-classification", model="LukeJacob2023/nsfw-image-detector", device=0)
+image_classifier = pipeline("image-classification", model="LukeJacob2023/nsfw-image-detector", device=device)
 
 # Function to fetch game data from Supabase
 async def fetch_data(supabase: Client):
