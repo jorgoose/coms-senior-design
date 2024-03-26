@@ -10,3 +10,10 @@ export async function getFriends(UserID: string) {
     return data;
 }
 
+export async function getUsername(UserID: string) {
+    const data = await axios.get(`${baseURL}/get-username?UserID=${UserID}`);
+    if(!data) {
+        throw "Error in getting Username";
+    }
+    return data;
+}
