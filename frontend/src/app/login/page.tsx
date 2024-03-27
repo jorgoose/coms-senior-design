@@ -48,7 +48,14 @@ export default function Login() {
                         {state?.message}
                     </p>
                     <div className="flex justify-center">
-                        <SubmitButton use='Login' />
+                    <SubmitButton
+                        use='Login'
+                        customStyles={{
+                            default: 'bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-md px-4 py-2 m-2',
+                            hover: 'hover:bg-gradient-to-l hover:from-purple-600 hover:to-indigo-700 transition-colors duration-300 cursor-pointer',
+                            pending: 'bg-gradient-to-r from-purple-400 to-indigo-500 cursor-not-allowed'
+                        }}
+                        />
                     </div>
                 </form>
                 <p className="mt-8 text-center text-gray-400">
