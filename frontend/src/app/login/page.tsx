@@ -19,6 +19,7 @@ export default function Login() {
                     <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                         TrendPlay
                     </h1>
+                    <p className="text-gray-400 text-sm pt-2">Your launchpad for validating game ideas</p>
                 </div>
                 <form
                     action={async (formData: FormData) => {
