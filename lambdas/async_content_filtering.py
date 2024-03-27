@@ -19,6 +19,8 @@ load_dotenv()
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
+inappropriate_labels: list = os.environ.get("INAPPROPRIATE_LABELS").split(", ")
+inapropriate_term: str = os.environ.get("INAPPROPRIATE_TERMS")
 supabase: Client = create_client(url, key)
 openai: OpenAI = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
@@ -71,7 +73,7 @@ async def main():
             image_res = await async_classify_image(session, game["header_image"])
 
             top_image_pred_label = image_res[0]["label"]
-            top_image_pred_nsfw = top_image_pred_label in ["hentai", "sexy", "porn"] or about_the_game.find("furries") != -1
+            top_image_pred_nsfw = top_image_pred_label in inappropriate_labels or about_the_game.find(inapropriate_term) != -1
             image_pred_confidence = image_res[0]["score"]
  
             # If the image or text is NSFW, return a censored message (asterisks instead of the actual name)
