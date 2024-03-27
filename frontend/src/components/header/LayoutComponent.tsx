@@ -10,7 +10,7 @@ interface LayoutComponentProps {
 
 const LayoutComponent: React.FC<LayoutComponentProps> = ({ children, searchQuery, setSearchQuery, showSearchBar }) => {
     return (
-        <div className="flex flex-col min-h-screen bg-gradient-to-r from-stone-500 text-stone-200">
+        <div className="flex flex-col min-h-screen text-stone-200">
             <TitleComponent
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
