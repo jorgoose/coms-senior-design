@@ -13,10 +13,10 @@ export default function Login() {
     const [state, formAction] = useFormState(signIn, initialState);
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-br from-blue-800 to-purple-900 flex items-center justify-center">
             <div className="max-w-md w-full mx-auto py-12 px-8 bg-gray-800 rounded-lg shadow-lg">
                 <div className="mb-10 text-center">
-                    <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                    <h1 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
                         TrendPlay
                     </h1>
                     <p className="text-gray-400 text-sm pt-2">Your launchpad for validating game ideas</p>
@@ -28,20 +28,26 @@ export default function Login() {
                     className="space-y-8"
                 >
                     <div>
+                        <label htmlFor="email" className="block text-cerulean mb-2">
+                            Email
+                        </label>
                         <input
+                            id="email"
                             className="w-full px-4 py-3 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:bg-gray-600 focus:ring-2 focus:ring-purple-500"
                             type="email"
                             name="email"
-                            placeholder="Email"
                             required
                         />
                     </div>
                     <div>
+                        <label htmlFor="password" className="block text-cerulean mb-2">
+                            Password
+                        </label>
                         <input
+                            id="password"
                             className="w-full px-4 py-3 text-gray-300 bg-gray-700 rounded-md focus:outline-none focus:bg-gray-600 focus:ring-2 focus:ring-purple-500"
                             type="password"
                             name="password"
-                            placeholder="Password"
                             required
                         />
                     </div>
